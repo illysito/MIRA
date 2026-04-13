@@ -4,6 +4,8 @@ const uniforms = {
   offset: 0,
   amplitude: 0.4,
   frequency: 8,
+  blocks: 800,
+  textureIndex: 0,
 }
 
 function miraUI() {
@@ -20,7 +22,9 @@ function miraUI() {
   const currentValues = document.querySelectorAll('.is--current')
   const balls = document.querySelectorAll('.slider-ball')
   const lines = document.querySelectorAll('.slider-line')
-  const checkBoxes = document.querySelectorAll('.selector-box')
+  const easeCheckBoxes = document.querySelectorAll('.selector-box-ease')
+  const textureCheckBoxes = document.querySelectorAll('.selector-box-texture')
+  const textureImages = document.querySelectorAll('.texture-img')
 
   let isDragging = false
   let sliderIndex = 0
@@ -58,12 +62,20 @@ function miraUI() {
       uniforms.frequency = freq
       // frequency
     } else if (sliderIndex == 2) {
+      const min = 20
+      const max = 800
+      let blocks = gsap.utils
+        .mapRange(0, rect.width - 8, min, max, x)
+        .toFixed(2)
+      currentValues[2].textContent = `current: ${blocks}`
+      uniforms.blocks = blocks
+    } else if (sliderIndex == 3) {
       const min = 0.8
       const max = 2.4
       let duration = gsap.utils
         .mapRange(0, rect.width - 8, min, max, x)
         .toFixed(2)
-      currentValues[2].textContent = `current: ${duration} s`
+      currentValues[3].textContent = `current: ${duration} s`
       dur = duration
     }
 
@@ -85,9 +97,10 @@ function miraUI() {
 
     ball.style.left = `${x}px`
   }
-  setSlider(balls[0], uniforms.amplitude)
-  setSlider(balls[1], uniforms.frequency, 0, 10)
-  setSlider(balls[2], dur, 0, 5)
+  setSlider(balls[0], uniforms.amplitude, 0.1, 2)
+  setSlider(balls[1], uniforms.frequency, 1, 12)
+  setSlider(balls[2], uniforms.blocks, 20, 800)
+  setSlider(balls[3], dur, 0.8, 2.4)
 
   // mouse events
   balls.forEach((ball, index) => {
@@ -107,17 +120,39 @@ function miraUI() {
   })
 
   // checkboxes
-  checkBoxes.forEach((box, index) => {
+  easeCheckBoxes.forEach((box, index) => {
     box.addEventListener('click', () => {
-      gsap.to(checkBoxes, {
+      gsap.to(easeCheckBoxes, {
         backgroundColor: '#ffffff00',
         duration: 0.2,
       })
-      gsap.to(checkBoxes[index], {
+      gsap.to(easeCheckBoxes[index], {
         backgroundColor: '#ece7d8',
         duration: 0.2,
       })
       easeIndex = index
+    })
+  })
+  textureCheckBoxes.forEach((box, index) => {
+    box.addEventListener('click', () => {
+      gsap.to(textureCheckBoxes, {
+        backgroundColor: '#ffffff00',
+        duration: 0.2,
+      })
+      gsap.to(textureCheckBoxes[index], {
+        backgroundColor: '#ece7d8',
+        duration: 0.2,
+      })
+      gsap.to(textureImages, {
+        opacity: 0,
+        duration: 0.2,
+      })
+      gsap.to(textureImages[index], {
+        opacity: 1,
+        duration: 0.2,
+      })
+      uniforms.textureIndex = index
+      console.log(index)
     })
   })
 

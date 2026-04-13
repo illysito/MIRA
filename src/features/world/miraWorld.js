@@ -3,6 +3,7 @@ import * as THREE from 'three'
 
 import { uniforms } from './miraUI'
 import disp_frag from './shaders/fragShader'
+import disp_frag_bg from './shaders/fragShaderBackground'
 import vert from './shaders/vertexShader'
 
 function worldHome() {
@@ -49,16 +50,22 @@ function worldHome() {
 
   const urls = [
     githubToJsDelivr(
-      'https://github.com/illysito/MIRA/blob/1fb90453b4269d6a504d7597d43ac02a2e0c70c3/textures/initTypeExample2.png'
+      'https://github.com/illysito/MIRA/blob/e447280e52403f971e69249c087d8b6143102bc0/textures/miraType.png'
     ),
     githubToJsDelivr(
-      'https://github.com/illysito/teoriadelkaos/blob/17cec003107d6d13a4556ed21aec386397d058b9/imgs/PerlinOmy.jpg'
+      'https://github.com/illysito/MIRA/blob/e00fcd76641ba16a48522cd0704e81bc3b692b72/textures/miraPerlin.png'
     ),
     githubToJsDelivr(
-      'https://github.com/illysito/teoriadelkaos/blob/17cec003107d6d13a4556ed21aec386397d058b9/imgs/PerlinOmy.jpg'
+      'https://github.com/illysito/MIRA/blob/fb69784ec3ced3a8d90430ac99db012994a6c600/textures/miraSimplex.png'
     ),
     githubToJsDelivr(
-      'https://github.com/illysito/teoriadelkaos/blob/17cec003107d6d13a4556ed21aec386397d058b9/imgs/OmyBlackBG.jpg'
+      'https://github.com/illysito/MIRA/blob/b97e52476a7edf9b508765c992020347786b63b5/textures/miraCustomTexture1.jpg'
+    ),
+    githubToJsDelivr(
+      '    https://github.com/illysito/MIRA/blob/dfcfe6688222a1ccf4b13f9dde0732f0adc449fc/textures/miraFogTexture.png'
+    ),
+    githubToJsDelivr(
+      'https://github.com/illysito/MIRA/blob/e447280e52403f971e69249c087d8b6143102bc0/textures/miraBackground.png'
     ),
   ]
 
@@ -80,39 +87,73 @@ function worldHome() {
   }
   let imgPlane = null
 
-  Promise.all(urls.map(loadTexture)).then(([omy, perlin, simplex, bg]) => {
-    const planeGeometry = new THREE.PlaneGeometry(600, 600)
+  let noiseTextures = []
+  Promise.all(urls.map(loadTexture)).then((loadedTextures) => {
+    noiseTextures = loadedTextures
 
-    console.log(simplex)
-
-    const planeMaterial = new THREE.ShaderMaterial({
-      fragmentShader: disp_frag,
-      vertexShader: vert,
-      uniforms: {
-        u_time: { value: 0 },
-        u_resolution: { value: new THREE.Vector2(1, 1) },
-        u_offset: { value: 0 },
-        u_mouseX: { value: 0 },
-        u_mouseY: { value: 0 },
-        u_noiseFrequency: { value: 8 },
-        u_displacementCoef: { value: 0.4 },
-
-        u_img: { value: omy },
-        u_noiseTexture: { value: perlin },
-        u_bg: { value: bg },
-
-        u_mix1: { value: 0.0 },
-        u_mix2: { value: 0.0 },
-      },
-    })
-
-    imgPlane = new THREE.Mesh(planeGeometry, planeMaterial)
-
-    const planeScale = 1
-    imgPlane.scale.set(planeScale, planeScale, planeScale)
-
-    scene.add(imgPlane)
+    console.log(noiseTextures) // 👉 [omy, perlin, simplex, ...]
   })
+
+  Promise.all(urls.map(loadTexture)).then(
+    ([omy, perlin, simplex, custom1, fog, bg]) => {
+      const planeGeometry = new THREE.PlaneGeometry(600, 600)
+
+      // console.log(perlin)
+      console.log(simplex)
+      console.log(custom1)
+      console.log(fog)
+
+      const planeMaterial = new THREE.ShaderMaterial({
+        fragmentShader: disp_frag,
+        vertexShader: vert,
+        uniforms: {
+          u_time: { value: 0 },
+          u_resolution: { value: new THREE.Vector2(1, 1) },
+          u_offset: { value: 0 },
+          u_mouseX: { value: 0 },
+          u_mouseY: { value: 0 },
+          u_noiseFrequency: { value: 8 },
+          u_displacementCoef: { value: 0.4 },
+          u_blocks: { value: 800 },
+
+          u_img: { value: omy },
+          u_noiseTexture: { value: perlin },
+          u_bg: { value: bg },
+
+          u_mix1: { value: 0.0 },
+          u_mix2: { value: 0.0 },
+        },
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      })
+
+      imgPlane = new THREE.Mesh(planeGeometry, planeMaterial)
+
+      scene.add(imgPlane)
+    }
+  )
+
+  const backgroundPlaneGeometry = new THREE.PlaneGeometry(
+    window.innerWidth,
+    window.innerHeight
+  )
+  const backgroundPlaneMaterial = new THREE.ShaderMaterial({
+    fragmentShader: disp_frag_bg,
+    vertexShader: vert,
+    uniforms: {
+      u_time: { value: 0 },
+    },
+    // transparent: true,
+    // blending: THREE.AdditiveBlending,
+    // depthWrite: false,
+  })
+  const backgroundPlane = new THREE.Mesh(
+    backgroundPlaneGeometry,
+    backgroundPlaneMaterial
+  )
+  scene.add(backgroundPlane)
+  backgroundPlane.position.z = -1
 
   // Loop
   let counter = 0
@@ -124,10 +165,14 @@ function worldHome() {
 
     if (imgPlane) {
       imgPlane.material.uniforms.u_time.value = counter
+      backgroundPlane.material.uniforms.u_time.value = counter
 
       imgPlane.material.uniforms.u_offset.value = uniforms.offset
       imgPlane.material.uniforms.u_displacementCoef.value = uniforms.amplitude
       imgPlane.material.uniforms.u_noiseFrequency.value = uniforms.frequency
+      imgPlane.material.uniforms.u_blocks.value = uniforms.blocks
+      imgPlane.material.uniforms.u_noiseTexture.value =
+        noiseTextures[uniforms.textureIndex + 1]
     }
 
     renderer.render(scene, camera)

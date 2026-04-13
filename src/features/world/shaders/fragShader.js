@@ -10,6 +10,7 @@ uniform float u_mouseX;
 uniform float u_mouseY;
 uniform float u_displacementCoef;
 uniform float u_noiseFrequency;
+uniform float u_blocks;
 uniform sampler2D u_img;
 uniform sampler2D u_noiseTexture;
 uniform sampler2D u_bg;
@@ -51,9 +52,9 @@ void main()
 
   vec2 coords = aspect(uv, image_ratio, canvas_ratio);
 
-  float blocks = 400.0;
-  float xBlocks = floor(coords.x * blocks) / blocks;
-  float yBlocks = floor(coords.y * blocks) / blocks;
+  // float blocks = 600.0;
+  float xBlocks = floor(coords.x * u_blocks) / u_blocks;
+  float yBlocks = floor(coords.y * u_blocks) / u_blocks;
   vec2 blockCoords = vec2(xBlocks, yBlocks);
   
   vec2 distortionCoords = vec2(
@@ -77,7 +78,7 @@ void main()
   vec4 backgroundImg = texture2D(u_bg, coords);
 
   // float u_noiseFrequency = 8.0;   // higher = more high frequency
-  vec2 perlinUV = fract(coords * u_noiseFrequency);
+  vec2 perlinUV = fract(blockCoords * u_noiseFrequency);
   vec4 perlinImg = texture2D(u_noiseTexture, perlinUV);
 
   // Hold Distortion
@@ -85,7 +86,7 @@ void main()
   float distortionY = 0.0018 * cos(12.0 * u_time) * perlinImg.r;
 
   float displaceForce1 = perlinImg.r * u_offset * u_displacementCoef;
-  vec2 uvDisplaced1 = vec2(coords.x + 0.02 * displaceForce1 + distortionX, coords.y - 0.06 * displaceForce1 + distortionY);
+  vec2 uvDisplaced1 = vec2(coords.x + 0.02 * sin(u_time) * displaceForce1 + distortionX, coords.y - 0.06 * displaceForce1 * cos(u_time) + distortionY);
   float displaceForce2 = perlinImg.r * (1.0 - u_offset) * u_displacementCoef;
   vec2 uvDisplaced2 = vec2(coords.x - 0.1 * displaceForce2, coords.y + 0.1 * displaceForce2);
 
