@@ -107,12 +107,17 @@ function miraUI() {
   })
 
   // checkboxes
-  checkBoxes.forEach((box) => {
+  checkBoxes.forEach((box, index) => {
     box.addEventListener('click', () => {
       gsap.to(checkBoxes, {
         backgroundColor: '#ffffff00',
         duration: 0.2,
       })
+      gsap.to(checkBoxes[index], {
+        backgroundColor: '#ece7d8',
+        duration: 0.2,
+      })
+      easeIndex = index
     })
   })
 

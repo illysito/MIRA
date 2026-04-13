@@ -55,6 +55,9 @@ function worldHome() {
       'https://github.com/illysito/teoriadelkaos/blob/17cec003107d6d13a4556ed21aec386397d058b9/imgs/PerlinOmy.jpg'
     ),
     githubToJsDelivr(
+      'https://github.com/illysito/teoriadelkaos/blob/17cec003107d6d13a4556ed21aec386397d058b9/imgs/PerlinOmy.jpg'
+    ),
+    githubToJsDelivr(
       'https://github.com/illysito/teoriadelkaos/blob/17cec003107d6d13a4556ed21aec386397d058b9/imgs/OmyBlackBG.jpg'
     ),
   ]
@@ -77,8 +80,10 @@ function worldHome() {
   }
   let imgPlane = null
 
-  Promise.all(urls.map(loadTexture)).then(([omy, perlin, bg]) => {
+  Promise.all(urls.map(loadTexture)).then(([omy, perlin, simplex, bg]) => {
     const planeGeometry = new THREE.PlaneGeometry(600, 600)
+
+    console.log(simplex)
 
     const planeMaterial = new THREE.ShaderMaterial({
       fragmentShader: disp_frag,
@@ -93,7 +98,7 @@ function worldHome() {
         u_displacementCoef: { value: 0.4 },
 
         u_img: { value: omy },
-        u_perlin: { value: perlin },
+        u_noiseTexture: { value: perlin },
         u_bg: { value: bg },
 
         u_mix1: { value: 0.0 },

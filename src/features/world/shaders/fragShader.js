@@ -11,7 +11,7 @@ uniform float u_mouseY;
 uniform float u_displacementCoef;
 uniform float u_noiseFrequency;
 uniform sampler2D u_img;
-uniform sampler2D u_perlin;
+uniform sampler2D u_noiseTexture;
 uniform sampler2D u_bg;
 
 varying vec2 v_texcoord;
@@ -78,7 +78,7 @@ void main()
 
   // float u_noiseFrequency = 8.0;   // higher = more high frequency
   vec2 perlinUV = fract(coords * u_noiseFrequency);
-  vec4 perlinImg = texture2D(u_perlin, perlinUV);
+  vec4 perlinImg = texture2D(u_noiseTexture, perlinUV);
 
   // Hold Distortion
   float distortionX = 0.0018 * sin(12.0 * u_time) * perlinImg.r;
