@@ -1,6 +1,7 @@
 // import gsap from 'gsap'
 import * as THREE from 'three'
 
+import { uniforms } from './miraUI'
 import disp_frag from './shaders/fragShader'
 import vert from './shaders/vertexShader'
 
@@ -88,6 +89,8 @@ function worldHome() {
         u_offset: { value: 0 },
         u_mouseX: { value: 0 },
         u_mouseY: { value: 0 },
+        u_noiseFrequency: { value: 8 },
+        u_displacementCoef: { value: 0.4 },
 
         u_img: { value: omy },
         u_perlin: { value: perlin },
@@ -108,12 +111,18 @@ function worldHome() {
 
   // Loop
   let counter = 0
+  // let offset = 0
 
   function animate() {
     counter += 0.002
+    // console.log(offset)
 
     if (imgPlane) {
       imgPlane.material.uniforms.u_time.value = counter
+
+      imgPlane.material.uniforms.u_offset.value = uniforms.offset
+      imgPlane.material.uniforms.u_displacementCoef.value = uniforms.amplitude
+      imgPlane.material.uniforms.u_noiseFrequency.value = uniforms.frequency
     }
 
     renderer.render(scene, camera)
@@ -121,6 +130,7 @@ function worldHome() {
     requestAnimationFrame(animate)
   }
   animate()
+  console.log('logging uniforms from shader hub: ', uniforms)
 
   // Resize
   window.addEventListener('resize', () => {

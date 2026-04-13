@@ -1,7 +1,9 @@
 import './styles/style.css'
 
-import worldHome from './features/world/homeWorld'
+import miraUI from './features/world/miraUI'
+import miraWorld from './features/world/miraWorld'
 
 console.log('This is MIRA')
 
-worldHome()
+miraWorld()
+miraUI()

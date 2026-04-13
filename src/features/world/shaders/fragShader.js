@@ -8,6 +8,8 @@ uniform vec2 u_resolution;
 uniform float u_offset;
 uniform float u_mouseX;
 uniform float u_mouseY;
+uniform float u_displacementCoef;
+uniform float u_noiseFrequency;
 uniform sampler2D u_img;
 uniform sampler2D u_perlin;
 uniform sampler2D u_bg;
@@ -70,23 +72,30 @@ void main()
 
   // DISPLACEMENT WITH PERLIN
 
-  float displacementCoef = 0.4;
+  // float displacementCoef = 0.4;
 
   vec4 backgroundImg = texture2D(u_bg, coords);
-  vec4 perlinImg = texture2D(u_perlin, coords);
 
-  float displaceForce1 = perlinImg.r * u_offset * displacementCoef;
-  vec2 uvDisplaced1 = vec2(distortionCoords.x + displaceForce1, distortionCoords.y);
-  float displaceForce2 = perlinImg.r * (1.0 - u_offset) * displacementCoef;
-  vec2 uvDisplaced2 = vec2(coords.x - displaceForce2, coords.y);
+  // float u_noiseFrequency = 8.0;   // higher = more high frequency
+  vec2 perlinUV = fract(coords * u_noiseFrequency);
+  vec4 perlinImg = texture2D(u_perlin, perlinUV);
+
+  // Hold Distortion
+  float distortionX = 0.0018 * sin(12.0 * u_time) * perlinImg.r;
+  float distortionY = 0.0018 * cos(12.0 * u_time) * perlinImg.r;
+
+  float displaceForce1 = perlinImg.r * u_offset * u_displacementCoef;
+  vec2 uvDisplaced1 = vec2(coords.x + 0.02 * displaceForce1 + distortionX, coords.y - 0.06 * displaceForce1 + distortionY);
+  float displaceForce2 = perlinImg.r * (1.0 - u_offset) * u_displacementCoef;
+  vec2 uvDisplaced2 = vec2(coords.x - 0.1 * displaceForce2, coords.y + 0.1 * displaceForce2);
 
   vec4 displacedImgOmy = texture2D(u_img, uvDisplaced1);
   vec4 displacedBG = texture2D(u_bg, uvDisplaced2);
 
   vec4 finalImg = (displacedImgOmy * (1.0 - u_offset) + displacedBG * u_offset);
 
-  gl_FragColor = img;
-  // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+  gl_FragColor = finalImg * 0.92;
+  // gl_ragColor = perlinImg;
 }
 `
 export default disp_frag
