@@ -1,0 +1,92 @@
+const disp_frag = `
+#ifdef GL_ES
+precision highp float;
+#endif
+
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform float u_offset;
+uniform float u_mouseX;
+uniform float u_mouseY;
+uniform sampler2D u_img;
+uniform sampler2D u_perlin;
+uniform sampler2D u_bg;
+
+varying vec2 v_texcoord;
+
+float random(vec2 uv) {
+  return fract(sin(dot(uv.xy,
+      vec2(12.9898,78.233))) *
+          43758.5453123);
+}
+
+vec2 aspect(vec2 uv, float image_ratio, float canvas_ratio){
+  // if canvas is taller than image, stretch downwards
+  // if canvas is landscape to the image, stretch across
+  if(image_ratio >= canvas_ratio){
+    float ratio = canvas_ratio / image_ratio;
+    uv.x *= ratio;
+    uv.x += (1.0 - ratio) / 2.0; 
+  } else {
+    float ratio = image_ratio / canvas_ratio;
+    uv.y *= ratio;
+    uv.y += (1.0 - ratio) / 2.0; 
+  }
+  return uv;
+}
+
+void main()
+{
+
+  // CREO EL VECTOR UV Y LO AJUSTO A RESOLLUCION
+
+  vec2 uv = v_texcoord;
+  //uv.x *= u_resolution.x / u_resolution.y;
+
+  // find out the ratios
+  float image_ratio = 1200.0 / 1200.0;
+  float canvas_ratio = u_resolution.x / u_resolution.y;
+
+  vec2 coords = aspect(uv, image_ratio, canvas_ratio);
+
+  float blocks = 400.0;
+  float xBlocks = floor(coords.x * blocks) / blocks;
+  float yBlocks = floor(coords.y * blocks) / blocks;
+  vec2 blockCoords = vec2(xBlocks, yBlocks);
+  
+  vec2 distortionCoords = vec2(
+    coords.x + 0.02 * sin(u_time) - 0.15 * u_mouseX + 0.12,
+    coords.y + 0.04 * cos(u_time) + 0.15 * u_mouseY
+  );
+
+  // NOISE
+
+  float noise = random(uv + sin(u_time));
+  float noiseFactor = 0.02;
+
+  vec4 img = texture2D(u_img, coords);
+  
+  img += noise * noiseFactor;
+
+  // DISPLACEMENT WITH PERLIN
+
+  float displacementCoef = 0.4;
+
+  vec4 backgroundImg = texture2D(u_bg, coords);
+  vec4 perlinImg = texture2D(u_perlin, coords);
+
+  float displaceForce1 = perlinImg.r * u_offset * displacementCoef;
+  vec2 uvDisplaced1 = vec2(distortionCoords.x + displaceForce1, distortionCoords.y);
+  float displaceForce2 = perlinImg.r * (1.0 - u_offset) * displacementCoef;
+  vec2 uvDisplaced2 = vec2(coords.x - displaceForce2, coords.y);
+
+  vec4 displacedImgOmy = texture2D(u_img, uvDisplaced1);
+  vec4 displacedBG = texture2D(u_bg, uvDisplaced2);
+
+  vec4 finalImg = (displacedImgOmy * (1.0 - u_offset) + displacedBG * u_offset);
+
+  gl_FragColor = img;
+  // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+`
+export default disp_frag
