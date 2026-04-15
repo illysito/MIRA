@@ -1,9 +1,10 @@
 // import gsap from 'gsap'
 import * as THREE from 'three'
 
-import { uniforms } from './miraUI'
+import { uniforms, offsets } from './miraUI'
 import disp_frag from './shaders/fragShader'
 import disp_frag_bg from './shaders/fragShaderBackground'
+import disp_frag_lifecycle from './shaders/fragShaderLifecycle'
 import vert from './shaders/vertexShader'
 
 function worldHome() {
@@ -48,10 +49,14 @@ function worldHome() {
   // Main Image
   const imgLoader = new THREE.TextureLoader()
 
-  const urls = [
+  // URLS for test Plane
+  const testUrls = [
     githubToJsDelivr(
       'https://github.com/illysito/MIRA/blob/e447280e52403f971e69249c087d8b6143102bc0/textures/miraType.png'
     ),
+    // githubToJsDelivr(
+    //   'https://github.com/illysito/MIRA/blob/ea439eb6e9981195b6b5f8c9a3c6af53e2119931/textures/miraCircle.png'
+    // ),
     githubToJsDelivr(
       'https://github.com/illysito/MIRA/blob/e00fcd76641ba16a48522cd0704e81bc3b692b72/textures/miraPerlin.png'
     ),
@@ -63,6 +68,28 @@ function worldHome() {
     ),
     githubToJsDelivr(
       '    https://github.com/illysito/MIRA/blob/dfcfe6688222a1ccf4b13f9dde0732f0adc449fc/textures/miraFogTexture.png'
+    ),
+    githubToJsDelivr(
+      'https://github.com/illysito/MIRA/blob/e447280e52403f971e69249c087d8b6143102bc0/textures/miraBackground.png'
+    ),
+  ]
+
+  // URLS for lifecycle Plane
+  const lifecycleUrls = [
+    githubToJsDelivr(
+      'https://github.com/illysito/MIRA/blob/ea439eb6e9981195b6b5f8c9a3c6af53e2119931/textures/miraCircle.png'
+    ),
+    githubToJsDelivr(
+      'https://github.com/illysito/MIRA/blob/ea439eb6e9981195b6b5f8c9a3c6af53e2119931/textures/miraTestType1.png'
+    ),
+    githubToJsDelivr(
+      'https://github.com/illysito/MIRA/blob/ea439eb6e9981195b6b5f8c9a3c6af53e2119931/textures/miraTestType2.png'
+    ),
+    githubToJsDelivr(
+      'https://github.com/illysito/MIRA/blob/ea439eb6e9981195b6b5f8c9a3c6af53e2119931/textures/miraTestType3.png'
+    ),
+    githubToJsDelivr(
+      'https://github.com/illysito/MIRA/blob/e00fcd76641ba16a48522cd0704e81bc3b692b72/textures/miraPerlin.png'
     ),
     githubToJsDelivr(
       'https://github.com/illysito/MIRA/blob/e447280e52403f971e69249c087d8b6143102bc0/textures/miraBackground.png'
@@ -85,17 +112,20 @@ function worldHome() {
       )
     })
   }
-  let imgPlane = null
+  let testPlane = null
+  let lifecyclePlane = null
 
+  // Noise textures to swap them later
   let noiseTextures = []
-  Promise.all(urls.map(loadTexture)).then((loadedTextures) => {
+  Promise.all(testUrls.map(loadTexture)).then((loadedTextures) => {
     noiseTextures = loadedTextures
 
     console.log(noiseTextures) // 👉 [omy, perlin, simplex, ...]
   })
 
-  Promise.all(urls.map(loadTexture)).then(
-    ([omy, perlin, simplex, custom1, fog, bg]) => {
+  // Test plane
+  Promise.all(testUrls.map(loadTexture)).then(
+    ([type, perlin, simplex, custom1, fog, bg]) => {
       const planeGeometry = new THREE.PlaneGeometry(600, 600)
 
       // console.log(perlin)
@@ -116,33 +146,81 @@ function worldHome() {
           u_displacementCoef: { value: 0.4 },
           u_blocks: { value: 800 },
 
-          u_img: { value: omy },
+          u_img: { value: type },
           u_noiseTexture: { value: perlin },
           u_bg: { value: bg },
 
           u_mix1: { value: 0.0 },
           u_mix2: { value: 0.0 },
+
+          u_ciao: { value: 1.0 },
         },
         transparent: true,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
       })
 
-      imgPlane = new THREE.Mesh(planeGeometry, planeMaterial)
+      testPlane = new THREE.Mesh(planeGeometry, planeMaterial)
 
-      scene.add(imgPlane)
+      scene.add(testPlane)
     }
   )
 
+  // Lifecycle plane
+  Promise.all(lifecycleUrls.map(loadTexture)).then(
+    ([circle, type1, type2, type3, perlin, bg]) => {
+      const planeGeometry = new THREE.PlaneGeometry(600, 600)
+
+      const planeMaterial = new THREE.ShaderMaterial({
+        fragmentShader: disp_frag_lifecycle,
+        vertexShader: vert,
+        uniforms: {
+          u_time: { value: 0 },
+          u_resolution: { value: new THREE.Vector2(1, 1) },
+          u_offset: { value: 0 },
+          u_noiseFrequency: { value: 6 },
+          u_displacementCoef: { value: 0.14 },
+          u_blocks: { value: 800 },
+
+          u_m1: { value: 0.0 },
+          u_m2: { value: 0.0 },
+          u_m3: { value: 0.0 },
+
+          u_img1: { value: circle },
+          u_img2: { value: type1 },
+          u_img3: { value: type2 },
+          u_img4: { value: type3 },
+          u_noiseTexture: { value: perlin },
+          u_bg: { value: bg },
+
+          u_mix1: { value: 0.0 },
+          u_mix2: { value: 0.0 },
+
+          u_ciao: { value: 0.0 },
+        },
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      })
+
+      lifecyclePlane = new THREE.Mesh(planeGeometry, planeMaterial)
+
+      scene.add(lifecyclePlane)
+    }
+  )
+
+  // Background plane
   const backgroundPlaneGeometry = new THREE.PlaneGeometry(
     window.innerWidth,
     window.innerHeight
   )
+  const res = window.innerWidth / window.innerHeight
   const backgroundPlaneMaterial = new THREE.ShaderMaterial({
     fragmentShader: disp_frag_bg,
     vertexShader: vert,
     uniforms: {
       u_time: { value: 0 },
+      u_resolution: { value: res },
     },
     // transparent: true,
     // blending: THREE.AdditiveBlending,
@@ -163,16 +241,26 @@ function worldHome() {
     counter += 0.002
     // console.log(offset)
 
-    if (imgPlane) {
-      imgPlane.material.uniforms.u_time.value = counter
+    if (testPlane && lifecyclePlane) {
+      testPlane.material.uniforms.u_time.value = counter
+      lifecyclePlane.material.uniforms.u_time.value = counter
       backgroundPlane.material.uniforms.u_time.value = counter
 
-      imgPlane.material.uniforms.u_offset.value = uniforms.offset
-      imgPlane.material.uniforms.u_displacementCoef.value = uniforms.amplitude
-      imgPlane.material.uniforms.u_noiseFrequency.value = uniforms.frequency
-      imgPlane.material.uniforms.u_blocks.value = uniforms.blocks
-      imgPlane.material.uniforms.u_noiseTexture.value =
+      testPlane.material.uniforms.u_offset.value = uniforms.offset
+      testPlane.material.uniforms.u_displacementCoef.value = uniforms.amplitude
+      testPlane.material.uniforms.u_noiseFrequency.value = uniforms.frequency
+      testPlane.material.uniforms.u_blocks.value = uniforms.blocks
+      testPlane.material.uniforms.u_noiseTexture.value =
         noiseTextures[uniforms.textureIndex + 1]
+      testPlane.scale.set(uniforms.scale, uniforms.scale, uniforms.scale)
+      testPlane.material.uniforms.u_ciao.value = uniforms.ciao
+
+      lifecyclePlane.material.uniforms.u_offset.value = offsets.offset
+      lifecyclePlane.material.uniforms.u_m1.value = offsets.m1
+      lifecyclePlane.material.uniforms.u_m2.value = offsets.m2
+      lifecyclePlane.material.uniforms.u_m3.value = offsets.m3
+      lifecyclePlane.material.uniforms.u_ciao.value = offsets.ciao
+      lifecyclePlane.scale.set(offsets.scale, offsets.scale, offsets.scale)
     }
 
     renderer.render(scene, camera)

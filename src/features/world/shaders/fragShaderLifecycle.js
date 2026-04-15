@@ -1,4 +1,4 @@
-const disp_frag = `
+const disp_frag_lifecycle = `
 #ifdef GL_ES
 precision highp float;
 #endif
@@ -6,13 +6,17 @@ precision highp float;
 uniform float u_time;
 uniform vec2 u_resolution;
 uniform float u_offset;
-uniform float u_mouseX;
-uniform float u_mouseY;
 uniform float u_displacementCoef;
 uniform float u_noiseFrequency;
 uniform float u_blocks;
+uniform float u_m1;
+uniform float u_m2;
+uniform float u_m3;
 uniform float u_ciao;
-uniform sampler2D u_img;
+uniform sampler2D u_img1;
+uniform sampler2D u_img2;
+uniform sampler2D u_img3;
+uniform sampler2D u_img4;
 uniform sampler2D u_noiseTexture;
 uniform sampler2D u_bg;
 
@@ -91,7 +95,7 @@ void main()
   
   vec2 distortionCoords = vec2(
     coords.x + 0.02 * sin(u_time),
-    coords.y + 0.04 * cos(u_time) 
+    coords.y + 0.04 * cos(u_time)
   );
 
   // NOISE
@@ -118,15 +122,23 @@ void main()
   float displaceForce2 = perlinImg.r * (1.0 - u_offset) * u_displacementCoef;
   vec2 uvDisplaced2 = vec2(coords.x - 0.1 * displaceForce2, coords.y + 0.1 * displaceForce2);
 
-  vec4 displacedImg = texture2D(u_img, uvDisplaced1);
+  vec4 displacedImg1 = texture2D(u_img1, uvDisplaced1);
+  vec4 displacedImg2 = texture2D(u_img2, uvDisplaced1);
+  vec4 displacedImg3 = texture2D(u_img3, uvDisplaced1);
+  vec4 displacedImg4 = texture2D(u_img4, uvDisplaced1);
   vec4 displacedBG = texture2D(u_bg, uvDisplaced2);
 
-  vec4 finalImg = (displacedImg * (1.0 - u_offset) + displacedBG * u_offset);
+  vec4 mix1 = mix(displacedImg1, displacedImg2, u_m1);
+  vec4 mix2 = mix(mix1, displacedImg3, u_m2);
+  vec4 mix3 = mix(mix2, displacedImg4, u_m3);
+
+  vec4 finalImg = (mix3 * (1.0 - u_offset) + displacedBG * u_offset);
 
   finalImg.g *= 0.9;
   finalImg.b *= 0.9;
 
-  gl_FragColor = u_ciao * finalImg * color * 1.72;
+  gl_FragColor = finalImg * color * 1.72 * u_ciao;
+  // gl_ragColor = perlinImg;
 }
 `
-export default disp_frag
+export default disp_frag_lifecycle

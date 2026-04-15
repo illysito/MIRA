@@ -2,11 +2,24 @@ import gsap from 'gsap'
 
 const uniforms = {
   offset: 0,
+  scale: 1,
   amplitude: 0.4,
   frequency: 8,
   blocks: 800,
   textureIndex: 0,
+  ciao: 1.0,
 }
+
+const offsets = {
+  offset: 0.0,
+  scale: 1,
+  m1: 0.0,
+  m2: 0.0,
+  m3: 0.0,
+  ciao: 0.0,
+}
+
+let isInteractiveSelected = true
 
 function miraUI() {
   // function githubToJsDelivr(permalink) {
@@ -15,15 +28,16 @@ function miraUI() {
   //     .replace('/blob/', '@')
   // }
   let dur = 1.8
-  let easings = ['linear', 'power2.out', 'power3.out', 'power2.inOut']
+  let easings = ['linear', 'power1.inOut', 'power2.out', 'power2.inOut']
   let easeIndex = 0
 
-  const animateButton = document.querySelector('.animate-button')
+  const animateButtons = document.querySelectorAll('.animate-button')
   const currentValues = document.querySelectorAll('.is--current')
   const balls = document.querySelectorAll('.slider-ball')
   const lines = document.querySelectorAll('.slider-line')
   const easeCheckBoxes = document.querySelectorAll('.selector-box-ease')
   const textureCheckBoxes = document.querySelectorAll('.selector-box-texture')
+  const modeCheckBoxes = document.querySelectorAll('.selector-box-mode')
   const textureImages = document.querySelectorAll('.texture-img')
 
   let isDragging = false
@@ -155,6 +169,25 @@ function miraUI() {
       console.log(index)
     })
   })
+  modeCheckBoxes.forEach((box, index) => {
+    box.addEventListener('click', () => {
+      gsap.to(modeCheckBoxes, {
+        backgroundColor: '#ffffff00',
+        duration: 0.2,
+      })
+      gsap.to(modeCheckBoxes[index], {
+        backgroundColor: '#ece7d8',
+        duration: 0.2,
+      })
+
+      swipePlanes(index)
+      if (index == 0) {
+        isInteractiveSelected = true
+      } else {
+        isInteractiveSelected = false
+      }
+    })
+  })
 
   // TOGGLE OFFSET CHANGE!
   let isToggled = false
@@ -162,12 +195,14 @@ function miraUI() {
     if (!isToggled) {
       gsap.to(uniforms, {
         offset: 1.0,
+        scale: 1.02,
         duration: dur,
         ease: easings[easeIndex],
       })
     } else {
       gsap.to(uniforms, {
         offset: 0.0,
+        scale: 1,
         duration: dur,
         ease: easings[easeIndex],
       })
@@ -175,22 +210,132 @@ function miraUI() {
     isToggled = !isToggled
   }
 
-  animateButton.addEventListener('mouseover', () => {
-    gsap.to(animateButton, {
-      borderRadius: 8,
-      duration: 0.16,
-      ease: 'none',
+  // LIFECYCLE
+  function startLifecycle() {
+    const tl = gsap.timeline()
+    const duration = 2.4
+    const delay = 2.8
+    tl.to(offsets, {
+      offset: 1.0,
+      scale: 1.02,
+      duration: duration,
+      ease: 'power1.out',
+    })
+      .to(offsets, {
+        m1: 1.0,
+        duration: 0.0,
+      })
+      .to(
+        offsets,
+        {
+          offset: 0.0,
+          scale: 1.0,
+          duration: duration,
+          ease: 'power1.in',
+        },
+        `+=${delay / 2}`
+      )
+      .to(
+        offsets,
+        {
+          offset: 1.0,
+          scale: 1.02,
+          duration: duration,
+          ease: 'power1.out',
+        },
+        `+=${delay}`
+      )
+      .to(offsets, {
+        m2: 1.0,
+        duration: 0,
+      })
+      .to(
+        offsets,
+        {
+          offset: 0.0,
+          scale: 1.0,
+          duration: duration,
+          ease: 'power1.in',
+        },
+        `+=${delay / 2}`
+      )
+      .to(
+        offsets,
+        {
+          offset: 1.0,
+          scale: 1.02,
+          duration: duration,
+          ease: 'power1.out',
+        },
+        `+=${delay}`
+      )
+      .to(offsets, {
+        m3: 1.0,
+        duration: 0,
+      })
+      .to(
+        offsets,
+        {
+          offset: 0.0,
+          scale: 1.0,
+          duration: duration,
+          ease: 'power1.in',
+        },
+        `+=${delay / 2}`
+      )
+  }
+
+  // SWIPE PLANES
+  function swipePlanes(toSwipe) {
+    if (toSwipe == 1) {
+      gsap.to(uniforms, {
+        ciao: 0.0,
+        duration: 1.2,
+        ease: 'linear',
+      })
+      gsap.to(offsets, {
+        ciao: 1.0,
+        duration: 1.2,
+        ease: 'linear',
+      })
+    } else {
+      gsap.to(offsets, {
+        ciao: 0.0,
+        duration: 1.2,
+        ease: 'linear',
+      })
+      gsap.to(uniforms, {
+        ciao: 1.0,
+        duration: 1.2,
+        ease: 'linear',
+      })
+    }
+  }
+
+  animateButtons.forEach((b) => {
+    b.addEventListener('mouseover', () => {
+      gsap.to(b, {
+        borderRadius: 8,
+        duration: 0.16,
+        ease: 'none',
+      })
+    })
+    b.addEventListener('mouseleave', () => {
+      gsap.to(b, {
+        borderRadius: 12,
+        duration: 0.16,
+        ease: 'none',
+      })
+    })
+    b.addEventListener('click', () => {
+      if (isInteractiveSelected) {
+        toggleText()
+      } else {
+        startLifecycle()
+      }
     })
   })
-  animateButton.addEventListener('mouseleave', () => {
-    gsap.to(animateButton, {
-      borderRadius: 12,
-      duration: 0.16,
-      ease: 'none',
-    })
-  })
-  animateButton.addEventListener('click', toggleText)
 }
 
 export default miraUI
-export { uniforms }
+export { uniforms, offsets }
