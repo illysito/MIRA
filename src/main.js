@@ -1,9 +1,9 @@
 import './styles/style.css'
 
-import miraUI from './features/world/miraUI'
-import miraWorld from './features/world/miraWorld'
+import miraUI_Core from './features/prod/world/miraUI_Core'
+import miraWorld from './features/prod/world/miraWorld'
 
 console.log('This is MIRA')
 
 miraWorld()
-miraUI()
+miraUI_Core()

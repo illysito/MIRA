@@ -1,13 +1,13 @@
 // import gsap from 'gsap'
 import * as THREE from 'three'
 
-import { uniforms, offsets } from './miraUI'
+import { uniforms, offsets } from './miraUITest'
 import disp_frag from './shaders/fragShader'
 import disp_frag_bg from './shaders/fragShaderBackground'
 import disp_frag_lifecycle from './shaders/fragShaderLifecycle'
 import vert from './shaders/vertexShader'
 
-function worldHome() {
+function worldHomeTest() {
   function githubToJsDelivr(permalink) {
     return permalink
       .replace('github.com', 'cdn.jsdelivr.net/gh')
@@ -197,6 +197,7 @@ function worldHome() {
           u_mix2: { value: 0.0 },
 
           u_ciao: { value: 0.0 },
+          u_reveal: { value: 0.0 },
         },
         transparent: true,
         blending: THREE.AdditiveBlending,
@@ -260,6 +261,7 @@ function worldHome() {
       lifecyclePlane.material.uniforms.u_m2.value = offsets.m2
       lifecyclePlane.material.uniforms.u_m3.value = offsets.m3
       lifecyclePlane.material.uniforms.u_ciao.value = offsets.ciao
+      lifecyclePlane.material.uniforms.u_reveal.value = offsets.reveal
       lifecyclePlane.scale.set(offsets.scale, offsets.scale, offsets.scale)
     }
 
@@ -278,4 +280,4 @@ function worldHome() {
   })
 }
 
-export default worldHome
+export default worldHomeTest

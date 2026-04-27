@@ -7,7 +7,7 @@ const uniforms = {
   frequency: 8,
   blocks: 800,
   textureIndex: 0,
-  ciao: 1.0,
+  ciao: 0.0,
 }
 
 const offsets = {
@@ -16,12 +16,13 @@ const offsets = {
   m1: 0.0,
   m2: 0.0,
   m3: 0.0,
-  ciao: 0.0,
+  ciao: 1.0,
+  reveal: 0.0,
 }
 
 let isInteractiveSelected = true
 
-function miraUI() {
+function miraUITest() {
   // function githubToJsDelivr(permalink) {
   //   return permalink
   //     .replace('github.com', 'cdn.jsdelivr.net/gh')
@@ -312,6 +313,15 @@ function miraUI() {
     }
   }
 
+  // REVEAL
+  window.addEventListener('click', () => {
+    gsap.to(offsets, {
+      reveal: 1.0,
+      duration: 2.4,
+      ease: 'linear',
+    })
+  })
+
   animateButtons.forEach((b) => {
     b.addEventListener('mouseover', () => {
       gsap.to(b, {
@@ -337,5 +347,5 @@ function miraUI() {
   })
 }
 
-export default miraUI
+export default miraUITest
 export { uniforms, offsets }
