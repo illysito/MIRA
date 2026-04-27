@@ -13,8 +13,7 @@ uniform float u_noiseFrequency;
 uniform float u_mouseX;
 uniform float u_mouseY;
 
-
-uniform sampler2D u_currentTexture;
+uniform sampler2D u_innerCircle;
 uniform sampler2D u_noiseTexture;
 uniform sampler2D u_bg;
 
@@ -140,7 +139,7 @@ void main()
   vec2 center = vec2(0.5, 0.5);
   vec2 mouse = vec2(u_mouseX, u_mouseY);
   float dist = distance(mouse, center);
-  float centerLuminance = 1.0 - smoothstep(0.1, 2.0, dist);
+  float centerLuminance = 1.0 - smoothstep(0.1, 1.0, dist);
 
 
 
@@ -163,7 +162,7 @@ void main()
 
   // IMAGE SAMPLING
 
-  vec4 displacedImg1 = texture2D(u_currentTexture, uvDisplaced1);
+  vec4 displacedImg1 = texture2D(u_innerCircle, uvDisplaced1);
   vec4 displacedBG = texture2D(u_bg, uvDisplaced2);
 
 

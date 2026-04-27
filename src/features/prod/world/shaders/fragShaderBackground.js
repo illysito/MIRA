@@ -5,6 +5,8 @@ precision highp float;
 
 uniform float u_time;
 uniform float u_resolution;
+uniform float u_fMix;
+uniform float u_iMix;
 
 varying vec2 v_texcoord;
 
@@ -50,22 +52,40 @@ void main()
   uv.x *= u_resolution;
 
   vec2 distortionUV = vec2(
-    uv.x + 0.1 * sin(u_time),
-    uv.y + 0.1 * cos(u_time)
+    uv.x + 0.05 * sin(u_time),
+    uv.y + 0.05 * cos(u_time)
   );
 
   // COLORS
 
-  float grey = 0.1;
+  float grey = 0.08;
+  // grey = 0.4;
   vec4 color1 = vec4(0.0, 0.0, 0.0, 1.0);
   vec4 color2 = vec4(grey, grey, grey, 1.0);
 
-  float f = 0.86 * fbm(200.0 * distortionUV + sin(u_time));
-  f += 0.5 * rand(uv);
+  float grain = mix(-0.12, 0.12, rand(uv));
 
-  vec4 color = mix(color1, color2, f);
+  float h = 0.86 * fbm(40.0 * distortionUV);
+  float f = fbm(20.0 * vec2(h,h));
+  f *= 12.0;
+  f += grain;
+  f += 0.28 * u_time;
+  f = fract(f);
+  f += 0.32 * rand(uv);
 
-  gl_FragColor = color2 * rand(uv);
+  float i = 0.86 * fbm(2.0 * distortionUV);
+  i *= 5.0;
+  i += 0.28 * u_time;
+  i = fract(i);
+
+  float f_mixer = smoothstep(0.7, 0.8, f) - smoothstep(0.8, 1.0, f);
+  float i_mixer = smoothstep(0.8, 0.9, i) - smoothstep(0.9, 1.0, i);
+
+  float mixer = u_fMix * f_mixer + u_iMix * i_mixer;
+
+  vec4 color = mix(color1, color2, mixer);
+
+  gl_FragColor = color;
 }
 `
 export default disp_frag
