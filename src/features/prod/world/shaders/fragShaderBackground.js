@@ -7,6 +7,7 @@ uniform float u_time;
 uniform float u_resolution;
 uniform float u_fMix;
 uniform float u_iMix;
+uniform float u_timeFactor;
 
 varying vec2 v_texcoord;
 
@@ -69,13 +70,13 @@ void main()
   float f = fbm(20.0 * vec2(h,h));
   f *= 12.0;
   f += grain;
-  f += 0.28 * u_time;
+  f += u_timeFactor * u_time;
   f = fract(f);
   f += 0.32 * rand(uv);
 
   float i = 0.86 * fbm(2.0 * distortionUV);
   i *= 5.0;
-  i += 0.28 * u_time;
+  i += u_timeFactor * u_time;
   i = fract(i);
 
   float f_mixer = smoothstep(0.7, 0.8, f) - smoothstep(0.8, 1.0, f);

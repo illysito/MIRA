@@ -126,6 +126,7 @@ async function worldHome() {
       u_resolution: { value: res },
       u_fMix: { value: UNIFORMS_BACKGROUND.u_fMix },
       u_iMix: { value: UNIFORMS_BACKGROUND.u_iMix },
+      u_timeFactor: { value: UNIFORMS_BACKGROUND.u_timeFactor },
     },
     transparent: true,
     blending: THREE.AdditiveBlending,
@@ -162,6 +163,8 @@ async function worldHome() {
         UNIFORMS_BACKGROUND.u_fMix
       backgroundPlane.material.uniforms.u_iMix.value =
         UNIFORMS_BACKGROUND.u_iMix
+      backgroundPlane.material.uniforms.u_timeFactor.value =
+        UNIFORMS_BACKGROUND.u_timeFactor
 
       plane.material.uniforms.u_time.value = counter
       plane.material.uniforms.u_offset.value = UNIFORMS_TEXTURE.offset

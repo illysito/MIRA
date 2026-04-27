@@ -16,6 +16,7 @@ const UNIFORMS_TEXTURE = {
 const UNIFORMS_BACKGROUND = {
   u_fMix: 1.2,
   u_iMix: 0.06,
+  u_timeFactor: 0.28,
 }
 
 function miraUI() {
@@ -69,6 +70,7 @@ function miraUI() {
       gsap.to(UNIFORMS_BACKGROUND, {
         u_fMix: 0.94,
         u_iMix: 0.08,
+        u_timeFactor: 0.12,
         duration: 24,
         ease: easings[1],
       })
