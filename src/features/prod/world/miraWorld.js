@@ -141,7 +141,7 @@ async function worldHome() {
   let targetY = 0
   let lerpFactor = 0.012
 
-  let seed = Math.random() * 0.04
+  let seed = Math.random() * 40
   console.log(seed)
   let counter = seed
 
