@@ -13,7 +13,6 @@ uniform float u_noiseFrequency;
 uniform float u_mouseX;
 uniform float u_mouseY;
 
-
 uniform sampler2D u_currentTexture;
 uniform sampler2D u_noiseTexture;
 uniform sampler2D u_bg;
@@ -22,16 +21,6 @@ varying vec2 v_texcoord;
 
 
 
-
-
-
-
-
-float random(vec2 uv) {
-  return fract(sin(dot(uv.xy,
-      vec2(12.9898,78.233))) *
-          43758.5453123);
-}
 
 vec2 aspect(vec2 uv, float image_ratio, float canvas_ratio){
   // if canvas is taller than image, stretch downwards
@@ -47,6 +36,9 @@ vec2 aspect(vec2 uv, float image_ratio, float canvas_ratio){
   }
   return uv;
 }
+
+
+
 
 float rand(vec2 uv) {
   return fract(sin(dot(uv.xy,
@@ -82,22 +74,13 @@ float fbm(vec2 x) {
 
 
 
-
-
-
-
-
-
-
 void main()
 {
 
   // COORDS
 
   vec2 uv = v_texcoord;
-  //uv.x *= u_resolution.x / u_resolution.y;
-
-  // find out the ratios
+  
   float image_ratio = 1200.0 / 1200.0;
   float canvas_ratio = u_resolution.x / u_resolution.y;
 
@@ -141,6 +124,7 @@ void main()
 
 
 
+
   // CENTER LUMINANCE
 
   vec2 center = vec2(0.5, 0.5);
@@ -157,6 +141,7 @@ void main()
   float distortionY = 0.0016 * cos(12.0 * u_time) * perlinImg.r;
 
   float alphaDistortionForce = perlinImgAlpha.r * u_offset * u_displacementCoef;
+  float alphaDistortedFade = 1.0 - alphaDistortionForce;
 
   float displaceForce1 = perlinImg.r * u_offset * u_displacementCoef;
   vec2 uvDisplaced1 = vec2(coords.x + 0.01 * sin(u_time) * displaceForce1 + distortionX, coords.y - 0.025 * displaceForce1 * cos(u_time) + distortionY);
@@ -183,8 +168,6 @@ void main()
 
 
   // FINAL 
-
-  float alphaDistortedFade = 1.0 - alphaDistortionForce;
 
   vec4 finalColor = vec4(finalImg.rgb * color * 1.9 * centerLuminance, alphaDistortedFade);
   gl_FragColor = finalColor;

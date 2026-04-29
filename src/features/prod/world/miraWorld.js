@@ -7,7 +7,6 @@ import TEXTURES from '../data/texturesArray'
 // Shaders
 import { UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND } from './miraUI'
 import backgroundFragment from './shaders/fragShaderBackground'
-// import fogFragment from './shaders/fragShaderFog'
 import typographyFragment from './shaders/fragShaderTypography'
 import vert from './shaders/vertexShader'
 
@@ -49,13 +48,10 @@ async function worldHome() {
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.setClearColor(0x000000, 0)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-  // renderer.outputColorSpace = THREE.SRGBColorSpace
-
-  // Main Image
-  const textures = {}
-  const imgLoader = new THREE.TextureLoader()
 
   // Function to load textures
+  const textures = {}
+  const imgLoader = new THREE.TextureLoader()
   function loadTexture(name, url) {
     return new Promise((resolve, reject) => {
       imgLoader.load(
@@ -74,19 +70,17 @@ async function worldHome() {
     })
   }
 
+  // Wait until every CRITICAL texture is loaded into the textures object
   await Promise.all(
     Object.entries(URLS_INIT).map(([name, url]) => loadTexture(name, url))
   )
 
+  // Load rest of the textures without blocking (they will appear later enough :))
   Object.entries(URLS).forEach(([name, url]) => {
     loadTexture(name, url)
   })
 
-  console.log(textures)
-
-  // let plane = null
-
-  // Plane
+  // Main plane creation
   const planeGeometry = new THREE.PlaneGeometry(600, 600)
   const planeMaterial = new THREE.ShaderMaterial({
     fragmentShader: typographyFragment,
@@ -110,28 +104,10 @@ async function worldHome() {
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   })
-  let plane = new THREE.Mesh(planeGeometry, planeMaterial)
+  const plane = new THREE.Mesh(planeGeometry, planeMaterial)
   scene.add(plane)
 
-  // Fog Plane
-  // const fogPlaneGeometry = new THREE.PlaneGeometry(600, 600)
-  // const fogPlaneMaterial = new THREE.ShaderMaterial({
-  //   fragmentShader: fogFragment,
-  //   vertexShader: vert,
-  //   uniforms: {
-  //     u_time: { value: 0 },
-  //     u_resolution: { value: new THREE.Vector2(1, 1) },
-  //     u_offset: { value: 1 },
-  //     u_displacement: { value: perlin },
-  //   },
-  //   // transparent: true,
-  //   // blending: THREE.AdditiveBlending,
-  //   // depthWrite: false,
-  // })
-  // let fogPlane = new THREE.Mesh(fogPlaneGeometry, fogPlaneMaterial)
-  // scene.add(fogPlane)
-
-  // Background plane
+  // Background plane creation
   const backgroundPlaneGeometry = new THREE.PlaneGeometry(
     window.innerWidth,
     window.innerHeight
@@ -150,9 +126,6 @@ async function worldHome() {
     transparent: true,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
-    // transparent: true,
-    // blending: THREE.AdditiveBlending,
-    // depthWrite: false,
   })
   const backgroundPlane = new THREE.Mesh(
     backgroundPlaneGeometry,
@@ -162,21 +135,24 @@ async function worldHome() {
   backgroundPlane.position.z = -1
 
   // Loop
-  let counter = 0
   let currentX = 0
   let currentY = 0
   let targetX = 0
   let targetY = 0
   let lerpFactor = 0.012
 
+  let seed = Math.random() * 0.04
+  console.log(seed)
+  let counter = seed
+
   function animate() {
-    counter += 0.002
-    // console.log(offset)
+    counter = (counter + 0.002) % 5000 // safeguard to not let counter evolve endlessly
 
     if (plane) {
       currentX = lerp(currentX, targetX, lerpFactor)
       currentY = lerp(currentY, targetY, lerpFactor)
 
+      // Operations in the background plane
       backgroundPlane.material.uniforms.u_time.value = counter
       backgroundPlane.material.uniforms.u_fMix.value =
         UNIFORMS_BACKGROUND.u_fMix
@@ -185,6 +161,7 @@ async function worldHome() {
       backgroundPlane.material.uniforms.u_timeFactor.value =
         UNIFORMS_BACKGROUND.u_timeFactor
 
+      // Operations in the main plane
       plane.material.uniforms.u_time.value = counter
       plane.material.uniforms.u_offset.value = UNIFORMS_TEXTURE.offset
       plane.material.uniforms.u_displacementCoef.value =
@@ -202,7 +179,6 @@ async function worldHome() {
     }
 
     renderer.render(scene, camera)
-    // animationId = requestAnimationFrame(animate)
     requestAnimationFrame(animate)
   }
   animate()
@@ -220,7 +196,7 @@ async function worldHome() {
     targetY = gsap.utils.mapRange(0, window.innerHeight, 0.0, 1.0, e.clientY)
   })
 
-  // Swap texture
+  // Moving a step forward LOGIC
   window.addEventListener('moveStepForward', (e) => {
     const stepIndex = e.detail.step
     console.log(stepIndex)
