@@ -26,6 +26,7 @@ function miraUI() {
   //     .replace('/blob/', '@')
   // }
   let fadeOutDur = 2.8
+  let voidDelay = 1.6
   let easings = ['linear', 'power1.inOut', 'power2.out', 'power2.inOut']
   // let easeIndex = 0
 
@@ -58,7 +59,7 @@ function miraUI() {
           })
         )
         gsap.to(UNIFORMS_TEXTURE, {
-          delay: 0.8,
+          delay: voidDelay,
           offset: 0,
           scale: 1.0,
           duration: fadeOutDur,

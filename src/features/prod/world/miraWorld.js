@@ -6,8 +6,9 @@ import STEPS from '../data/stepsArray'
 import TEXTURES from '../data/texturesArray'
 // Shaders
 import { UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND } from './miraUI'
-import coreFrag from './shaders/fragShader_CORE'
-import disp_frag_bg from './shaders/fragShaderBackground'
+import backgroundFragment from './shaders/fragShaderBackground'
+// import fogFragment from './shaders/fragShaderFog'
+import typographyFragment from './shaders/fragShaderTypography'
 import vert from './shaders/vertexShader'
 
 const { URLS_INIT, URLS } = TEXTURES
@@ -88,7 +89,7 @@ async function worldHome() {
   // Plane
   const planeGeometry = new THREE.PlaneGeometry(600, 600)
   const planeMaterial = new THREE.ShaderMaterial({
-    fragmentShader: coreFrag,
+    fragmentShader: typographyFragment,
     vertexShader: vert,
     uniforms: {
       u_time: { value: 0 },
@@ -112,6 +113,24 @@ async function worldHome() {
   let plane = new THREE.Mesh(planeGeometry, planeMaterial)
   scene.add(plane)
 
+  // Fog Plane
+  // const fogPlaneGeometry = new THREE.PlaneGeometry(600, 600)
+  // const fogPlaneMaterial = new THREE.ShaderMaterial({
+  //   fragmentShader: fogFragment,
+  //   vertexShader: vert,
+  //   uniforms: {
+  //     u_time: { value: 0 },
+  //     u_resolution: { value: new THREE.Vector2(1, 1) },
+  //     u_offset: { value: 1 },
+  //     u_displacement: { value: perlin },
+  //   },
+  //   // transparent: true,
+  //   // blending: THREE.AdditiveBlending,
+  //   // depthWrite: false,
+  // })
+  // let fogPlane = new THREE.Mesh(fogPlaneGeometry, fogPlaneMaterial)
+  // scene.add(fogPlane)
+
   // Background plane
   const backgroundPlaneGeometry = new THREE.PlaneGeometry(
     window.innerWidth,
@@ -119,7 +138,7 @@ async function worldHome() {
   )
   const res = window.innerWidth / window.innerHeight
   const backgroundPlaneMaterial = new THREE.ShaderMaterial({
-    fragmentShader: disp_frag_bg,
+    fragmentShader: backgroundFragment,
     vertexShader: vert,
     uniforms: {
       u_time: { value: 0 },

@@ -1,4 +1,4 @@
-const disp_frag = `
+const backgroundFragment = `
 #ifdef GL_ES
 precision highp float;
 #endif
@@ -89,4 +89,4 @@ void main()
   gl_FragColor = color;
 }
 `
-export default disp_frag
+export default backgroundFragment

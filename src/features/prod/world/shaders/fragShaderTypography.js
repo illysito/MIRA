@@ -1,4 +1,4 @@
-const coreFrag = `
+const typographyFragment = `
 #ifdef GL_ES
 precision highp float;
 #endif
@@ -13,7 +13,8 @@ uniform float u_noiseFrequency;
 uniform float u_mouseX;
 uniform float u_mouseY;
 
-uniform sampler2D u_innerCircle;
+
+uniform sampler2D u_currentTexture;
 uniform sampler2D u_noiseTexture;
 uniform sampler2D u_bg;
 
@@ -130,7 +131,7 @@ void main()
 
   vec2 perlinUV = fract(blockCoords * u_noiseFrequency);
   vec4 perlinImg = texture2D(u_noiseTexture, perlinUV);
-
+  vec4 perlinImgAlpha = texture2D(u_noiseTexture, 40.0 * perlinUV); // Zoomed for ALPHA fade
 
 
 
@@ -139,20 +140,20 @@ void main()
   vec2 center = vec2(0.5, 0.5);
   vec2 mouse = vec2(u_mouseX, u_mouseY);
   float dist = distance(mouse, center);
-  float centerLuminance = 1.0 - smoothstep(0.1, 1.0, dist);
+  float centerLuminance = 1.0 - smoothstep(0.1, 2.0, dist);
 
 
 
 
   // DISTORTIONS
 
-  float distortionX = 0.0022 * sin(12.0 * u_time) * perlinImg.r;
-  float distortionY = 0.0022 * cos(12.0 * u_time) * perlinImg.r;
+  float distortionX = 0.002 * sin(12.0 * u_time) * perlinImg.r;
+  float distortionY = 0.002 * cos(12.0 * u_time) * perlinImg.r;
 
+  float alphaDistortionForce = perlinImgAlpha.r * u_offset * u_displacementCoef;
 
   float displaceForce1 = perlinImg.r * u_offset * u_displacementCoef;
   vec2 uvDisplaced1 = vec2(coords.x + 0.02 * sin(u_time) * displaceForce1 + distortionX, coords.y - 0.06 * displaceForce1 * cos(u_time) + distortionY);
-  
   
   float displaceForce2 = perlinImg.r * (1.0 - u_offset) * u_displacementCoef;
   vec2 uvDisplaced2 = vec2(coords.x - 0.1 * displaceForce2, coords.y + 0.1 * displaceForce2);
@@ -162,18 +163,9 @@ void main()
 
   // IMAGE SAMPLING
 
-  vec4 displacedImg1 = texture2D(u_innerCircle, uvDisplaced1);
+  vec4 displacedImg1 = texture2D(u_currentTexture, uvDisplaced1);
   vec4 displacedBG = texture2D(u_bg, uvDisplaced2);
-
-
-
-
-  // LINES
-
   vec4 finalImg = (displacedImg1 * (1.0 - u_offset) + displacedBG * u_offset);
-  // vec4 anotherImg = (displacedImg1 * (1.0 - u_offset) + displacedBG * u_offset);
-  // finalImg += anotherImg;
-
 
 
 
@@ -186,9 +178,11 @@ void main()
 
   // FINAL 
 
-  vec4 finalColor = vec4(finalImg.rgb * color * 1.9 * centerLuminance, finalImg.a);
+  float alphaDistortedFade = 1.0 - alphaDistortionForce;
+
+  vec4 finalColor = vec4(finalImg.rgb * color * 1.9 * centerLuminance, alphaDistortedFade);
   gl_FragColor = finalColor;
 
 }
 `
-export default coreFrag
+export default typographyFragment
