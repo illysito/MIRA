@@ -23,6 +23,11 @@ const URLS = {
   core_2: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/646dfd43e06aca666a1b7b4cbac6fac98ce16c25/textures/_CORE/MIRA_CORE_02.jpg'
   ),
+  // TEST TEST TEST TEST TEST
+  // core_2: githubToJsDelivr(
+  //   '  https://github.com/illysito/MIRA/blob/eebf1ea7aa1b609dc29ce9dabd4046e957dc9743/textures/MIRA_OpacityTestTexture.jpg'
+  // ),
+  // END TEST END TEST END TEST
   core_3: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/646dfd43e06aca666a1b7b4cbac6fac98ce16c25/textures/_CORE/MIRA_CORE_03.jpg'
   ),

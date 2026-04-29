@@ -131,7 +131,13 @@ void main()
 
   vec2 perlinUV = fract(blockCoords * u_noiseFrequency);
   vec4 perlinImg = texture2D(u_noiseTexture, perlinUV);
-  vec4 perlinImgAlpha = texture2D(u_noiseTexture, 40.0 * perlinUV); // Zoomed for ALPHA fade
+
+  vec2 alphaDistortionCoords = 0.6 * vec2(
+    coords.x + 0.02 * sin(u_time),
+    coords.y + 0.04 * cos(u_time)
+  );
+
+  vec4 perlinImgAlpha = texture2D(u_noiseTexture, alphaDistortionCoords); // Zoomed for ALPHA fade
 
 
 
@@ -147,13 +153,13 @@ void main()
 
   // DISTORTIONS
 
-  float distortionX = 0.002 * sin(12.0 * u_time) * perlinImg.r;
-  float distortionY = 0.002 * cos(12.0 * u_time) * perlinImg.r;
+  float distortionX = 0.0016 * sin(12.0 * u_time) * perlinImg.r;
+  float distortionY = 0.0016 * cos(12.0 * u_time) * perlinImg.r;
 
   float alphaDistortionForce = perlinImgAlpha.r * u_offset * u_displacementCoef;
 
   float displaceForce1 = perlinImg.r * u_offset * u_displacementCoef;
-  vec2 uvDisplaced1 = vec2(coords.x + 0.02 * sin(u_time) * displaceForce1 + distortionX, coords.y - 0.06 * displaceForce1 * cos(u_time) + distortionY);
+  vec2 uvDisplaced1 = vec2(coords.x + 0.01 * sin(u_time) * displaceForce1 + distortionX, coords.y - 0.025 * displaceForce1 * cos(u_time) + distortionY);
   
   float displaceForce2 = perlinImg.r * (1.0 - u_offset) * u_displacementCoef;
   vec2 uvDisplaced2 = vec2(coords.x - 0.1 * displaceForce2, coords.y + 0.1 * displaceForce2);
