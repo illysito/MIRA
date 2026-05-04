@@ -59,27 +59,27 @@ void main()
 
   // COLORS
 
-  float grey = 0.08;
+  float grey = 0.072;
   // grey = 0.4;
   vec4 color1 = vec4(0.0, 0.0, 0.0, 1.0);
   vec4 color2 = vec4(grey, grey, grey, 1.0);
 
   float grain = mix(-0.12, 0.12, rand(uv));
 
-  float h = 0.86 * fbm(40.0 * distortionUV);
+  float h = 0.86 * fbm(60.0 * distortionUV);
   float f = fbm(20.0 * vec2(h,h));
   f *= 12.0;
   f += grain;
   f += u_timeFactor * u_time;
   f = fract(f);
-  f += 0.32 * rand(uv);
+  f += 0.22 * rand(uv);
 
   float i = 0.86 * fbm(2.0 * distortionUV);
   i *= 5.0;
   i += u_timeFactor * u_time;
   i = fract(i);
 
-  float f_mixer = smoothstep(0.7, 0.8, f) - smoothstep(0.8, 1.0, f);
+  float f_mixer = smoothstep(0.5, 0.75, f) - smoothstep(0.75, 1.0, f);
   float i_mixer = smoothstep(0.8, 0.9, i) - smoothstep(0.9, 1.0, i);
 
   float mixer = u_fMix * f_mixer + u_iMix * i_mixer;

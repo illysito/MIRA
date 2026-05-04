@@ -142,7 +142,7 @@ async function worldHome() {
   let lerpFactor = 0.012
 
   let seed = Math.random() * 40
-  console.log(seed)
+  // console.log(seed)
   let counter = seed
 
   function animate() {
@@ -197,9 +197,9 @@ async function worldHome() {
   })
 
   // Moving a step forward LOGIC
-  window.addEventListener('moveStepForward', (e) => {
+  window.addEventListener('swapTexture', (e) => {
     const stepIndex = e.detail.step
-    console.log(stepIndex)
+    console.log('current step index read from WORLD: ', stepIndex)
     const step = STEPS[stepIndex]
 
     if (!step) return

@@ -17,6 +17,9 @@ const URLS_INIT = {
 }
 
 const URLS = {
+  none: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/c2cf6c0976d87111f4dd6aec7bd2cabcbad66e90/textures/MIRA_OpacityTestTexture.jpg'
+  ),
   core_1: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/646dfd43e06aca666a1b7b4cbac6fac98ce16c25/textures/_CORE/MIRA_CORE_01.jpg'
   ),

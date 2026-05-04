@@ -169,7 +169,7 @@ void main()
 
   // FINAL 
 
-  vec4 finalColor = vec4(finalImg.rgb * color * 1.9 * centerLuminance, alphaDistortedFade);
+  vec4 finalColor = vec4(finalImg.rgb * color * 1.98 * centerLuminance, alphaDistortedFade);
   gl_FragColor = finalColor;
 
 }
