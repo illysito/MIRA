@@ -6,7 +6,7 @@ import STEPS from '../data/stepsArray'
 const UNIFORMS_TEXTURE = {
   offset: 0,
   scale: 1,
-  amplitude: 0.16,
+  amplitude: 0.18,
   frequency: 24,
   blocks: 800,
 
@@ -177,7 +177,7 @@ function miraUI() {
           tl.to(
             l,
             {
-              opacity: 0.32,
+              opacity: 0.28,
               scale: 0.99,
               duration: fadeOutDur,
               ease: easings[1],
