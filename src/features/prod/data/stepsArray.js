@@ -41,6 +41,12 @@ const STEPS = [
     id: 'step-7',
     currentTexture: 'core_5',
   },
+  {
+    type: 'menu',
+    menuIndex: 0,
+    id: 'step-2',
+    currentTexture: 'none',
+  },
 ]
 
 export default STEPS

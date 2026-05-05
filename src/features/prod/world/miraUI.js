@@ -58,6 +58,9 @@ function miraUI() {
   let currentStep = 0
   let isClickEnabled = true
   let isBackgroundStabilized = false
+  let firstMenuHasBeenViewed = 0
+
+  // FUNCTIONS
 
   function stabilizeBackground() {
     if (!isBackgroundStabilized) {
@@ -75,7 +78,7 @@ function miraUI() {
   async function fadeShaderIn() {
     return new Promise((resolve) => {
       gsap.to(UNIFORMS_TEXTURE, {
-        delay: voidDelay,
+        delay: voidDelay * 1.8,
         offset: 0, // means fade in
         scale: 1.0,
         duration: fadeOutDur,
@@ -126,6 +129,7 @@ function miraUI() {
           scale: 0.99,
           duration: fadeOutDur,
           ease: easings[1],
+          delay: voidDelay * 1.8,
           stagger: fadeOutDur / 6,
         },
         '<' // start at same time as previous
@@ -167,17 +171,34 @@ function miraUI() {
       })
 
       // Lines fade in (at same time as container)
-      tl.to(
-        linesArray,
-        {
-          opacity: 0.8,
-          scale: 0.99,
-          duration: fadeOutDur,
-          ease: easings[1],
-          stagger: fadeOutDur / 6,
-        },
-        '<' // start at same time as previous
-      )
+      linesArray.forEach((l, index) => {
+        console.log(l)
+        if (l.classList.contains('is--inactive')) {
+          tl.to(
+            l,
+            {
+              opacity: 0.32,
+              scale: 0.99,
+              duration: fadeOutDur,
+              ease: easings[1],
+              delay: index * (fadeOutDur / 6),
+            },
+            '<'
+          ) // start at same time as previous)
+        } else {
+          tl.to(
+            l,
+            {
+              opacity: 0.8,
+              scale: 0.99,
+              duration: fadeOutDur,
+              ease: easings[1],
+              delay: index * (fadeOutDur / 6),
+            },
+            '<'
+          ) // start at same time as previous)
+        }
+      })
     })
   }
 
@@ -202,8 +223,8 @@ function miraUI() {
       tl.to(
         linesArray,
         {
-          opacity: 0.8,
-          scale: 0.0,
+          opacity: 0.0,
+          scale: 1.0,
           duration: fadeOutDur,
           ease: easings[1],
           stagger: fadeOutDur / 6,
@@ -213,6 +234,22 @@ function miraUI() {
     })
   }
 
+  function updateFirstMenuOpacity() {
+    if (firstMenuHasBeenViewed == 1) {
+      const menuHeadings = MENUS[0].querySelectorAll('h2')
+      menuHeadings[0].classList.add('is--inactive')
+      menuHeadings[1].classList.remove('is--inactive')
+    } else if (firstMenuHasBeenViewed == 2) {
+      const menuHeadings = MENUS[0].querySelectorAll('h2')
+      menuHeadings[1].classList.add('is--inactive')
+      menuHeadings[2].classList.remove('is--inactive')
+    } else {
+      return
+    }
+  }
+
+  // MAIN BRAIN
+
   async function exit(fromStep) {
     if (fromStep.type === 'normal') {
       // If current is normal shader animation, just fade it out.
@@ -221,6 +258,11 @@ function miraUI() {
 
     if (fromStep.type === 'menu') {
       await fadeMenuOut(MENUS[fromStep.menuIndex])
+      if (fromStep.menuIndex == 0) {
+        firstMenuHasBeenViewed++
+        console.log('first Menu viewed: ', firstMenuHasBeenViewed)
+      }
+      updateFirstMenuOpacity()
     }
   }
 
@@ -279,18 +321,39 @@ function miraUI() {
     console.log('click is off')
   })
 
-  menuHeadings.forEach((heading) => {
+  menuHeadings.forEach((heading, index) => {
     heading.addEventListener('mouseover', () => {
-      gsap.to(heading, {
-        opacity: 1,
-        duration: 0.2,
-      })
+      if (heading.classList.contains('is--inactive')) {
+        return
+      } else {
+        gsap.to(heading, {
+          opacity: 1,
+          duration: 0.4,
+        })
+      }
     })
     heading.addEventListener('mouseleave', () => {
-      gsap.to(heading, {
-        opacity: 0.8,
-        duration: 0.2,
-      })
+      if (heading.classList.contains('is--inactive')) {
+        return
+      } else {
+        gsap.to(heading, {
+          opacity: 0.8,
+          duration: 0.4,
+        })
+      }
+    })
+    heading.addEventListener('click', () => {
+      if (heading.classList.contains('is--inactive')) {
+        return
+      } else {
+        if (index == 0) {
+          goToStep(3)
+        } else if (index == 1) {
+          goToStep(4)
+        } else if (index == 2) {
+          goToStep(6)
+        }
+      }
     })
   })
 }
