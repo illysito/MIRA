@@ -60,7 +60,7 @@ void main()
   // COLORS
 
   float grey = 0.072;
-  grey = 0.12;
+  // grey = 0.12;
   vec4 color1 = vec4(0.0, 0.0, 0.0, 1.0);
   vec4 color2 = vec4(grey, grey, grey, 1.0);
 
