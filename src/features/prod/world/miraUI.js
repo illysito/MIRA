@@ -41,7 +41,7 @@ function miraUI() {
   let voidDelay = 1.6
   let easings = ['linear', 'power1.inOut', 'power2.out', 'power2.inOut']
   // let easeIndex = 0
-
+  const maxStep = STEPS.length - 1
   // mouse events
   // window.addEventListener('mousedown', () => {
   //   console.log('mousedown')
@@ -234,7 +234,7 @@ function miraUI() {
     })
   }
 
-  function updateFirstMenuOpacity() {
+  function stage1MenuOpacity() {
     if (firstMenuHasBeenViewed == 1) {
       const menuHeadings = MENUS[0].querySelectorAll('h2')
       menuHeadings[0].classList.add('is--inactive')
@@ -262,7 +262,7 @@ function miraUI() {
         firstMenuHasBeenViewed++
         console.log('first Menu viewed: ', firstMenuHasBeenViewed)
       }
-      updateFirstMenuOpacity()
+      stage1MenuOpacity()
     }
   }
 
@@ -296,6 +296,10 @@ function miraUI() {
   }
 
   async function goToStep(nextStepIndex) {
+    if (nextStepIndex > maxStep) {
+      return
+    }
+
     const toStep = STEPS[nextStepIndex]
     const fromStep = STEPS[currentStep] // to check if needs fade in
 
@@ -349,9 +353,9 @@ function miraUI() {
         if (index == 0) {
           goToStep(3)
         } else if (index == 1) {
-          goToStep(4)
+          goToStep(9)
         } else if (index == 2) {
-          goToStep(6)
+          goToStep(16)
         }
       }
     })

@@ -24,13 +24,8 @@ const URLS = {
     'https://github.com/illysito/MIRA/blob/646dfd43e06aca666a1b7b4cbac6fac98ce16c25/textures/_CORE/MIRA_CORE_01.jpg'
   ),
   core_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/646dfd43e06aca666a1b7b4cbac6fac98ce16c25/textures/_CORE/MIRA_CORE_02.jpg'
+    'https://github.com/illysito/MIRA/blob/3aeac1306954848cd2013a8b48c2f2671683950f/textures/_CORE/MIRA_CORE_02.jpg'
   ),
-  // TEST TEST TEST TEST TEST
-  // core_2: githubToJsDelivr(
-  //   '  https://github.com/illysito/MIRA/blob/eebf1ea7aa1b609dc29ce9dabd4046e957dc9743/textures/MIRA_OpacityTestTexture.jpg'
-  // ),
-  // END TEST END TEST END TEST
   core_3: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/646dfd43e06aca666a1b7b4cbac6fac98ce16c25/textures/_CORE/MIRA_CORE_03.jpg'
   ),
@@ -39,6 +34,42 @@ const URLS = {
   ),
   core_5: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/646dfd43e06aca666a1b7b4cbac6fac98ce16c25/textures/_CORE/MIRA_CORE_05.jpg'
+  ),
+  seed_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a56e9b066c92654c57bfdaba4582562b26c03796/textures/_SEED/MIRA_SEED_SEED%200.jpg'
+  ),
+  seed_2: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a56e9b066c92654c57bfdaba4582562b26c03796/textures/_SEED/MIRA_SEED_SEED%201.jpg'
+  ),
+  seed_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a56e9b066c92654c57bfdaba4582562b26c03796/textures/_SEED/MIRA_SEED_SEED%202.jpg'
+  ),
+  seed_4: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a56e9b066c92654c57bfdaba4582562b26c03796/textures/_SEED/MIRA_SEED_SEED%203.jpg'
+  ),
+  seed_5: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a56e9b066c92654c57bfdaba4582562b26c03796/textures/_SEED/MIRA_SEED_SEED%204.jpg'
+  ),
+  seed_6: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a56e9b066c92654c57bfdaba4582562b26c03796/textures/_SEED/MIRA_SEED_SEED%205.jpg'
+  ),
+  organism_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a93729140ef9acbfc833788d86a60c8d19814892/textures/_ORGANISM/MIRA_ORGANISM_ORGANISM%200.jpg'
+  ),
+  organism_2: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a93729140ef9acbfc833788d86a60c8d19814892/textures/_ORGANISM/MIRA_ORGANISM_ORGANISM%201.jpg'
+  ),
+  organism_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a93729140ef9acbfc833788d86a60c8d19814892/textures/_ORGANISM/MIRA_ORGANISM_ORGANISM%202.jpg'
+  ),
+  organism_4: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a93729140ef9acbfc833788d86a60c8d19814892/textures/_ORGANISM/MIRA_ORGANISM_ORGANISM%203.jpg'
+  ),
+  organism_5: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a93729140ef9acbfc833788d86a60c8d19814892/textures/_ORGANISM/MIRA_ORGANISM_ORGANISM%204.jpg'
+  ),
+  organism_6: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/a93729140ef9acbfc833788d86a60c8d19814892/textures/_ORGANISM/MIRA_ORGANISM_ORGANISM%205.jpg'
   ),
 }
 
