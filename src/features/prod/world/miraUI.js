@@ -41,7 +41,7 @@ function miraUI() {
   let voidDelay = 1.6
   let easings = ['linear', 'power1.inOut', 'power2.out', 'power2.inOut']
   // let easeIndex = 0
-  const maxStep = STEPS.length - 1
+  const maxStep = STEPS.length
   // mouse events
   // window.addEventListener('mousedown', () => {
   //   console.log('mousedown')
