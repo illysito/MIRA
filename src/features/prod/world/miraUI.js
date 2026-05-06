@@ -153,7 +153,7 @@ function miraUI() {
     })
   }
 
-  async function fadeMenuIn(container) {
+  async function fadeMenuIn(container, menuIndex) {
     return new Promise((resolve) => {
       const linesArray = [...container.querySelectorAll('h2')]
       // console.log(linesArray)
@@ -164,41 +164,50 @@ function miraUI() {
         },
       })
 
-      // Container fades in
-      tl.to(container, {
-        opacity: 1,
-        duration: fadeOutDur,
-      })
+      if (menuIndex == 0) {
+        // First menu, appearing one by one
+        // Container fades in
+        tl.to(container, {
+          opacity: 1,
+          duration: fadeOutDur,
+        })
 
-      // Lines fade in (at same time as container)
-      linesArray.forEach((l, index) => {
-        console.log(l)
-        if (l.classList.contains('is--inactive')) {
-          tl.to(
-            l,
-            {
-              opacity: 0.28,
-              scale: 0.99,
-              duration: fadeOutDur,
-              ease: easings[1],
-              delay: index * (fadeOutDur / 6),
-            },
-            '<'
-          ) // start at same time as previous)
-        } else {
-          tl.to(
-            l,
-            {
-              opacity: 0.8,
-              scale: 0.99,
-              duration: fadeOutDur,
-              ease: easings[1],
-              delay: index * (fadeOutDur / 6),
-            },
-            '<'
-          ) // start at same time as previous)
-        }
-      })
+        // Lines fade in (at same time as container)
+        linesArray.forEach((l, index) => {
+          console.log(l)
+          if (l.classList.contains('is--inactive')) {
+            tl.to(
+              l,
+              {
+                opacity: 0.28,
+                scale: 0.99,
+                duration: fadeOutDur,
+                ease: easings[1],
+                delay: index * (fadeOutDur / 6),
+              },
+              '<'
+            ) // start at same time as previous)
+          } else {
+            tl.to(
+              l,
+              {
+                opacity: 0.8,
+                scale: 0.99,
+                duration: fadeOutDur,
+                ease: easings[1],
+                delay: index * (fadeOutDur / 6),
+              },
+              '<'
+            ) // start at same time as previous)
+          }
+        })
+      } else if (menuIndex == 1) {
+        // Second menu, NO hierarchy
+        tl.to(container, {
+          opacity: 1,
+          duration: fadeOutDur * 1.8,
+        })
+      }
     })
   }
 
@@ -291,7 +300,7 @@ function miraUI() {
     if (toStep.type === 'menu') {
       isClickEnabled = false
       console.log('click is off')
-      await fadeMenuIn(MENUS[toStep.menuIndex])
+      await fadeMenuIn(MENUS[toStep.menuIndex], toStep.menuIndex)
     }
   }
 
@@ -325,6 +334,7 @@ function miraUI() {
     console.log('click is off')
   })
 
+  // HEADINGS OF MENU CLICKS
   menuHeadings.forEach((heading, index) => {
     heading.addEventListener('mouseover', () => {
       if (heading.classList.contains('is--inactive')) {
@@ -360,6 +370,13 @@ function miraUI() {
       }
     })
   })
+
+  // FROM CONSOLE
+  function go(x) {
+    goToStep(x)
+  }
+
+  window.go = go
 }
 
 export default miraUI

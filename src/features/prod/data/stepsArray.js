@@ -121,6 +121,20 @@ const STEPS = [
     id: 'step-21',
     currentTexture: 'organism_6',
   },
+  // STAGE 3 ************************
+  {
+    type: 'bridge',
+    bridgeIndex: 1,
+    id: 'step-22',
+    currentTexture: 'none',
+  },
+  // CIRCULAR MENU ( STAGE 3 )
+  {
+    type: 'menu',
+    menuIndex: 1,
+    id: 'step-22',
+    currentTexture: 'none',
+  },
 ]
 
 export default STEPS
