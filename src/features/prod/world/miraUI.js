@@ -207,6 +207,16 @@ function miraUI() {
           opacity: 1,
           duration: fadeOutDur * 1.8,
         })
+        tl.to(
+          linesArray,
+          {
+            opacity: 0.8,
+            scale: 0.99,
+            duration: fadeOutDur,
+            ease: easings[1],
+          },
+          '<'
+        ) // start at same time as previous)
       }
     })
   }
@@ -309,12 +319,24 @@ function miraUI() {
       return
     }
 
-    const toStep = STEPS[nextStepIndex]
-    const fromStep = STEPS[currentStep] // to check if needs fade in
+    let toStep = STEPS[nextStepIndex]
+    let fromStep = STEPS[currentStep] // to check if needs fade in
 
     await exit(fromStep) // Exit from current step
 
-    currentStep = nextStepIndex // update current step to track where we at
+    if (
+      currentStep == 60 || // end of alignment
+      currentStep == 54 || // end of stratosphere
+      currentStep == 43 || // end of communication
+      currentStep == 36 || // end of habitat
+      currentStep == 30 // end of conditions
+    ) {
+      //
+      currentStep = 23 // CIRCULAR 5 DOCUMENTS MENU
+      toStep = currentStep
+    } else {
+      currentStep = nextStepIndex // update current step to track where we at (NORMALLY MOVE 1 FORWARD)
+    }
     CURRENT_STEP_TXT.textContent = 'Current step: ' + currentStep
 
     await enter(toStep) // Move into new currentStep
@@ -361,11 +383,29 @@ function miraUI() {
         return
       } else {
         if (index == 0) {
+          // CORE
           goToStep(3)
         } else if (index == 1) {
+          // SEED
           goToStep(9)
         } else if (index == 2) {
+          // ORGANISM
           goToStep(16)
+        } else if (index == 3) {
+          // CONDITIONS
+          goToStep(24)
+        } else if (index == 4) {
+          // STRATOSPHERE
+          goToStep(44)
+        } else if (index == 5) {
+          // COMMUNICATION
+          goToStep(37)
+        } else if (index == 6) {
+          // HABITAT
+          goToStep(31)
+        } else if (index == 7) {
+          // ALIGNMENT
+          goToStep(55)
         }
       }
     })
