@@ -165,191 +165,181 @@ const STEPS = [
     type: 'normal',
     id: 'step-29',
     currentTexture: 'conditions_6',
-  },
-  {
-    type: 'normal',
-    id: 'step-30',
-    currentTexture: 'conditions_7',
+    nextIsMenu: true,
   },
   // HABITAT
   {
     type: 'normal',
-    id: 'step-31',
+    id: 'step-30',
     currentTexture: 'habitat_1',
   },
   {
     type: 'normal',
-    id: 'step-32',
+    id: 'step-31',
     currentTexture: 'habitat_2',
   },
   {
     type: 'normal',
-    id: 'step-33',
+    id: 'step-32',
     currentTexture: 'habitat_3',
   },
   {
     type: 'normal',
-    id: 'step-34',
+    id: 'step-33',
     currentTexture: 'habitat_4',
   },
   {
     type: 'normal',
-    id: 'step-35',
+    id: 'step-34',
     currentTexture: 'habitat_5',
-  },
-  {
-    type: 'normal',
-    id: 'step-36',
-    currentTexture: 'habitat_6',
+    nextIsMenu: true,
   },
   // COMMUNICATION
   {
     type: 'normal',
-    id: 'step-37',
+    id: 'step-35',
     currentTexture: 'communication_1',
   },
   {
     type: 'normal',
-    id: 'step-38',
+    id: 'step-36',
     currentTexture: 'communication_2',
   },
   {
     type: 'normal',
-    id: 'step-39',
+    id: 'step-37',
     currentTexture: 'communication_3',
   },
   {
     type: 'normal',
-    id: 'step-40',
+    id: 'step-38',
     currentTexture: 'communication_4',
   },
   {
     type: 'normal',
-    id: 'step-41',
+    id: 'step-39',
     currentTexture: 'communication_5',
-  },
-  {
-    type: 'normal',
-    id: 'step-42',
-    currentTexture: 'communication_6',
-  },
-  {
-    type: 'normal',
-    id: 'step-43',
-    currentTexture: 'communication_7',
+    nextIsMenu: true,
   },
   // STRATOSPHERE
   {
     type: 'normal',
-    id: 'step-44',
+    id: 'step-40',
     currentTexture: 'stratosphere_1',
   },
   {
     type: 'normal',
-    id: 'step-45',
+    id: 'step-41',
     currentTexture: 'stratosphere_2',
   },
   {
     type: 'normal',
-    id: 'step-46',
+    id: 'step-42',
     currentTexture: 'stratosphere_3',
   },
   {
     type: 'normal',
-    id: 'step-47',
+    id: 'step-43',
     currentTexture: 'stratosphere_4',
   },
   {
     type: 'normal',
-    id: 'step-48',
+    id: 'step-44',
     currentTexture: 'stratosphere_5',
   },
   {
     type: 'normal',
-    id: 'step-49',
+    id: 'step-45',
     currentTexture: 'stratosphere_6',
   },
   {
     type: 'normal',
-    id: 'step-50',
+    id: 'step-46',
     currentTexture: 'stratosphere_7',
   },
   {
     type: 'normal',
-    id: 'step-51',
+    id: 'step-47',
     currentTexture: 'stratosphere_8',
   },
   {
     type: 'normal',
-    id: 'step-52',
+    id: 'step-48',
     currentTexture: 'stratosphere_9',
   },
   {
     type: 'normal',
-    id: 'step-53',
+    id: 'step-49',
     currentTexture: 'stratosphere_10',
   },
   {
     type: 'normal',
-    id: 'step-54',
+    id: 'step-50',
     currentTexture: 'stratosphere_11',
+    nextIsMenu: true,
   },
   // ALIGNMENT
   {
     type: 'normal',
-    id: 'step-55',
+    id: 'step-51',
     currentTexture: 'alignment_1',
   },
   {
     type: 'normal',
-    id: 'step-56',
+    id: 'step-52',
     currentTexture: 'alignment_2',
   },
   {
     type: 'normal',
-    id: 'step-57',
+    id: 'step-53',
     currentTexture: 'alignment_3',
   },
   {
     type: 'normal',
-    id: 'step-58',
+    id: 'step-54',
     currentTexture: 'alignment_4',
   },
   {
     type: 'normal',
-    id: 'step-59',
+    id: 'step-55',
     currentTexture: 'alignment_5',
   },
   {
     type: 'normal',
-    id: 'step-60',
+    id: 'step-56',
     currentTexture: 'alignment_6',
+  },
+  {
+    type: 'normal',
+    id: 'step-57',
+    currentTexture: 'alignment_7',
+    nextIsMenu: true,
   },
   // STAGE 4 ************************
   {
     type: 'bridge',
     bridgeIndex: 2,
-    id: 'step-61',
+    id: 'step-58',
     currentTexture: 'none',
   },
   // MENU
   {
     type: 'menu',
     menuIndex: 2,
-    id: 'step-62',
+    id: 'step-59',
     currentTexture: 'none',
   },
   // REACTION
   {
     type: 'bridge',
     bridgeIndex: 3,
-    id: 'step-63',
+    id: 'step-60',
     currentTexture: 'none',
   },
   // STAGE 5 ************************
   {
     type: 'normal',
-    id: 'step-64',
+    id: 'step-61',
     currentTexture: 'inner_circle',
   },
   // REST

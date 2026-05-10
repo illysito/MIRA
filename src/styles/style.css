@@ -1,3 +1,16 @@
+html,
+body,
+h1,
+h2,
+h3,
+a,
+button,
+input,
+textarea,
+select {
+  cursor: none !important;
+}
+
 .w-webflow-badge {
   display: none !important;
 }

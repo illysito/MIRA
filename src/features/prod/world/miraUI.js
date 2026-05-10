@@ -23,6 +23,7 @@ const UNIFORMS_BACKGROUND = {
 }
 
 function miraUI() {
+  const CURSOR = document.querySelector('.custom-cursor')
   const CURRENT_STEP_TXT = document.querySelector('.effect-title')
   // BRIDGES
   const BRIDGES = [...document.querySelectorAll('.is--bridge')]
@@ -35,17 +36,7 @@ function miraUI() {
     '.stage_4_interaction_container'
   )
   const STAGE_4_REACTION = document.querySelector('.stage_4_reaction-h')
-  circularMenuContainer.style.pointerEvents = 'auto'
-  positionMenuContainer.style.pointerEvents = 'auto'
-  // const STAGE_2_INIT_CONTAINER = document.querySelector(
-  //   '.stage_2_init_container'
-  // )
-  // const STAGE_2_INIT_LINES = document.querySelectorAll('.stage_2_init-h')
-  // function githubToJsDelivr(permalink) {
-  //   return permalink
-  //     .replace('github.com', 'cdn.jsdelivr.net/gh')
-  //     .replace('/blob/', '@')
-  // }
+
   let fadeOutDur = 2.8
   let voidDelay = 1.6
   let easings = ['linear', 'power1.inOut', 'power2.out', 'power2.inOut']
@@ -96,6 +87,22 @@ function miraUI() {
     })
   }
 
+  function fadeCursorOut() {
+    gsap.to(CURSOR, {
+      opacity: 0,
+      duration: 1.2,
+      ease: 'power1.inOut',
+    })
+  }
+
+  function fadeCursorIn() {
+    gsap.to(CURSOR, {
+      opacity: 0.8,
+      duration: 1.2,
+      ease: 'power1.inOut',
+    })
+  }
+
   async function fadeShaderIn() {
     return new Promise((resolve) => {
       gsap.to(UNIFORMS_TEXTURE, {
@@ -132,9 +139,12 @@ function miraUI() {
 
       const tl = gsap.timeline({
         onComplete: () => {
+          fadeCursorIn()
           resolve()
         },
       })
+
+      fadeCursorOut()
 
       // Container fades in
       tl.to(container, {
@@ -240,6 +250,13 @@ function miraUI() {
         //   '<'
         // ) // start at same time as previous)
       }
+
+      // Cursor activation
+      if (menuIndex == 1) {
+        circularMenuContainer.style.pointerEvents = 'auto'
+      } else if (menuIndex == 2) {
+        positionMenuContainer.style.pointerEvents = 'auto'
+      }
     })
   }
 
@@ -317,7 +334,7 @@ function miraUI() {
       nextIndex = STEPS.length - 1
     } else if (alignmentIndex > 50) {
       // TOP ALIGNMENT
-      nextIndex = 64 // just go to STAGE 5
+      nextIndex = 61 // just go to STAGE 5
     } else {
       // OUTSIDE OF IT
       nextIndex = STEPS.length - 1
@@ -384,17 +401,11 @@ function miraUI() {
 
     await exit(fromStep) // Exit from current step
 
-    if (
-      currentStepIndex == 60 || // end of alignment
-      currentStepIndex == 54 || // end of stratosphere
-      currentStepIndex == 43 || // end of communication
-      currentStepIndex == 36 || // end of habitat
-      currentStepIndex == 30 // end of conditions
-    ) {
-      //
+    if (STEPS[currentStepIndex].nextIsMenu === true) {
+      // is the last doc of any of the 5 documents of stage 2
       currentStepIndex = 23 // CIRCULAR 5 DOCUMENTS MENU
       toStep = STEPS[currentStepIndex]
-    } else if (currentStepIndex == 63) {
+    } else if (currentStepIndex == 60) {
       currentStepIndex = decideBasedOnAlignment()
       toStep = STEPS[currentStepIndex]
     } else {
@@ -465,44 +476,49 @@ function miraUI() {
           goToStep(24)
         } else if (index == 4) {
           // STRATOSPHERE
-          goToStep(44)
+          goToStep(40)
         } else if (index == 5) {
           // COMMUNICATION
-          goToStep(37)
+          goToStep(35)
         } else if (index == 6) {
           // HABITAT
-          goToStep(31)
+          goToStep(30)
         } else if (index == 7) {
           // ALIGNMENT
-          goToStep(55)
+          goToStep(51)
         } else if (index == 8) {
           // STAGE 4 REACTION - Pulled toward it
           alignmentIndex = 100
           STAGE_4_REACTION.textContent = 'The direction is already set.'
-          goToStep(63)
+          goToStep(60)
         } else if (index == 9) {
           // STAGE 4 REACTION - Leaning into it
           alignmentIndex = 80
           STAGE_4_REACTION.textContent = 'You are beginning to move.'
-          goToStep(63)
+          goToStep(60)
         } else if (index == 10) {
           // STAGE 4 REACTION - Unresolved
           alignmentIndex = 50
           STAGE_4_REACTION.textContent = 'You remain between positions.'
-          goToStep(63)
+          goToStep(60)
         } else if (index == 11) {
           // STAGE 4 REACTION - Keeping distance
           alignmentIndex = 20
           STAGE_4_REACTION.textContent = 'Distance is being maintained.'
-          goToStep(63)
+          goToStep(60)
         } else if (index == 12) {
           // STAGE 4 REACTION - Outside of it
           alignmentIndex = 0
           STAGE_4_REACTION.textContent = 'You have not entered.'
-          goToStep(63)
+          goToStep(60)
         }
       }
     })
+  })
+
+  // CURSOR
+  window.addEventListener('mousemove', (e) => {
+    CURSOR.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
   })
 
   // FROM CONSOLE
