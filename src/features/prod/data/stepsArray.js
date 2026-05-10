@@ -325,6 +325,39 @@ const STEPS = [
     id: 'step-60',
     currentTexture: 'alignment_6',
   },
+  // STAGE 4 ************************
+  {
+    type: 'bridge',
+    bridgeIndex: 2,
+    id: 'step-61',
+    currentTexture: 'none',
+  },
+  // MENU
+  {
+    type: 'menu',
+    menuIndex: 2,
+    id: 'step-62',
+    currentTexture: 'none',
+  },
+  // REACTION
+  {
+    type: 'bridge',
+    bridgeIndex: 3,
+    id: 'step-63',
+    currentTexture: 'none',
+  },
+  // STAGE 5 ************************
+  {
+    type: 'normal',
+    id: 'step-64',
+    currentTexture: 'inner_circle',
+  },
+  // REST
+  {
+    type: 'normal',
+    id: 'step-last',
+    currentTexture: 'none',
+  },
 ]
 
 export default STEPS

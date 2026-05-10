@@ -6,7 +6,7 @@ import STEPS from '../data/stepsArray'
 const UNIFORMS_TEXTURE = {
   offset: 0,
   scale: 1,
-  amplitude: 0.18,
+  amplitude: 0.32,
   frequency: 24,
   blocks: 800,
 
@@ -28,6 +28,15 @@ function miraUI() {
   const BRIDGES = [...document.querySelectorAll('.is--bridge')]
   const MENUS = [...document.querySelectorAll('.is--menu')]
   const menuHeadings = document.querySelectorAll('.menu-h')
+  const circularMenuContainer = document.querySelector(
+    '.stage_3_menu_container'
+  )
+  const positionMenuContainer = document.querySelector(
+    '.stage_4_interaction_container'
+  )
+  const STAGE_4_REACTION = document.querySelector('.stage_4_reaction-h')
+  circularMenuContainer.style.pointerEvents = 'auto'
+  positionMenuContainer.style.pointerEvents = 'auto'
   // const STAGE_2_INIT_CONTAINER = document.querySelector(
   //   '.stage_2_init_container'
   // )
@@ -55,10 +64,12 @@ function miraUI() {
   //   console.log('mouseup')
   // })
 
-  let currentStep = 0
+  let currentStepIndex = 0
   let isClickEnabled = true
   let isBackgroundStabilized = false
   let firstMenuHasBeenViewed = 0
+  let isSufficientInteraction = false
+  let alignmentIndex = 0
 
   // FUNCTIONS
 
@@ -73,6 +84,16 @@ function miraUI() {
       })
       isBackgroundStabilized = true
     }
+  }
+
+  function shutDownField() {
+    gsap.to(UNIFORMS_BACKGROUND, {
+      u_fMix: 0.0,
+      u_iMix: 0.0,
+      u_timeFactor: 0.0,
+      duration: 8,
+      ease: easings[1],
+    })
   }
 
   async function fadeShaderIn() {
@@ -164,7 +185,7 @@ function miraUI() {
         },
       })
 
-      if (menuIndex == 0) {
+      if (menuIndex == 0 || menuIndex == 2) {
         // First menu, appearing one by one
         // Container fades in
         tl.to(container, {
@@ -173,7 +194,7 @@ function miraUI() {
         })
 
         // Lines fade in (at same time as container)
-        linesArray.forEach((l, index) => {
+        linesArray.forEach((l) => {
           console.log(l)
           if (l.classList.contains('is--inactive')) {
             tl.to(
@@ -183,7 +204,7 @@ function miraUI() {
                 scale: 0.99,
                 duration: fadeOutDur,
                 ease: easings[1],
-                delay: index * (fadeOutDur / 6),
+                delay: fadeOutDur / 6,
               },
               '<'
             ) // start at same time as previous)
@@ -195,7 +216,7 @@ function miraUI() {
                 scale: 0.99,
                 duration: fadeOutDur,
                 ease: easings[1],
-                delay: index * (fadeOutDur / 6),
+                delay: fadeOutDur / 6,
               },
               '<'
             ) // start at same time as previous)
@@ -203,25 +224,26 @@ function miraUI() {
         })
       } else if (menuIndex == 1) {
         // Second menu, NO hierarchy
+        console.log(container)
         tl.to(container, {
           opacity: 1,
           duration: fadeOutDur * 1.8,
         })
-        tl.to(
-          linesArray,
-          {
-            opacity: 0.8,
-            scale: 0.99,
-            duration: fadeOutDur,
-            ease: easings[1],
-          },
-          '<'
-        ) // start at same time as previous)
+        // tl.to(
+        //   linesArray,
+        //   {
+        //     opacity: 0.8,
+        //     scale: 0.99,
+        //     duration: fadeOutDur,
+        //     ease: easings[1],
+        //   },
+        //   '<'
+        // ) // start at same time as previous)
       }
     })
   }
 
-  async function fadeMenuOut(container) {
+  async function fadeMenuOut(container, menuIndex) {
     return new Promise((resolve) => {
       const linesArray = [...container.querySelectorAll('h2')]
       // console.log(linesArray)
@@ -232,24 +254,42 @@ function miraUI() {
         },
       })
 
-      // Container fades in
-      tl.to(container, {
-        opacity: 0,
-        duration: fadeOutDur,
-      })
-
-      // Lines fade in (at same time as container)
-      tl.to(
-        linesArray,
-        {
-          opacity: 0.0,
-          scale: 1.0,
+      if (menuIndex == 0 || menuIndex == 2) {
+        // Container fades in
+        tl.to(container, {
+          opacity: 0,
           duration: fadeOutDur,
-          ease: easings[1],
-          stagger: fadeOutDur / 6,
-        },
-        '<' // start at same time as previous
-      )
+        })
+
+        // Lines fade in (at same time as container)
+        tl.to(
+          linesArray,
+          {
+            opacity: 0.0,
+            scale: 1.0,
+            duration: fadeOutDur,
+            ease: easings[1],
+            stagger: fadeOutDur / 6,
+          },
+          '<' // start at same time as previous
+        )
+      } else if (menuIndex == 1) {
+        // Second menu, NO hierarchy
+        tl.to(container, {
+          opacity: 0,
+          duration: fadeOutDur * 1.8,
+        })
+        // tl.to(
+        //   linesArray,
+        //   {
+        //     opacity: 0,
+        //     scale: 0.99,
+        //     duration: fadeOutDur,
+        //     ease: easings[1],
+        //   },
+        //   '<'
+        // ) // start at same time as previous)
+      }
     })
   }
 
@@ -262,9 +302,28 @@ function miraUI() {
       const menuHeadings = MENUS[0].querySelectorAll('h2')
       menuHeadings[1].classList.add('is--inactive')
       menuHeadings[2].classList.remove('is--inactive')
+    } else if (firstMenuHasBeenViewed == 3) {
+      circularMenuContainer.style.pointerEvents = 'auto'
     } else {
       return
     }
+  }
+
+  function decideBasedOnAlignment() {
+    console.log(alignmentIndex)
+    let nextIndex = 0
+    if (alignmentIndex == 50) {
+      // MIDDLE GROUND
+      nextIndex = STEPS.length - 1
+    } else if (alignmentIndex > 50) {
+      // TOP ALIGNMENT
+      nextIndex = 64 // just go to STAGE 5
+    } else {
+      // OUTSIDE OF IT
+      nextIndex = STEPS.length - 1
+      shutDownField()
+    }
+    return nextIndex
   }
 
   // MAIN BRAIN
@@ -276,7 +335,7 @@ function miraUI() {
     }
 
     if (fromStep.type === 'menu') {
-      await fadeMenuOut(MENUS[fromStep.menuIndex])
+      await fadeMenuOut(MENUS[fromStep.menuIndex], fromStep.menuIndex)
       if (fromStep.menuIndex == 0) {
         firstMenuHasBeenViewed++
         console.log('first Menu viewed: ', firstMenuHasBeenViewed)
@@ -290,7 +349,7 @@ function miraUI() {
       // If next step is normal, swap texture and move it in
       window.dispatchEvent(
         new CustomEvent('swapTexture', {
-          detail: { step: currentStep },
+          detail: { step: currentStepIndex },
         })
       )
       await fadeShaderIn()
@@ -302,7 +361,7 @@ function miraUI() {
       // if step is bridge, trigger animation (this will go to next step by itself)
       // usually nothing (it self-resolves)
       await bridgeAnimation(BRIDGES[toStep.bridgeIndex])
-      goToStep(currentStep + 1)
+      goToStep(currentStepIndex + 1)
       isClickEnabled = true
       console.log('click is on')
     }
@@ -310,6 +369,7 @@ function miraUI() {
     if (toStep.type === 'menu') {
       isClickEnabled = false
       console.log('click is off')
+      console.log('menu should be showing')
       await fadeMenuIn(MENUS[toStep.menuIndex], toStep.menuIndex)
     }
   }
@@ -320,35 +380,44 @@ function miraUI() {
     }
 
     let toStep = STEPS[nextStepIndex]
-    let fromStep = STEPS[currentStep] // to check if needs fade in
+    let fromStep = STEPS[currentStepIndex] // to check if needs fade in
 
     await exit(fromStep) // Exit from current step
 
     if (
-      currentStep == 60 || // end of alignment
-      currentStep == 54 || // end of stratosphere
-      currentStep == 43 || // end of communication
-      currentStep == 36 || // end of habitat
-      currentStep == 30 // end of conditions
+      currentStepIndex == 60 || // end of alignment
+      currentStepIndex == 54 || // end of stratosphere
+      currentStepIndex == 43 || // end of communication
+      currentStepIndex == 36 || // end of habitat
+      currentStepIndex == 30 // end of conditions
     ) {
       //
-      currentStep = 23 // CIRCULAR 5 DOCUMENTS MENU
-      toStep = currentStep
+      currentStepIndex = 23 // CIRCULAR 5 DOCUMENTS MENU
+      toStep = STEPS[currentStepIndex]
+    } else if (currentStepIndex == 63) {
+      currentStepIndex = decideBasedOnAlignment()
+      toStep = STEPS[currentStepIndex]
     } else {
-      currentStep = nextStepIndex // update current step to track where we at (NORMALLY MOVE 1 FORWARD)
+      currentStepIndex = nextStepIndex // update current step to track where we at (NORMALLY MOVE 1 FORWARD)
     }
-    CURRENT_STEP_TXT.textContent = 'Current step: ' + currentStep
+
+    if (isSufficientInteraction) {
+      positionMenuContainer.style.pointerEvents = 'auto'
+      currentStepIndex = 61 // STAGE 4
+      toStep = STEPS[currentStepIndex]
+    }
+    CURRENT_STEP_TXT.textContent = 'Current step: ' + currentStepIndex
 
     await enter(toStep) // Move into new currentStep
 
-    if (currentStep == 1) {
+    if (currentStepIndex == 1) {
       stabilizeBackground()
     }
   }
 
   window.addEventListener('click', () => {
     if (isClickEnabled) {
-      goToStep(currentStep + 1) // move forward one step
+      goToStep(currentStepIndex + 1) // move forward one step
     } else {
       console.log('click is off')
     }
@@ -406,6 +475,31 @@ function miraUI() {
         } else if (index == 7) {
           // ALIGNMENT
           goToStep(55)
+        } else if (index == 8) {
+          // STAGE 4 REACTION - Pulled toward it
+          alignmentIndex = 100
+          STAGE_4_REACTION.textContent = 'The direction is already set.'
+          goToStep(63)
+        } else if (index == 9) {
+          // STAGE 4 REACTION - Leaning into it
+          alignmentIndex = 80
+          STAGE_4_REACTION.textContent = 'You are beginning to move.'
+          goToStep(63)
+        } else if (index == 10) {
+          // STAGE 4 REACTION - Unresolved
+          alignmentIndex = 50
+          STAGE_4_REACTION.textContent = 'You remain between positions.'
+          goToStep(63)
+        } else if (index == 11) {
+          // STAGE 4 REACTION - Keeping distance
+          alignmentIndex = 20
+          STAGE_4_REACTION.textContent = 'Distance is being maintained.'
+          goToStep(63)
+        } else if (index == 12) {
+          // STAGE 4 REACTION - Outside of it
+          alignmentIndex = 0
+          STAGE_4_REACTION.textContent = 'You have not entered.'
+          goToStep(63)
         }
       }
     })
