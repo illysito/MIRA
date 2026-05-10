@@ -1,10 +1,9 @@
 import gsap from 'gsap'
 
 import STEPS from '../data/stepsArray'
-// console.log(STEPS)
 
 const UNIFORMS_TEXTURE = {
-  offset: 0,
+  offset: 1,
   scale: 1,
   amplitude: 0.32,
   frequency: 24,
@@ -37,32 +36,32 @@ function miraUI() {
   )
   const STAGE_4_REACTION = document.querySelector('.stage_4_reaction-h')
 
-  let fadeOutDur = 2.8
-  let voidDelay = 1.6
-  let easings = ['linear', 'power1.inOut', 'power2.out', 'power2.inOut']
-  // let easeIndex = 0
   const maxStep = STEPS.length
-  // mouse events
-  // window.addEventListener('mousedown', () => {
-  //   console.log('mousedown')
-  // })
-
-  // window.addEventListener('mousemove', () => {
-  //   console.log('mousemove')
-  // })
-
-  // window.addEventListener('mouseup', () => {
-  //   console.log('mouseup')
-  // })
-
+  let defaultAmplitude = 0.32
   let currentStepIndex = 0
-  let isClickEnabled = true
+  // let isTransitioning = false
+  // hold & click gates
+  let holdTimeDue = false
+  let isHoldEnabled = true
+  let isClickEnabled = false
+  // actions been DONE gates
   let isBackgroundStabilized = false
   let firstMenuHasBeenViewed = 0
   let isSufficientInteraction = false
+  // how aligned are you?
   let alignmentIndex = 0
 
   // FUNCTIONS
+
+  function fadeSystemIn() {
+    gsap.to(UNIFORMS_TEXTURE, {
+      delay: STEPS[0].voidDelay,
+      offset: 0, // means fade in
+      duration: STEPS[0].fadeInDuration,
+      ease: STEPS[0].easeIn,
+    })
+  }
+  fadeSystemIn()
 
   function stabilizeBackground() {
     if (!isBackgroundStabilized) {
@@ -71,7 +70,7 @@ function miraUI() {
         u_iMix: 0.12,
         u_timeFactor: 0.1,
         duration: 18,
-        ease: easings[1],
+        ease: 'linear',
       })
       isBackgroundStabilized = true
     }
@@ -83,7 +82,7 @@ function miraUI() {
       u_iMix: 0.0,
       u_timeFactor: 0.0,
       duration: 8,
-      ease: easings[1],
+      ease: 'power1.inOut',
     })
   }
 
@@ -103,14 +102,18 @@ function miraUI() {
     })
   }
 
-  async function fadeShaderIn() {
+  async function fadeShaderIn(toStep) {
+    const DURATION = toStep.fadeInDuration
+    const VOID_DELAY = toStep.voidDelay
+    const EASE_IN = toStep.easeIn
+
     return new Promise((resolve) => {
       gsap.to(UNIFORMS_TEXTURE, {
-        delay: voidDelay * 1.8,
+        delay: VOID_DELAY,
         offset: 0, // means fade in
         scale: 1.0,
-        duration: fadeOutDur,
-        ease: easings[1],
+        duration: DURATION,
+        ease: EASE_IN,
         onComplete: () => {
           resolve()
         },
@@ -118,28 +121,41 @@ function miraUI() {
     })
   }
 
-  async function fadeShaderOut() {
+  async function fadeShaderOut(fromStep) {
+    const DURATION = fromStep.fadeOutDuration
+    const EASE_OUT = fromStep.easeOut
+
     return new Promise((resolve) => {
       gsap.to(UNIFORMS_TEXTURE, {
         offset: 1, // means fade out
         scale: 1.01,
-        duration: fadeOutDur,
-        ease: easings[1],
-        onComplete: resolve,
+        duration: DURATION,
+        ease: EASE_OUT,
+        onComplete: () => {
+          // restore amplitude
+          gsap.set(UNIFORMS_TEXTURE, {
+            amplitude: defaultAmplitude,
+          })
+          resolve()
+        },
       })
     })
   }
 
-  function bridgeAnimation(container) {
-    // console.log('yeka')
+  function bridgeAnimation(toStep, container) {
+    const DURATION = toStep.fadeDuration
+    const VOID_DELAY = toStep.voidDelay
+    const STAGGER_DELAY = toStep.staggerDuration
+    const EASE_IN = toStep.easeIn
+    const EASE_OUT = toStep.easeOut
 
     return new Promise((resolve) => {
       const linesArray = [...container.querySelectorAll('h2')]
-      // console.log(linesArray)
 
       const tl = gsap.timeline({
         onComplete: () => {
           fadeCursorIn()
+          console.log('out of bridge')
           resolve()
         },
       })
@@ -149,7 +165,7 @@ function miraUI() {
       // Container fades in
       tl.to(container, {
         opacity: 1,
-        duration: fadeOutDur,
+        duration: DURATION,
       })
 
       // Lines fade in (at same time as container)
@@ -158,36 +174,39 @@ function miraUI() {
         {
           opacity: 0.8,
           scale: 0.99,
-          duration: fadeOutDur,
-          ease: easings[1],
-          delay: voidDelay * 1.8,
-          stagger: fadeOutDur / 6,
+          duration: DURATION,
+          ease: EASE_IN,
+          delay: VOID_DELAY,
+          stagger: STAGGER_DELAY,
         },
         '<' // start at same time as previous
       )
 
       // Lines fade out after delay
       tl.to(linesArray, {
-        delay: voidDelay * 2,
+        delay: VOID_DELAY * 1.16,
         opacity: 0,
         scale: 1.0,
-        duration: fadeOutDur,
-        ease: easings[1],
-        stagger: fadeOutDur / 6,
+        duration: DURATION,
+        ease: EASE_OUT,
+        stagger: STAGGER_DELAY,
       })
 
       // Container fades out
       tl.to(container, {
         opacity: 0,
-        duration: fadeOutDur / 2,
+        duration: DURATION / 2,
       })
     })
   }
 
-  async function fadeMenuIn(container, menuIndex) {
+  async function fadeMenuIn(toStep, container, menuIndex) {
+    const DURATION = toStep.fadeInDuration
+    const STAGGER_DELAY = toStep.staggerDuration
+    const EASE_IN = toStep.easeIn
+
     return new Promise((resolve) => {
       const linesArray = [...container.querySelectorAll('h2')]
-      // console.log(linesArray)
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -200,21 +219,20 @@ function miraUI() {
         // Container fades in
         tl.to(container, {
           opacity: 1,
-          duration: fadeOutDur,
+          duration: DURATION,
         })
 
         // Lines fade in (at same time as container)
         linesArray.forEach((l) => {
-          console.log(l)
           if (l.classList.contains('is--inactive')) {
             tl.to(
               l,
               {
                 opacity: 0.28,
                 scale: 0.99,
-                duration: fadeOutDur,
-                ease: easings[1],
-                delay: fadeOutDur / 6,
+                duration: DURATION,
+                ease: EASE_IN,
+                delay: STAGGER_DELAY,
               },
               '<'
             ) // start at same time as previous)
@@ -224,31 +242,21 @@ function miraUI() {
               {
                 opacity: 0.8,
                 scale: 0.99,
-                duration: fadeOutDur,
-                ease: easings[1],
-                delay: fadeOutDur / 6,
+                duration: DURATION,
+                ease: EASE_IN,
+                delay: STAGGER_DELAY,
               },
               '<'
             ) // start at same time as previous)
           }
         })
       } else if (menuIndex == 1) {
-        // Second menu, NO hierarchy
-        console.log(container)
+        // Second menu, NO hierarchy, meaning NO STAGGER and NO FOR EACH
         tl.to(container, {
           opacity: 1,
-          duration: fadeOutDur * 1.8,
+          duration: DURATION,
+          ease: EASE_IN,
         })
-        // tl.to(
-        //   linesArray,
-        //   {
-        //     opacity: 0.8,
-        //     scale: 0.99,
-        //     duration: fadeOutDur,
-        //     ease: easings[1],
-        //   },
-        //   '<'
-        // ) // start at same time as previous)
       }
 
       // Cursor activation
@@ -260,10 +268,13 @@ function miraUI() {
     })
   }
 
-  async function fadeMenuOut(container, menuIndex) {
+  async function fadeMenuOut(fromStep, container, menuIndex) {
+    const DURATION = fromStep.fadeInDuration
+    const STAGGER_DELAY = fromStep.staggerDuration
+    const EASE_OUT = fromStep.easeOut
+
     return new Promise((resolve) => {
       const linesArray = [...container.querySelectorAll('h2')]
-      // console.log(linesArray)
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -275,7 +286,7 @@ function miraUI() {
         // Container fades in
         tl.to(container, {
           opacity: 0,
-          duration: fadeOutDur,
+          duration: DURATION,
         })
 
         // Lines fade in (at same time as container)
@@ -284,9 +295,9 @@ function miraUI() {
           {
             opacity: 0.0,
             scale: 1.0,
-            duration: fadeOutDur,
-            ease: easings[1],
-            stagger: fadeOutDur / 6,
+            duration: DURATION,
+            ease: EASE_OUT,
+            stagger: STAGGER_DELAY,
           },
           '<' // start at same time as previous
         )
@@ -294,18 +305,8 @@ function miraUI() {
         // Second menu, NO hierarchy
         tl.to(container, {
           opacity: 0,
-          duration: fadeOutDur * 1.8,
+          duration: DURATION,
         })
-        // tl.to(
-        //   linesArray,
-        //   {
-        //     opacity: 0,
-        //     scale: 0.99,
-        //     duration: fadeOutDur,
-        //     ease: easings[1],
-        //   },
-        //   '<'
-        // ) // start at same time as previous)
       }
     })
   }
@@ -327,14 +328,13 @@ function miraUI() {
   }
 
   function decideBasedOnAlignment() {
-    console.log(alignmentIndex)
     let nextIndex = 0
     if (alignmentIndex == 50) {
       // MIDDLE GROUND
       nextIndex = STEPS.length - 1
     } else if (alignmentIndex > 50) {
       // TOP ALIGNMENT
-      nextIndex = 61 // just go to STAGE 5
+      nextIndex = 60 // just go to STAGE 5
     } else {
       // OUTSIDE OF IT
       nextIndex = STEPS.length - 1
@@ -348,14 +348,13 @@ function miraUI() {
   async function exit(fromStep) {
     if (fromStep.type === 'normal') {
       // If current is normal shader animation, just fade it out.
-      await fadeShaderOut()
+      await fadeShaderOut(fromStep)
     }
 
     if (fromStep.type === 'menu') {
-      await fadeMenuOut(MENUS[fromStep.menuIndex], fromStep.menuIndex)
+      await fadeMenuOut(fromStep, MENUS[fromStep.menuIndex], fromStep.menuIndex)
       if (fromStep.menuIndex == 0) {
         firstMenuHasBeenViewed++
-        console.log('first Menu viewed: ', firstMenuHasBeenViewed)
       }
       stage1MenuOpacity()
     }
@@ -369,7 +368,7 @@ function miraUI() {
           detail: { step: currentStepIndex },
         })
       )
-      await fadeShaderIn()
+      await fadeShaderIn(toStep)
       isClickEnabled = true
       console.log('click is on')
     }
@@ -377,7 +376,7 @@ function miraUI() {
     if (toStep.type === 'bridge') {
       // if step is bridge, trigger animation (this will go to next step by itself)
       // usually nothing (it self-resolves)
-      await bridgeAnimation(BRIDGES[toStep.bridgeIndex])
+      await bridgeAnimation(toStep, BRIDGES[toStep.bridgeIndex])
       goToStep(currentStepIndex + 1)
       isClickEnabled = true
       console.log('click is on')
@@ -386,13 +385,15 @@ function miraUI() {
     if (toStep.type === 'menu') {
       isClickEnabled = false
       console.log('click is off')
-      console.log('menu should be showing')
-      await fadeMenuIn(MENUS[toStep.menuIndex], toStep.menuIndex)
+      await fadeMenuIn(toStep, MENUS[toStep.menuIndex], toStep.menuIndex)
     }
   }
 
   async function goToStep(nextStepIndex) {
-    if (nextStepIndex > maxStep) {
+    // if (isTransitioning) return
+    // isTransitioning = true
+
+    if (nextStepIndex >= maxStep) {
       return
     }
 
@@ -403,9 +404,9 @@ function miraUI() {
 
     if (STEPS[currentStepIndex].nextIsMenu === true) {
       // is the last doc of any of the 5 documents of stage 2
-      currentStepIndex = 23 // CIRCULAR 5 DOCUMENTS MENU
+      currentStepIndex = 22 // CIRCULAR 5 DOCUMENTS MENU
       toStep = STEPS[currentStepIndex]
-    } else if (currentStepIndex == 60) {
+    } else if (currentStepIndex == 59) {
       currentStepIndex = decideBasedOnAlignment()
       toStep = STEPS[currentStepIndex]
     } else {
@@ -414,7 +415,7 @@ function miraUI() {
 
     if (isSufficientInteraction) {
       positionMenuContainer.style.pointerEvents = 'auto'
-      currentStepIndex = 61 // STAGE 4
+      currentStepIndex = 57 // STAGE 4
       toStep = STEPS[currentStepIndex]
     }
     CURRENT_STEP_TXT.textContent = 'Current step: ' + currentStepIndex
@@ -424,7 +425,11 @@ function miraUI() {
     if (currentStepIndex == 1) {
       stabilizeBackground()
     }
+
+    // isTransitioning = false
   }
+
+  // CLICK
 
   window.addEventListener('click', () => {
     if (isClickEnabled) {
@@ -436,7 +441,52 @@ function miraUI() {
     console.log('click is off')
   })
 
+  // HOLD
+
+  let holdTween
+  let releaseTween
+  let holdDuration = 4
+  window.addEventListener('pointerdown', () => {
+    if (!isHoldEnabled) return
+
+    holdTimeDue = false
+    releaseTween?.kill()
+
+    holdTween = gsap.to(UNIFORMS_TEXTURE, {
+      offset: 0.2,
+      amplitude: 3,
+      duration: holdDuration,
+      ease: 'power2.out',
+
+      onComplete: () => {
+        holdTimeDue = true
+        isHoldEnabled = false
+        goToStep(1)
+      },
+    })
+  })
+
+  window.addEventListener('pointerup', () => {
+    if (!holdTween) return
+
+    if (!holdTimeDue) {
+      // stop the hold wherever it currently is
+      holdTween.kill()
+
+      // smoothly go back from the current values
+      releaseTween = gsap.to(UNIFORMS_TEXTURE, {
+        offset: 0,
+        amplitude: defaultAmplitude,
+        duration: 2.8,
+        ease: 'power2.out',
+      })
+    }
+
+    holdTween = null
+  })
+
   // HEADINGS OF MENU CLICKS
+
   menuHeadings.forEach((heading, index) => {
     heading.addEventListener('mouseover', () => {
       if (heading.classList.contains('is--inactive')) {
@@ -473,55 +523,57 @@ function miraUI() {
           goToStep(16)
         } else if (index == 3) {
           // CONDITIONS
-          goToStep(24)
+          goToStep(23)
         } else if (index == 4) {
           // STRATOSPHERE
-          goToStep(40)
+          goToStep(39)
         } else if (index == 5) {
           // COMMUNICATION
-          goToStep(35)
+          goToStep(34)
         } else if (index == 6) {
           // HABITAT
-          goToStep(30)
+          goToStep(29)
         } else if (index == 7) {
           // ALIGNMENT
-          goToStep(51)
+          goToStep(50)
         } else if (index == 8) {
           // STAGE 4 REACTION - Pulled toward it
           alignmentIndex = 100
           STAGE_4_REACTION.textContent = 'The direction is already set.'
-          goToStep(60)
+          goToStep(59)
         } else if (index == 9) {
           // STAGE 4 REACTION - Leaning into it
           alignmentIndex = 80
           STAGE_4_REACTION.textContent = 'You are beginning to move.'
-          goToStep(60)
+          goToStep(59)
         } else if (index == 10) {
           // STAGE 4 REACTION - Unresolved
           alignmentIndex = 50
           STAGE_4_REACTION.textContent = 'You remain between positions.'
-          goToStep(60)
+          goToStep(59)
         } else if (index == 11) {
           // STAGE 4 REACTION - Keeping distance
           alignmentIndex = 20
           STAGE_4_REACTION.textContent = 'Distance is being maintained.'
-          goToStep(60)
+          goToStep(59)
         } else if (index == 12) {
           // STAGE 4 REACTION - Outside of it
           alignmentIndex = 0
           STAGE_4_REACTION.textContent = 'You have not entered.'
-          goToStep(60)
+          goToStep(59)
         }
       }
     })
   })
 
   // CURSOR
+
   window.addEventListener('mousemove', (e) => {
     CURSOR.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
   })
 
   // FROM CONSOLE
+
   function go(x) {
     goToStep(x)
   }
