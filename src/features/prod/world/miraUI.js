@@ -5,7 +5,7 @@ import STEPS from '../data/stepsArray'
 const UNIFORMS_TEXTURE = {
   offset: 1,
   scale: 1,
-  amplitude: 0.32,
+  amplitude: 0.28,
   frequency: 24,
   blocks: 800,
 
@@ -28,16 +28,11 @@ function miraUI() {
   const BRIDGES = [...document.querySelectorAll('.is--bridge')]
   const MENUS = [...document.querySelectorAll('.is--menu')]
   const menuHeadings = document.querySelectorAll('.menu-h')
-  const circularMenuContainer = document.querySelector(
-    '.stage_3_menu_container'
-  )
-  const positionMenuContainer = document.querySelector(
-    '.stage_4_interaction_container'
-  )
+
   const STAGE_4_REACTION = document.querySelector('.stage_4_reaction-h')
 
   const maxStep = STEPS.length
-  let defaultAmplitude = 0.32
+  let defaultAmplitude = 0.28
   let currentStepIndex = 0
   // let isTransitioning = false
   // hold & click gates
@@ -46,10 +41,11 @@ function miraUI() {
   let isClickEnabled = false
   // actions been DONE gates
   let isBackgroundStabilized = false
+  let isBackgroundReadyForNDA = false
   let firstMenuHasBeenViewed = 0
   let isSufficientInteraction = false
   // how aligned are you?
-  let alignmentIndex = 0
+  let alignmentIndex = 100
 
   // FUNCTIONS
 
@@ -63,6 +59,7 @@ function miraUI() {
   }
   fadeSystemIn()
 
+  // On first interaction!
   function stabilizeBackground() {
     if (!isBackgroundStabilized) {
       gsap.to(UNIFORMS_BACKGROUND, {
@@ -76,15 +73,28 @@ function miraUI() {
     }
   }
 
-  function shutDownField() {
-    gsap.to(UNIFORMS_BACKGROUND, {
-      u_fMix: 0.0,
-      u_iMix: 0.0,
-      u_timeFactor: 0.0,
-      duration: 8,
-      ease: 'power1.inOut',
-    })
+  function adjustNDABackground() {
+    if (!isBackgroundReadyForNDA) {
+      gsap.to(UNIFORMS_BACKGROUND, {
+        u_fMix: 0.75,
+        u_iMix: 0.25,
+        u_timeFactor: 0.1,
+        duration: 18,
+        ease: 'linear',
+      })
+      isBackgroundReadyForNDA = true
+    }
   }
+
+  // function shutDownField() {
+  //   gsap.to(UNIFORMS_BACKGROUND, {
+  //     u_fMix: 0.0,
+  //     u_iMix: 0.0,
+  //     u_timeFactor: 0.0,
+  //     duration: 8,
+  //     ease: 'power1.inOut',
+  //   })
+  // }
 
   function fadeCursorOut() {
     gsap.to(CURSOR, {
@@ -145,7 +155,9 @@ function miraUI() {
   function bridgeAnimation(toStep, container) {
     const DURATION = toStep.fadeDuration
     const VOID_DELAY = toStep.voidDelay
-    const STAGGER_DELAY = toStep.staggerDuration
+    const HOLD_DELAY = toStep.holdDelay
+    const STAGGER_IN = toStep.staggerIn
+    const STAGGER_OUT = toStep.staggerOut
     const EASE_IN = toStep.easeIn
     const EASE_OUT = toStep.easeOut
 
@@ -166,6 +178,8 @@ function miraUI() {
       tl.to(container, {
         opacity: 1,
         duration: DURATION,
+        delay: VOID_DELAY,
+        ease: EASE_IN,
       })
 
       // Lines fade in (at same time as container)
@@ -175,21 +189,21 @@ function miraUI() {
           opacity: 0.8,
           scale: 0.99,
           duration: DURATION,
+          // delay: VOID_DELAY,
           ease: EASE_IN,
-          delay: VOID_DELAY,
-          stagger: STAGGER_DELAY,
+          stagger: STAGGER_IN,
         },
         '<' // start at same time as previous
       )
 
       // Lines fade out after delay
       tl.to(linesArray, {
-        delay: VOID_DELAY * 1.16,
+        delay: HOLD_DELAY,
         opacity: 0,
         scale: 1.0,
         duration: DURATION,
         ease: EASE_OUT,
-        stagger: STAGGER_DELAY,
+        stagger: STAGGER_OUT,
       })
 
       // Container fades out
@@ -204,12 +218,22 @@ function miraUI() {
     const DURATION = toStep.fadeInDuration
     const STAGGER_DELAY = toStep.staggerDuration
     const EASE_IN = toStep.easeIn
+    const DELAY = toStep.voidDelay
 
     return new Promise((resolve) => {
       const linesArray = [...container.querySelectorAll('h2')]
 
       const tl = gsap.timeline({
         onComplete: () => {
+          // Cursor activation
+          // if (menuIndex == 1) {
+          //   circularMenuContainer.style.pointerEvents = 'auto'
+          // } else if (menuIndex == 2) {
+          //   positionMenuContainer.style.pointerEvents = 'auto'
+          // } else if (menuIndex == 3) {
+          //   positionMenuContainer.style.pointerEvents = 'auto'
+          // }
+          container.style.pointerEvents = 'auto'
           resolve()
         },
       })
@@ -220,6 +244,8 @@ function miraUI() {
         tl.to(container, {
           opacity: 1,
           duration: DURATION,
+          delay: DELAY,
+          ease: EASE_IN,
         })
 
         // Lines fade in (at same time as container)
@@ -250,20 +276,14 @@ function miraUI() {
             ) // start at same time as previous)
           }
         })
-      } else if (menuIndex == 1) {
+      } else if (menuIndex == 1 || menuIndex == 3 || menuIndex == 4) {
         // Second menu, NO hierarchy, meaning NO STAGGER and NO FOR EACH
         tl.to(container, {
           opacity: 1,
           duration: DURATION,
+          delay: DELAY,
           ease: EASE_IN,
         })
-      }
-
-      // Cursor activation
-      if (menuIndex == 1) {
-        circularMenuContainer.style.pointerEvents = 'auto'
-      } else if (menuIndex == 2) {
-        positionMenuContainer.style.pointerEvents = 'auto'
       }
     })
   }
@@ -287,6 +307,7 @@ function miraUI() {
         tl.to(container, {
           opacity: 0,
           duration: DURATION,
+          ease: EASE_OUT,
         })
 
         // Lines fade in (at same time as container)
@@ -301,13 +322,16 @@ function miraUI() {
           },
           '<' // start at same time as previous
         )
-      } else if (menuIndex == 1) {
+      } else if (menuIndex == 1 || menuIndex == 3 || menuIndex == 4) {
         // Second menu, NO hierarchy
         tl.to(container, {
           opacity: 0,
           duration: DURATION,
+          ease: EASE_OUT,
         })
       }
+
+      container.style.pointerEvents = 'none'
     })
   }
 
@@ -320,8 +344,8 @@ function miraUI() {
       const menuHeadings = MENUS[0].querySelectorAll('h2')
       menuHeadings[1].classList.add('is--inactive')
       menuHeadings[2].classList.remove('is--inactive')
-    } else if (firstMenuHasBeenViewed == 3) {
-      circularMenuContainer.style.pointerEvents = 'auto'
+      // } else if (firstMenuHasBeenViewed == 3) {
+      //   circularMenuContainer.style.pointerEvents = 'auto'
     } else {
       return
     }
@@ -329,16 +353,12 @@ function miraUI() {
 
   function decideBasedOnAlignment() {
     let nextIndex = 0
-    if (alignmentIndex == 50) {
-      // MIDDLE GROUND
-      nextIndex = STEPS.length - 1
-    } else if (alignmentIndex > 50) {
+    if (alignmentIndex > 50) {
       // TOP ALIGNMENT
-      nextIndex = 60 // just go to STAGE 5
+      nextIndex = 61 // just go to STAGE 5
     } else {
-      // OUTSIDE OF IT
+      // OUTSIDE OF IT or MIDDLE GROUND
       nextIndex = STEPS.length - 1
-      shutDownField()
     }
     return nextIndex
   }
@@ -369,8 +389,10 @@ function miraUI() {
         })
       )
       await fadeShaderIn(toStep)
-      isClickEnabled = true
-      console.log('click is on')
+      if (toStep.id != 'step-60') {
+        isClickEnabled = true // Normally we need to put it as TRUE, but not when INNER CIRCLE is entering, this will be handled in the FADE IN of the menu :)
+        console.log('click is on')
+      }
     }
 
     if (toStep.type === 'bridge') {
@@ -407,6 +429,13 @@ function miraUI() {
       currentStepIndex = 22 // CIRCULAR 5 DOCUMENTS MENU
       toStep = STEPS[currentStepIndex]
     } else if (currentStepIndex == 59) {
+      // Just exited from REFLECTION and need to prepare interaction with CIRCLE!
+      // currentStepIndex = decideBasedOnAlignment()
+      isClickEnabled = false
+      isHoldEnabled = true
+      currentStepIndex = nextStepIndex // We will ALWAYS go to next step (Inner Circle)
+    } else if (currentStepIndex == 60) {
+      // Just exited from INNER CIRCLE and need to decide where to go (REST or NEXT)
       currentStepIndex = decideBasedOnAlignment()
       toStep = STEPS[currentStepIndex]
     } else {
@@ -414,7 +443,7 @@ function miraUI() {
     }
 
     if (isSufficientInteraction) {
-      positionMenuContainer.style.pointerEvents = 'auto'
+      // positionMenuContainer.style.pointerEvents = 'auto'
       currentStepIndex = 57 // STAGE 4
       toStep = STEPS[currentStepIndex]
     }
@@ -424,6 +453,8 @@ function miraUI() {
 
     if (currentStepIndex == 1) {
       stabilizeBackground()
+    } else if (currentStepIndex == 62) {
+      adjustNDABackground()
     }
 
     // isTransitioning = false
@@ -456,12 +487,12 @@ function miraUI() {
       offset: 0.2,
       amplitude: 3,
       duration: holdDuration,
-      ease: 'power2.out',
+      ease: 'linear',
 
       onComplete: () => {
         holdTimeDue = true
         isHoldEnabled = false
-        goToStep(1)
+        goToStep(currentStepIndex + 1)
       },
     })
   })
@@ -539,28 +570,31 @@ function miraUI() {
         } else if (index == 8) {
           // STAGE 4 REACTION - Pulled toward it
           alignmentIndex = 100
-          STAGE_4_REACTION.textContent = 'The direction is already set.'
+          STAGE_4_REACTION.textContent = 'Coherence is present within you.'
           goToStep(59)
         } else if (index == 9) {
           // STAGE 4 REACTION - Leaning into it
           alignmentIndex = 80
-          STAGE_4_REACTION.textContent = 'You are beginning to move.'
+          STAGE_4_REACTION.textContent = 'Your proximity is increasing.'
           goToStep(59)
         } else if (index == 10) {
           // STAGE 4 REACTION - Unresolved
           alignmentIndex = 50
-          STAGE_4_REACTION.textContent = 'You remain between positions.'
+          STAGE_4_REACTION.textContent = 'Your position has not settled.'
           goToStep(59)
         } else if (index == 11) {
           // STAGE 4 REACTION - Keeping distance
           alignmentIndex = 20
-          STAGE_4_REACTION.textContent = 'Distance is being maintained.'
+          STAGE_4_REACTION.textContent = 'Your separation is being maintained.'
           goToStep(59)
         } else if (index == 12) {
           // STAGE 4 REACTION - Outside of it
           alignmentIndex = 0
-          STAGE_4_REACTION.textContent = 'You have not entered.'
+          STAGE_4_REACTION.textContent = 'No relation is forming within you.'
           goToStep(59)
+        } else if (index == 13) {
+          // Go to DocuSign FOCUS
+          goToStep(62)
         }
       }
     })

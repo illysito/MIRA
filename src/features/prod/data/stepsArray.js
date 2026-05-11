@@ -1,11 +1,12 @@
 // PARAMETERS FOR SHADERS
 const shaderFadeOutDur_1 = 2.8
 const shaderFadeInDur_1 = 2.8
-const shaderVoidDelay_1 = 1.8
+const shaderVoidDelay_1 = 1
 
 // PARAMETERS FOR BRIDGES
 const bridgeFadeDur_1 = 2.8
 const bridgeVoidDelay_1 = 2.8
+const bridgeHoldDelay_1 = 3.2
 const bridgeStagger_1 = 0.48
 
 // PARAMETERS FOR MENUS
@@ -30,9 +31,11 @@ const STEPS = [
     bridgeIndex: 0,
     id: 'step-1',
     currentTexture: 'none',
-    fadeDuration: bridgeFadeDur_1,
-    voidDelay: bridgeVoidDelay_1,
-    staggerDuration: bridgeStagger_1,
+    fadeDuration: bridgeFadeDur_1 * 1.4,
+    voidDelay: bridgeVoidDelay_1 * 1.4,
+    holdDelay: bridgeHoldDelay_1,
+    staggerIn: bridgeStagger_1,
+    staggerOut: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
@@ -45,6 +48,7 @@ const STEPS = [
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1,
     staggerDuration: menuStagger_1,
+    voidDelay: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
@@ -108,6 +112,7 @@ const STEPS = [
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1,
     staggerDuration: menuStagger_1,
+    voidDelay: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
@@ -181,6 +186,7 @@ const STEPS = [
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1,
     staggerDuration: menuStagger_1,
+    voidDelay: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
@@ -243,7 +249,9 @@ const STEPS = [
     currentTexture: 'none',
     fadeDuration: bridgeFadeDur_1,
     voidDelay: bridgeVoidDelay_1,
-    staggerDuration: bridgeStagger_1 * 1.6,
+    holdDelay: bridgeHoldDelay_1 * 1.2,
+    staggerIn: bridgeStagger_1 * 1.8,
+    staggerOut: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
@@ -253,9 +261,10 @@ const STEPS = [
     menuIndex: 1,
     id: 'step-22',
     currentTexture: 'none',
-    fadeOutDuration: menuFadeOutDur_1 * 1.8,
+    fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1 * 1.8,
     staggerDuration: menuStagger_1,
+    voidDelay: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
@@ -615,9 +624,11 @@ const STEPS = [
     bridgeIndex: 2,
     id: 'step-57',
     currentTexture: 'none',
-    fadeDuration: bridgeFadeDur_1,
-    voidDelay: bridgeVoidDelay_1,
-    staggerDuration: bridgeStagger_1,
+    fadeDuration: bridgeFadeDur_1 * 1.2,
+    voidDelay: 5,
+    holdDelay: bridgeHoldDelay_1 / 1.5,
+    staggerIn: 3,
+    staggerOut: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
@@ -630,6 +641,7 @@ const STEPS = [
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1,
     staggerDuration: menuStagger_1,
+    voidDelay: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
@@ -641,18 +653,44 @@ const STEPS = [
     currentTexture: 'none',
     fadeDuration: bridgeFadeDur_1,
     voidDelay: bridgeVoidDelay_1,
-    staggerDuration: bridgeStagger_1,
+    holdDelay: bridgeHoldDelay_1,
+    staggerIn: bridgeStagger_1,
+    staggerOut: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
-  // STAGE 5 ************************
   {
     type: 'normal',
     id: 'step-60',
     currentTexture: 'inner_circle',
     fadeOutDuration: shaderFadeOutDur_1,
-    fadeInDuration: shaderFadeInDur_1,
+    fadeInDuration: shaderFadeInDur_1 * 1.6,
     voidDelay: shaderVoidDelay_1,
+    easeIn: 'power1.inOut',
+    easeOut: 'power1.inOut',
+  },
+  // STAGE 5 ************************
+  {
+    type: 'menu', // 'A' deeper layer awaits'
+    menuIndex: 3,
+    id: 'step-61',
+    currentTexture: 'none',
+    fadeOutDuration: menuFadeOutDur_1,
+    fadeInDuration: menuFadeInDur_1 * 2,
+    staggerDuration: 0,
+    voidDelay: 4,
+    easeIn: 'power1.inOut',
+    easeOut: 'power1.inOut',
+  },
+  {
+    type: 'menu',
+    menuIndex: 4,
+    id: 'step-62',
+    currentTexture: 'none',
+    fadeOutDuration: menuFadeOutDur_1,
+    fadeInDuration: menuFadeInDur_1,
+    staggerDuration: 0,
+    voidDelay: bridgeVoidDelay_1,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
