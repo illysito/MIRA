@@ -105,6 +105,7 @@ async function worldHome() {
     depthWrite: false,
   })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
+  plane.position.y = 60
   scene.add(plane)
 
   // Background plane creation

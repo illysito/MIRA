@@ -40,6 +40,7 @@ function miraUI() {
   let isHoldEnabled = true
   let isClickEnabled = false
   // actions been DONE gates
+  let isMenuTransitioning = false
   let isBackgroundStabilized = false
   let isBackgroundReadyForNDA = false
   let firstMenuHasBeenViewed = 0
@@ -58,6 +59,16 @@ function miraUI() {
     })
   }
   fadeSystemIn()
+
+  function fadeInitialCursorIn() {
+    gsap.to(CURSOR, {
+      delay: 1,
+      opacity: 0.8,
+      duration: STEPS[0].fadeInDuration,
+      ease: STEPS[0].easeIn,
+    })
+  }
+  fadeInitialCursorIn()
 
   // On first interaction!
   function stabilizeBackground() {
@@ -215,6 +226,7 @@ function miraUI() {
   }
 
   async function fadeMenuIn(toStep, container, menuIndex) {
+    isMenuTransitioning = true
     const DURATION = toStep.fadeInDuration
     const STAGGER_DELAY = toStep.staggerDuration
     const EASE_IN = toStep.easeIn
@@ -234,6 +246,7 @@ function miraUI() {
           //   positionMenuContainer.style.pointerEvents = 'auto'
           // }
           container.style.pointerEvents = 'auto'
+          isMenuTransitioning = false
           resolve()
         },
       })
@@ -289,6 +302,7 @@ function miraUI() {
   }
 
   async function fadeMenuOut(fromStep, container, menuIndex) {
+    isMenuTransitioning = true
     const DURATION = fromStep.fadeInDuration
     const STAGGER_DELAY = fromStep.staggerDuration
     const EASE_OUT = fromStep.easeOut
@@ -298,6 +312,7 @@ function miraUI() {
 
       const tl = gsap.timeline({
         onComplete: () => {
+          isMenuTransitioning = false
           resolve()
         },
       })
@@ -522,25 +537,33 @@ function miraUI() {
     heading.addEventListener('mouseover', () => {
       if (heading.classList.contains('is--inactive')) {
         return
+      } else if (isMenuTransitioning) {
+        return
       } else {
         gsap.to(heading, {
           opacity: 1,
           duration: 0.4,
+          overwrite: 'auto',
         })
       }
     })
     heading.addEventListener('mouseleave', () => {
       if (heading.classList.contains('is--inactive')) {
         return
+      } else if (isMenuTransitioning) {
+        return
       } else {
         gsap.to(heading, {
           opacity: 0.8,
           duration: 0.4,
+          overwrite: 'auto',
         })
       }
     })
     heading.addEventListener('click', () => {
       if (heading.classList.contains('is--inactive')) {
+        return
+      } else if (isMenuTransitioning) {
         return
       } else {
         if (index == 0) {
@@ -602,8 +625,11 @@ function miraUI() {
 
   // CURSOR
 
+  const side = 28 / 2
   window.addEventListener('mousemove', (e) => {
-    CURSOR.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
+    CURSOR.style.transform = `translate3d(${e.clientX - side}px, ${
+      e.clientY - side
+    }px, 0)`
   })
 
   // FROM CONSOLE
