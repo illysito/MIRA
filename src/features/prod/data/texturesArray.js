@@ -11,8 +11,11 @@ const URLS_INIT = {
   bg: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/e447280e52403f971e69249c087d8b6143102bc0/textures/miraBackground.png'
   ),
+  // inner_circle: githubToJsDelivr(
+  //   'https://github.com/illysito/MIRA/blob/ea439eb6e9981195b6b5f8c9a3c6af53e2119931/textures/miraCircle.png'
+  // ),
   inner_circle: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/ea439eb6e9981195b6b5f8c9a3c6af53e2119931/textures/miraCircle.png'
+    'https://github.com/illysito/MIRA/blob/bb3349fb8a0e93884248d9e4e390f04ded671a7c/textures/MIRA-Menu%20Test.jpg'
   ),
 }
 

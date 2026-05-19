@@ -105,7 +105,8 @@ async function worldHome() {
     depthWrite: false,
   })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  plane.position.y = 60
+  const planeVerticalOffset = 60
+  plane.position.y = planeVerticalOffset
   scene.add(plane)
 
   // Background plane creation
@@ -140,7 +141,7 @@ async function worldHome() {
   let currentY = 0
   let targetX = 0
   let targetY = 0
-  let lerpFactor = 0.012
+  let lerpFactor = 0.032
 
   let seed = Math.random() * 40
   // console.log(seed)
@@ -152,6 +153,8 @@ async function worldHome() {
     if (plane) {
       currentX = lerp(currentX, targetX, lerpFactor)
       currentY = lerp(currentY, targetY, lerpFactor)
+
+      // console.log(currentX)
 
       // Operations in the background plane
       backgroundPlane.material.uniforms.u_time.value = counter
@@ -192,9 +195,25 @@ async function worldHome() {
   })
 
   // Mousemove
+  const horizontalMargin = (window.innerWidth - 600) / 2
+  const verticalMargin = (window.innerHeight - 600) / 2
   window.addEventListener('mousemove', (e) => {
-    targetX = gsap.utils.mapRange(0, window.innerWidth, 0.0, 1.0, e.clientX)
-    targetY = gsap.utils.mapRange(0, window.innerHeight, 0.0, 1.0, e.clientY)
+    // targetX = gsap.utils.mapRange(0, window.innerWidth, 0.0, 1.0, e.clientX)
+    // targetY = gsap.utils.mapRange(0, window.innerHeight, 0.0, 1.0, e.clientY)
+    targetX = gsap.utils.mapRange(
+      horizontalMargin,
+      window.innerWidth - horizontalMargin,
+      0.0,
+      1.0,
+      e.clientX
+    )
+    targetY = gsap.utils.mapRange(
+      verticalMargin - planeVerticalOffset,
+      window.innerHeight - verticalMargin - planeVerticalOffset,
+      0.0,
+      1.0,
+      e.clientY
+    )
   })
 
   // Moving a step forward LOGIC

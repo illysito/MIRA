@@ -100,10 +100,12 @@ void main()
 
 
 
+
   // NOISE
 
   float noise = fbm(uv * 2.0 + 2.0 * sin(0.25 * u_time));
   float color = smoothstep(-1.0, 2.0, noise);
+
 
 
 
@@ -125,12 +127,17 @@ void main()
 
 
 
+
   // CENTER LUMINANCE
 
   vec2 center = vec2(0.5, 0.5);
   vec2 mouse = vec2(u_mouseX, u_mouseY);
   float dist = distance(mouse, center);
-  float centerLuminance = 1.0 - smoothstep(0.1, 2.0, dist);
+  float centerLuminance = 1.0 - smoothstep(0.1, 2.4, dist);
+
+  float hoverDist = distance(vec2(0.35 * mouse.x, mouse.y), vec2(0.35 * uv.x, 1.0 - uv.y));
+  float hoverLuminance = 1.4 - 0.4 * smoothstep(0.0, 0.06, hoverDist);
+
 
 
 
@@ -152,11 +159,14 @@ void main()
 
 
 
+
   // IMAGE SAMPLING
 
   vec4 displacedImg1 = texture2D(u_currentTexture, uvDisplaced1);
   vec4 displacedBG = texture2D(u_bg, uvDisplaced2);
   vec4 finalImg = (displacedImg1 * (1.0 - u_offset) + displacedBG * u_offset);
+
+
 
 
 
@@ -167,9 +177,11 @@ void main()
 
 
 
+
+  
   // FINAL 
 
-  vec4 finalColor = vec4(finalImg.rgb * color * 1.98 * centerLuminance, alphaDistortedFade);
+  vec4 finalColor = vec4(finalImg.rgb * color * 1.98 * centerLuminance * hoverLuminance, alphaDistortedFade);
   gl_FragColor = finalColor;
 
 }
