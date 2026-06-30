@@ -13,6 +13,8 @@ const UNIFORMS_TEXTURE = {
   mixer2: 0.0,
   mixer3: 0.0,
   mixer4: 0.0,
+
+  lineFactor: 0.0,
 }
 
 const UNIFORMS_BACKGROUND = {
@@ -25,7 +27,7 @@ function miraUI() {
   const CURSOR = document.querySelector('.custom-cursor')
   const CURRENT_STEP_TXT = document.querySelector('.effect-title')
   // BRIDGES
-  const BRIDGES = [...document.querySelectorAll('.is--bridge')]
+  // const BRIDGES = [...document.querySelectorAll('.is--bridge')]
   const MENUS = [...document.querySelectorAll('.is--menu')]
   const menuHeadings = document.querySelectorAll('.menu-h')
 
@@ -123,6 +125,36 @@ function miraUI() {
     })
   }
 
+  function fadeLineIn(toStep) {
+    const DURATION = toStep.lineDuration
+    const LINE_OPACITY = toStep.lineOpacity
+    const EASE_IN = toStep.easeIn
+    console.log(DURATION, EASE_IN)
+    gsap.to(UNIFORMS_TEXTURE, {
+      delay: 0,
+      lineFactor: LINE_OPACITY, // means fade in
+      duration: DURATION,
+      ease: EASE_IN,
+    })
+  }
+
+  async function fadeLineOut(fromStep) {
+    const DURATION = fromStep.lineDuration
+    const EASE_IN = fromStep.easeIn
+    console.log(DURATION, EASE_IN)
+    return new Promise((resolve) => {
+      gsap.to(UNIFORMS_TEXTURE, {
+        delay: 0,
+        lineFactor: 0, // means fade in
+        duration: DURATION,
+        ease: EASE_IN,
+        onComplete: () => {
+          resolve()
+        },
+      })
+    })
+  }
+
   async function fadeShaderIn(toStep) {
     const DURATION = toStep.fadeInDuration
     const VOID_DELAY = toStep.voidDelay
@@ -163,17 +195,17 @@ function miraUI() {
     })
   }
 
-  function bridgeAnimation(toStep, container) {
+  function bridgeAnimation(toStep) {
     const DURATION = toStep.fadeDuration
     const VOID_DELAY = toStep.voidDelay
     const HOLD_DELAY = toStep.holdDelay
-    const STAGGER_IN = toStep.staggerIn
-    const STAGGER_OUT = toStep.staggerOut
+    // const STAGGER_IN = toStep.staggerIn
+    // const STAGGER_OUT = toStep.staggerOut
     const EASE_IN = toStep.easeIn
     const EASE_OUT = toStep.easeOut
 
     return new Promise((resolve) => {
-      const linesArray = [...container.querySelectorAll('h2')]
+      // const linesArray = [...container.querySelectorAll('h2')]
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -185,42 +217,19 @@ function miraUI() {
 
       fadeCursorOut()
 
-      // Container fades in
-      tl.to(container, {
-        opacity: 1,
-        duration: DURATION,
+      tl.to(UNIFORMS_TEXTURE, {
         delay: VOID_DELAY,
+        offset: 0, // means fade in
+        scale: 1.0,
+        duration: DURATION,
         ease: EASE_IN,
       })
-
-      // Lines fade in (at same time as container)
-      tl.to(
-        linesArray,
-        {
-          opacity: 0.8,
-          scale: 0.99,
-          duration: DURATION,
-          // delay: VOID_DELAY,
-          ease: EASE_IN,
-          stagger: STAGGER_IN,
-        },
-        '<' // start at same time as previous
-      )
-
-      // Lines fade out after delay
-      tl.to(linesArray, {
+      tl.to(UNIFORMS_TEXTURE, {
         delay: HOLD_DELAY,
-        opacity: 0,
+        offset: 1.0,
         scale: 1.0,
         duration: DURATION,
         ease: EASE_OUT,
-        stagger: STAGGER_OUT,
-      })
-
-      // Container fades out
-      tl.to(container, {
-        opacity: 0,
-        duration: DURATION / 2,
       })
     })
   }
@@ -381,6 +390,10 @@ function miraUI() {
   // MAIN BRAIN
 
   async function exit(fromStep) {
+    if (fromStep.needsLine) {
+      await fadeLineOut(fromStep)
+    }
+
     if (fromStep.type === 'normal') {
       // If current is normal shader animation, just fade it out.
       await fadeShaderOut(fromStep)
@@ -396,6 +409,9 @@ function miraUI() {
   }
 
   async function enter(toStep) {
+    if (toStep.needsLine) {
+      fadeLineIn(toStep)
+    }
     if (toStep.type === 'normal') {
       // If next step is normal, swap texture and move it in
       window.dispatchEvent(
@@ -413,7 +429,12 @@ function miraUI() {
     if (toStep.type === 'bridge') {
       // if step is bridge, trigger animation (this will go to next step by itself)
       // usually nothing (it self-resolves)
-      await bridgeAnimation(toStep, BRIDGES[toStep.bridgeIndex])
+      window.dispatchEvent(
+        new CustomEvent('swapTexture', {
+          detail: { step: currentStepIndex },
+        })
+      )
+      await bridgeAnimation(toStep)
       goToStep(currentStepIndex + 1)
       isClickEnabled = true
       console.log('click is on')

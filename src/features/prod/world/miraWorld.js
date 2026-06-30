@@ -92,6 +92,7 @@ async function worldHome() {
       u_mouseX: { value: 0.5 },
       u_mouseY: { value: 0.5 },
       u_blocks: { value: 800 },
+      u_lineFactor: { value: UNIFORMS_TEXTURE.lineFactor },
 
       u_noiseFrequency: { value: UNIFORMS_TEXTURE.frequency },
       u_displacementCoef: { value: UNIFORMS_TEXTURE.amplitude },
@@ -99,13 +100,14 @@ async function worldHome() {
       u_currentTexture: { value: textures.inner_circle },
       u_noiseTexture: { value: textures.perlin },
       u_bg: { value: textures.bg },
+      u_line: { value: textures.line },
     },
     transparent: true,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  const planeVerticalOffset = 60
+  const planeVerticalOffset = 0
   plane.position.y = planeVerticalOffset
   scene.add(plane)
 
@@ -168,6 +170,7 @@ async function worldHome() {
       // Operations in the main plane
       plane.material.uniforms.u_time.value = counter
       plane.material.uniforms.u_offset.value = UNIFORMS_TEXTURE.offset
+      plane.material.uniforms.u_lineFactor.value = UNIFORMS_TEXTURE.lineFactor
       plane.material.uniforms.u_displacementCoef.value =
         UNIFORMS_TEXTURE.amplitude
       plane.material.uniforms.u_noiseFrequency.value =

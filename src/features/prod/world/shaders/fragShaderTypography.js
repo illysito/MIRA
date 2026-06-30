@@ -6,6 +6,7 @@ precision highp float;
 uniform float u_time;
 uniform vec2 u_resolution;
 uniform float u_offset;
+uniform float u_lineFactor;
 
 uniform float u_displacementCoef;
 uniform float u_noiseFrequency;
@@ -16,6 +17,8 @@ uniform float u_mouseY;
 uniform sampler2D u_currentTexture;
 uniform sampler2D u_noiseTexture;
 uniform sampler2D u_bg;
+uniform sampler2D u_line;
+
 
 varying vec2 v_texcoord;
 
@@ -177,11 +180,15 @@ void main()
 
 
 
+  // LINES
+
+  vec4 lineImg = texture2D(u_line, uv);
 
   
   // FINAL 
 
-  vec4 finalColor = vec4(finalImg.rgb * color * 1.98 * centerLuminance * hoverLuminance, alphaDistortedFade);
+  vec4 finalTexture = vec4(finalImg.rgb * color * 1.98 * centerLuminance * hoverLuminance, alphaDistortedFade);
+  vec4 finalColor = finalTexture + u_lineFactor * lineImg;
   gl_FragColor = finalColor;
 
 }

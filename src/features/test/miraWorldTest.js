@@ -125,13 +125,15 @@ function worldHomeTest() {
 
   // Test plane
   Promise.all(testUrls.map(loadTexture)).then(
-    ([type, perlin, simplex, custom1, fog, bg]) => {
+    ([type, perlin, simplex, custom1, fog, bg, line_dim, line_lit]) => {
       const planeGeometry = new THREE.PlaneGeometry(600, 600)
 
       // console.log(perlin)
       console.log(simplex)
       console.log(custom1)
       console.log(fog)
+
+      console.log(line_dim, line_lit)
 
       const planeMaterial = new THREE.ShaderMaterial({
         fragmentShader: disp_frag,
@@ -149,6 +151,8 @@ function worldHomeTest() {
           u_img: { value: type },
           u_noiseTexture: { value: perlin },
           u_bg: { value: bg },
+          u_lineDim: { value: line_dim },
+          u_lineLit: { value: line_lit },
 
           u_mix1: { value: 0.0 },
           u_mix2: { value: 0.0 },

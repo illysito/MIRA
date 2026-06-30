@@ -13,6 +13,11 @@ const bridgeStagger_1 = 0.48
 const menuFadeOutDur_1 = 2.8
 const menuFadeInDur_1 = 2.8
 const menuStagger_1 = 0.48
+
+// LINE OPACITIES
+// const lineOpacityDim = 0.6
+const lineOpacityLit = 0.72
+const lineDuration = 2.8
 const STEPS = [
   // STAGE 1 ************************
   {
@@ -24,20 +29,25 @@ const STEPS = [
     voidDelay: 2.8,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    needsLine: false,
+    lineOpacity: 0,
   },
   // STAGE 2 ************************
   {
     type: 'bridge',
     bridgeIndex: 0,
     id: 'step-1',
-    currentTexture: 'none',
-    fadeDuration: bridgeFadeDur_1 * 1.4,
+    currentTexture: 'bridge_1',
+    fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
     holdDelay: bridgeHoldDelay_1,
     staggerIn: bridgeStagger_1,
     staggerOut: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    needsLine: true,
+    lineOpacity: lineOpacityLit,
+    lineDuration: lineDuration,
   },
   // FIRST MENU ( CORE )
   {
@@ -103,11 +113,23 @@ const STEPS = [
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
   },
+  {
+    type: 'normal',
+    id: 'step-8',
+    currentTexture: 'core_6',
+    fadeOutDuration: shaderFadeOutDur_1,
+    fadeInDuration: shaderFadeInDur_1,
+    voidDelay: shaderVoidDelay_1,
+    easeIn: 'power1.inOut',
+    easeOut: 'power1.inOut',
+  },
   // SECOND MENU ( SEED )
+
+  // STEPS NEED TO UPDATE FROM HERE ONWARDS!
   {
     type: 'menu',
     menuIndex: 0,
-    id: 'step-8',
+    id: 'step-9',
     currentTexture: 'none',
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1,
