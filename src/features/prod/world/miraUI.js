@@ -28,7 +28,7 @@ function miraUI() {
   const CURRENT_STEP_TXT = document.querySelector('.effect-title')
   // BRIDGES
   // const BRIDGES = [...document.querySelectorAll('.is--bridge')]
-  const MENUS = [...document.querySelectorAll('.is--menu')]
+  // const MENUS = [...document.querySelectorAll('.is--menu')]
   const menuHeadings = document.querySelectorAll('.menu-h')
 
   const STAGE_4_REACTION = document.querySelector('.stage_4_reaction-h')
@@ -45,7 +45,7 @@ function miraUI() {
   let isMenuTransitioning = false
   let isBackgroundStabilized = false
   let isBackgroundReadyForNDA = false
-  let firstMenuHasBeenViewed = 0
+  // let firstMenuHasBeenViewed = 0
   let isSufficientInteraction = false
   // how aligned are you?
   let alignmentIndex = 100
@@ -234,146 +234,146 @@ function miraUI() {
     })
   }
 
-  async function fadeMenuIn(toStep, container, menuIndex) {
-    isMenuTransitioning = true
-    const DURATION = toStep.fadeInDuration
-    const STAGGER_DELAY = toStep.staggerDuration
-    const EASE_IN = toStep.easeIn
-    const DELAY = toStep.voidDelay
+  // async function fadeMenuIn(toStep) {
+  //   isMenuTransitioning = true
+  //   const DURATION = toStep.fadeInDuration
+  //   const STAGGER_DELAY = toStep.staggerDuration
+  //   const EASE_IN = toStep.easeIn
+  //   const DELAY = toStep.voidDelay
 
-    return new Promise((resolve) => {
-      const linesArray = [...container.querySelectorAll('h2')]
+  //   return new Promise((resolve) => {
+  //     const linesArray = [...container.querySelectorAll('h2')]
 
-      const tl = gsap.timeline({
-        onComplete: () => {
-          // Cursor activation
-          // if (menuIndex == 1) {
-          //   circularMenuContainer.style.pointerEvents = 'auto'
-          // } else if (menuIndex == 2) {
-          //   positionMenuContainer.style.pointerEvents = 'auto'
-          // } else if (menuIndex == 3) {
-          //   positionMenuContainer.style.pointerEvents = 'auto'
-          // }
-          container.style.pointerEvents = 'auto'
-          isMenuTransitioning = false
-          resolve()
-        },
-      })
+  //     const tl = gsap.timeline({
+  //       onComplete: () => {
+  //         // Cursor activation
+  //         // if (menuIndex == 1) {
+  //         //   circularMenuContainer.style.pointerEvents = 'auto'
+  //         // } else if (menuIndex == 2) {
+  //         //   positionMenuContainer.style.pointerEvents = 'auto'
+  //         // } else if (menuIndex == 3) {
+  //         //   positionMenuContainer.style.pointerEvents = 'auto'
+  //         // }
+  //         container.style.pointerEvents = 'auto'
+  //         isMenuTransitioning = false
+  //         resolve()
+  //       },
+  //     })
 
-      if (menuIndex == 0 || menuIndex == 2) {
-        // First menu, appearing one by one
-        // Container fades in
-        tl.to(container, {
-          opacity: 1,
-          duration: DURATION,
-          delay: DELAY,
-          ease: EASE_IN,
-        })
+  //     if (menuIndex == 0 || menuIndex == 2) {
+  //       // First menu, appearing one by one
+  //       // Container fades in
+  //       tl.to(container, {
+  //         opacity: 1,
+  //         duration: DURATION,
+  //         delay: DELAY,
+  //         ease: EASE_IN,
+  //       })
 
-        // Lines fade in (at same time as container)
-        linesArray.forEach((l) => {
-          if (l.classList.contains('is--inactive')) {
-            tl.to(
-              l,
-              {
-                opacity: 0.28,
-                scale: 0.99,
-                duration: DURATION,
-                ease: EASE_IN,
-                delay: STAGGER_DELAY,
-              },
-              '<'
-            ) // start at same time as previous)
-          } else {
-            tl.to(
-              l,
-              {
-                opacity: 0.8,
-                scale: 0.99,
-                duration: DURATION,
-                ease: EASE_IN,
-                delay: STAGGER_DELAY,
-              },
-              '<'
-            ) // start at same time as previous)
-          }
-        })
-      } else if (menuIndex == 1 || menuIndex == 3 || menuIndex == 4) {
-        // Second menu, NO hierarchy, meaning NO STAGGER and NO FOR EACH
-        tl.to(container, {
-          opacity: 1,
-          duration: DURATION,
-          delay: DELAY,
-          ease: EASE_IN,
-        })
-      }
-    })
-  }
+  //       // Lines fade in (at same time as container)
+  //       linesArray.forEach((l) => {
+  //         if (l.classList.contains('is--inactive')) {
+  //           tl.to(
+  //             l,
+  //             {
+  //               opacity: 0.28,
+  //               scale: 0.99,
+  //               duration: DURATION,
+  //               ease: EASE_IN,
+  //               delay: STAGGER_DELAY,
+  //             },
+  //             '<'
+  //           ) // start at same time as previous)
+  //         } else {
+  //           tl.to(
+  //             l,
+  //             {
+  //               opacity: 0.8,
+  //               scale: 0.99,
+  //               duration: DURATION,
+  //               ease: EASE_IN,
+  //               delay: STAGGER_DELAY,
+  //             },
+  //             '<'
+  //           ) // start at same time as previous)
+  //         }
+  //       })
+  //     } else if (menuIndex == 1 || menuIndex == 3 || menuIndex == 4) {
+  //       // Second menu, NO hierarchy, meaning NO STAGGER and NO FOR EACH
+  //       tl.to(container, {
+  //         opacity: 1,
+  //         duration: DURATION,
+  //         delay: DELAY,
+  //         ease: EASE_IN,
+  //       })
+  //     }
+  //   })
+  // }
 
-  async function fadeMenuOut(fromStep, container, menuIndex) {
-    isMenuTransitioning = true
-    const DURATION = fromStep.fadeInDuration
-    const STAGGER_DELAY = fromStep.staggerDuration
-    const EASE_OUT = fromStep.easeOut
+  // async function fadeMenuOut(fromStep, container, menuIndex) {
+  //   isMenuTransitioning = true
+  //   const DURATION = fromStep.fadeInDuration
+  //   const STAGGER_DELAY = fromStep.staggerDuration
+  //   const EASE_OUT = fromStep.easeOut
 
-    return new Promise((resolve) => {
-      const linesArray = [...container.querySelectorAll('h2')]
+  //   return new Promise((resolve) => {
+  //     const linesArray = [...container.querySelectorAll('h2')]
 
-      const tl = gsap.timeline({
-        onComplete: () => {
-          isMenuTransitioning = false
-          resolve()
-        },
-      })
+  //     const tl = gsap.timeline({
+  //       onComplete: () => {
+  //         isMenuTransitioning = false
+  //         resolve()
+  //       },
+  //     })
 
-      if (menuIndex == 0 || menuIndex == 2) {
-        // Container fades in
-        tl.to(container, {
-          opacity: 0,
-          duration: DURATION,
-          ease: EASE_OUT,
-        })
+  //     if (menuIndex == 0 || menuIndex == 2) {
+  //       // Container fades in
+  //       tl.to(container, {
+  //         opacity: 0,
+  //         duration: DURATION,
+  //         ease: EASE_OUT,
+  //       })
 
-        // Lines fade in (at same time as container)
-        tl.to(
-          linesArray,
-          {
-            opacity: 0.0,
-            scale: 1.0,
-            duration: DURATION,
-            ease: EASE_OUT,
-            stagger: STAGGER_DELAY,
-          },
-          '<' // start at same time as previous
-        )
-      } else if (menuIndex == 1 || menuIndex == 3 || menuIndex == 4) {
-        // Second menu, NO hierarchy
-        tl.to(container, {
-          opacity: 0,
-          duration: DURATION,
-          ease: EASE_OUT,
-        })
-      }
+  //       // Lines fade in (at same time as container)
+  //       tl.to(
+  //         linesArray,
+  //         {
+  //           opacity: 0.0,
+  //           scale: 1.0,
+  //           duration: DURATION,
+  //           ease: EASE_OUT,
+  //           stagger: STAGGER_DELAY,
+  //         },
+  //         '<' // start at same time as previous
+  //       )
+  //     } else if (menuIndex == 1 || menuIndex == 3 || menuIndex == 4) {
+  //       // Second menu, NO hierarchy
+  //       tl.to(container, {
+  //         opacity: 0,
+  //         duration: DURATION,
+  //         ease: EASE_OUT,
+  //       })
+  //     }
 
-      container.style.pointerEvents = 'none'
-    })
-  }
+  //     container.style.pointerEvents = 'none'
+  //   })
+  // }
 
-  function stage1MenuOpacity() {
-    if (firstMenuHasBeenViewed == 1) {
-      const menuHeadings = MENUS[0].querySelectorAll('h2')
-      menuHeadings[0].classList.add('is--inactive')
-      menuHeadings[1].classList.remove('is--inactive')
-    } else if (firstMenuHasBeenViewed == 2) {
-      const menuHeadings = MENUS[0].querySelectorAll('h2')
-      menuHeadings[1].classList.add('is--inactive')
-      menuHeadings[2].classList.remove('is--inactive')
-      // } else if (firstMenuHasBeenViewed == 3) {
-      //   circularMenuContainer.style.pointerEvents = 'auto'
-    } else {
-      return
-    }
-  }
+  // function stage1MenuOpacity() {
+  //   if (firstMenuHasBeenViewed == 1) {
+  //     const menuHeadings = MENUS[0].querySelectorAll('h2')
+  //     menuHeadings[0].classList.add('is--inactive')
+  //     menuHeadings[1].classList.remove('is--inactive')
+  //   } else if (firstMenuHasBeenViewed == 2) {
+  //     const menuHeadings = MENUS[0].querySelectorAll('h2')
+  //     menuHeadings[1].classList.add('is--inactive')
+  //     menuHeadings[2].classList.remove('is--inactive')
+  //     // } else if (firstMenuHasBeenViewed == 3) {
+  //     //   circularMenuContainer.style.pointerEvents = 'auto'
+  //   } else {
+  //     return
+  //   }
+  // }
 
   function decideBasedOnAlignment() {
     let nextIndex = 0
@@ -385,6 +385,70 @@ function miraUI() {
       nextIndex = STEPS.length - 1
     }
     return nextIndex
+  }
+
+  const areas = [
+    {
+      name: 'core',
+      index: 0,
+      limits: { fromX: 45.23, toX: 54.9, fromY: 31.09, toY: 34.19 },
+    },
+    {
+      name: 'seed',
+      index: 0,
+      limits: { fromX: 45.23, toX: 54.9, fromY: 37.81, toY: 40.92 },
+    },
+    {
+      name: 'organism',
+      index: 0,
+      limits: { fromX: 41.08, toX: 58.94, fromY: 44.36, toY: 47.64 },
+    },
+  ]
+  const canvasWidth = 600
+  const canvasHeight = 600
+  let canvasLeftEdge = window.innerWidth / 2 - canvasWidth / 2
+  // let canvasRightEdge = window.innerWidth / 2 + canvasWidth / 2
+  let canvasTopEdge = window.innerHeight / 2 - canvasHeight / 2
+  // let canvasBottomEdge = window.innerHeight / 2 + canvasHeight / 2
+  console.log(canvasLeftEdge, canvasTopEdge)
+
+  function evaluateMenuAreas(areas, mouseX, mouseY) {
+    // CORE
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[0].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[0].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[0].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
+      ) {
+        console.log('CLICKED: CORE!')
+      }
+    }
+    // SEED
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[1].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[1].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[1].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
+      ) {
+        console.log('CLICKED: SEED!')
+      }
+    }
+    // ORGANISM
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[2].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[2].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[2].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
+      ) {
+        console.log('CLICKED: ORGANISM!')
+      }
+    }
   }
 
   // MAIN BRAIN
@@ -400,25 +464,30 @@ function miraUI() {
     }
 
     if (fromStep.type === 'menu') {
-      await fadeMenuOut(fromStep, MENUS[fromStep.menuIndex], fromStep.menuIndex)
-      if (fromStep.menuIndex == 0) {
-        firstMenuHasBeenViewed++
-      }
-      stage1MenuOpacity()
+      // await fadeMenuOut(fromStep, MENUS[fromStep.menuIndex], fromStep.menuIndex)
+      // if (fromStep.menuIndex == 0) {
+      //   firstMenuHasBeenViewed++
+      // }
+      // stage1MenuOpacity()
     }
   }
 
   async function enter(toStep) {
+    window.dispatchEvent(
+      new CustomEvent('swapTexture', {
+        detail: { step: currentStepIndex },
+      })
+    )
     if (toStep.needsLine) {
       fadeLineIn(toStep)
     }
     if (toStep.type === 'normal') {
       // If next step is normal, swap texture and move it in
-      window.dispatchEvent(
-        new CustomEvent('swapTexture', {
-          detail: { step: currentStepIndex },
-        })
-      )
+      // window.dispatchEvent(
+      //   new CustomEvent('swapTexture', {
+      //     detail: { step: currentStepIndex },
+      //   })
+      // )
       await fadeShaderIn(toStep)
       if (toStep.id != 'step-60') {
         isClickEnabled = true // Normally we need to put it as TRUE, but not when INNER CIRCLE is entering, this will be handled in the FADE IN of the menu :)
@@ -429,11 +498,11 @@ function miraUI() {
     if (toStep.type === 'bridge') {
       // if step is bridge, trigger animation (this will go to next step by itself)
       // usually nothing (it self-resolves)
-      window.dispatchEvent(
-        new CustomEvent('swapTexture', {
-          detail: { step: currentStepIndex },
-        })
-      )
+      // window.dispatchEvent(
+      //   new CustomEvent('swapTexture', {
+      //     detail: { step: currentStepIndex },
+      //   })
+      // )
       await bridgeAnimation(toStep)
       goToStep(currentStepIndex + 1)
       isClickEnabled = true
@@ -443,7 +512,7 @@ function miraUI() {
     if (toStep.type === 'menu') {
       isClickEnabled = false
       console.log('click is off')
-      await fadeMenuIn(toStep, MENUS[toStep.menuIndex], toStep.menuIndex)
+      await fadeShaderIn(toStep)
     }
   }
 
@@ -498,7 +567,16 @@ function miraUI() {
 
   // CLICK
 
-  window.addEventListener('click', () => {
+  window.addEventListener('click', (e) => {
+    const mouseX = e.clientX
+    const mouseY = e.clientY
+    // AREAS MENUS FLOW
+    const currentStep = STEPS[currentStepIndex]
+    if (currentStep.type === 'menu') {
+      evaluateMenuAreas(areas, mouseX, mouseY)
+    }
+
+    // NORMAL FLOW
     if (isClickEnabled) {
       goToStep(currentStepIndex + 1) // move forward one step
     } else {

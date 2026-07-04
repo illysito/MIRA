@@ -54,7 +54,7 @@ const STEPS = [
     type: 'menu',
     menuIndex: 0,
     id: 'step-2',
-    currentTexture: 'none',
+    currentTexture: 'menu_1',
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1,
     staggerDuration: menuStagger_1,

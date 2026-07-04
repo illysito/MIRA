@@ -26,6 +26,9 @@ const URLS = {
   bridge_1: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/485a2fa3fd98bb21d4abe896165a365797837ec1/textures/_bridges/_bridge%201%20(miraOS)/Bridge%201%20(miraOS).png'
   ),
+  menu_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/d0dcbdfb1defdd139f781689b1149403acaf4c88/textures/_other/Menu%201.png'
+  ),
   core_1: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/1973bee21a993473b1549d53d58e4c66dd861cf6/textures/_docs/_core/Core_0.png'
   ),
