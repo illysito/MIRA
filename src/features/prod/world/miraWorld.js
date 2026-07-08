@@ -93,6 +93,7 @@ async function worldHome() {
       u_mouseY: { value: 0.5 },
       u_blocks: { value: 800 },
       u_lineFactor: { value: UNIFORMS_TEXTURE.lineFactor },
+      u_hoverSwitch: { value: UNIFORMS_TEXTURE.hoverSwitch },
 
       u_noiseFrequency: { value: UNIFORMS_TEXTURE.frequency },
       u_displacementCoef: { value: UNIFORMS_TEXTURE.amplitude },
@@ -171,6 +172,7 @@ async function worldHome() {
       plane.material.uniforms.u_time.value = counter
       plane.material.uniforms.u_offset.value = UNIFORMS_TEXTURE.offset
       plane.material.uniforms.u_lineFactor.value = UNIFORMS_TEXTURE.lineFactor
+      plane.material.uniforms.u_hoverSwitch.value = UNIFORMS_TEXTURE.hoverSwitch
       plane.material.uniforms.u_displacementCoef.value =
         UNIFORMS_TEXTURE.amplitude
       plane.material.uniforms.u_noiseFrequency.value =

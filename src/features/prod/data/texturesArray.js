@@ -27,7 +27,7 @@ const URLS = {
     'https://github.com/illysito/MIRA/blob/485a2fa3fd98bb21d4abe896165a365797837ec1/textures/_bridges/_bridge%201%20(miraOS)/Bridge%201%20(miraOS).png'
   ),
   menu_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/d0dcbdfb1defdd139f781689b1149403acaf4c88/textures/_other/Menu%201.png'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_other/Menu%201.png'
   ),
   core_1: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/1973bee21a993473b1549d53d58e4c66dd861cf6/textures/_docs/_core/Core_0.png'
@@ -48,37 +48,43 @@ const URLS = {
     'https://github.com/illysito/MIRA/blob/1973bee21a993473b1549d53d58e4c66dd861cf6/textures/_docs/_core/Core_5.png'
   ),
   seed_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_SEED/MIRA_SEED%200.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_seed/Seed_0.png'
   ),
   seed_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_SEED/MIRA_SEED%201.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_seed/Seed_1.png'
   ),
   seed_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_SEED/MIRA_SEED%202.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_seed/Seed_2.png'
   ),
   seed_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_SEED/MIRA_SEED%203.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_seed/Seed_3.png'
   ),
   seed_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_SEED/MIRA_SEED%204.jpg'
-  ),
-  seed_6: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_SEED/MIRA_SEED%205.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_seed/Seed_4.png'
   ),
   organism_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_ORGANISM/MIRA_ORGANISM%200.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_organism/Organism_0.png'
   ),
   organism_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_ORGANISM/MIRA_ORGANISM%201.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_organism/Organism_1.png'
   ),
   organism_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_ORGANISM/MIRA_ORGANISM%202.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_organism/Organism_2.png'
   ),
   organism_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_ORGANISM/MIRA_ORGANISM%203.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_organism/Organism_3.png'
   ),
   organism_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/67b5db9e6e5212deb128f40e03324027fb5fb85d/textures/_ORGANISM/MIRA_ORGANISM%204.jpg'
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_docs/_organism/Organism_4.png'
+  ),
+  bridge_2_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_bridges/_bridge%202%20(neuroscience)/Bridge%202%20(neuroscience)%201.png'
+  ),
+  bridge_2_2: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_bridges/_bridge%202%20(neuroscience)/Bridge%202%20(neuroscience)%202.png'
+  ),
+  bridge_2_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/d9546506c2aef6f8381b10e974fe3df0282784d5/textures/_bridges/_bridge%202%20(neuroscience)/Bridge%202%20(neuroscience)%203.png'
   ),
   conditions_1: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/1f2d7790200cb29f4981b36a5fe0e2e5f9bf5830/textures/_CONDITIONS/MIRA_CONDITIONS%200.jpg'

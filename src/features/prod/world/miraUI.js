@@ -2,6 +2,10 @@ import gsap from 'gsap'
 
 import STEPS from '../data/stepsArray'
 
+function lerp(start, end, t) {
+  return start + (end - start) * t
+}
+
 const UNIFORMS_TEXTURE = {
   offset: 1,
   scale: 1,
@@ -15,6 +19,7 @@ const UNIFORMS_TEXTURE = {
   mixer4: 0.0,
 
   lineFactor: 0.0,
+  hoverSwitch: 1.0,
 }
 
 const UNIFORMS_BACKGROUND = {
@@ -395,12 +400,12 @@ function miraUI() {
     },
     {
       name: 'seed',
-      index: 0,
+      index: 1,
       limits: { fromX: 45.23, toX: 54.9, fromY: 37.81, toY: 40.92 },
     },
     {
       name: 'organism',
-      index: 0,
+      index: 2,
       limits: { fromX: 41.08, toX: 58.94, fromY: 44.36, toY: 47.64 },
     },
   ]
@@ -413,6 +418,7 @@ function miraUI() {
   console.log(canvasLeftEdge, canvasTopEdge)
 
   function evaluateMenuAreas(areas, mouseX, mouseY) {
+    let step = null
     // CORE
     if (
       mouseX > canvasLeftEdge + (canvasWidth * areas[0].limits.fromX) / 100 &&
@@ -423,6 +429,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: CORE!')
+        step = 3
       }
     }
     // SEED
@@ -435,6 +442,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: SEED!')
+        step = 10
       }
     }
     // ORGANISM
@@ -447,8 +455,10 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: ORGANISM!')
+        step = 16
       }
     }
+    return step
   }
 
   // MAIN BRAIN
@@ -464,6 +474,14 @@ function miraUI() {
     }
 
     if (fromStep.type === 'menu') {
+      // const menuIndex = fromStep.menuIndex
+      await fadeShaderOut(fromStep)
+      gsap.to(UNIFORMS_TEXTURE, {
+        delay: 0,
+        hoverSwitch: 1.0, // QUIT HOVER EFFECT
+        duration: 0.2,
+        ease: 'none',
+      })
       // await fadeMenuOut(fromStep, MENUS[fromStep.menuIndex], fromStep.menuIndex)
       // if (fromStep.menuIndex == 0) {
       //   firstMenuHasBeenViewed++
@@ -510,9 +528,15 @@ function miraUI() {
     }
 
     if (toStep.type === 'menu') {
-      isClickEnabled = false
-      console.log('click is off')
+      gsap.to(UNIFORMS_TEXTURE, {
+        delay: 0,
+        hoverSwitch: 0.0, // ACTIVATE HOVER EFFECT
+        duration: 0.2,
+        ease: 'none',
+      })
       await fadeShaderIn(toStep)
+      isClickEnabled = true
+      console.log('click is on')
     }
   }
 
@@ -572,18 +596,22 @@ function miraUI() {
     const mouseY = e.clientY
     // AREAS MENUS FLOW
     const currentStep = STEPS[currentStepIndex]
+    let destinationFromMenu = null
     if (currentStep.type === 'menu') {
-      evaluateMenuAreas(areas, mouseX, mouseY)
-    }
-
-    // NORMAL FLOW
-    if (isClickEnabled) {
-      goToStep(currentStepIndex + 1) // move forward one step
+      destinationFromMenu = evaluateMenuAreas(areas, mouseX, mouseY)
+      if (isClickEnabled && destinationFromMenu) {
+        goToStep(destinationFromMenu) // move forward one step
+      }
     } else {
+      // NORMAL FLOW
+      if (isClickEnabled) {
+        goToStep(currentStepIndex + 1) // move forward one step
+      } else {
+        console.log('click is off')
+      }
+      isClickEnabled = false
       console.log('click is off')
     }
-    isClickEnabled = false
-    console.log('click is off')
   })
 
   // HOLD
@@ -725,10 +753,24 @@ function miraUI() {
   // CURSOR
 
   const side = 28 / 2
-  window.addEventListener('mousemove', (e) => {
-    CURSOR.style.transform = `translate3d(${e.clientX - side}px, ${
-      e.clientY - side
+  let currentX = 0
+  let currentY = 0
+  let targetX = 0
+  let targetY = 0
+  let lerpFactor = 0.11
+  function animateCursor() {
+    currentX = lerp(currentX, targetX, lerpFactor)
+    currentY = lerp(currentY, targetY, lerpFactor)
+    CURSOR.style.transform = `translate3d(${currentX - side}px, ${
+      currentY - side
     }px, 0)`
+    requestAnimationFrame(animateCursor)
+  }
+  animateCursor()
+
+  window.addEventListener('mousemove', (e) => {
+    targetX = e.clientX
+    targetY = e.clientY
   })
 
   // FROM CONSOLE
