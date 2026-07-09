@@ -239,147 +239,6 @@ function miraUI() {
     })
   }
 
-  // async function fadeMenuIn(toStep) {
-  //   isMenuTransitioning = true
-  //   const DURATION = toStep.fadeInDuration
-  //   const STAGGER_DELAY = toStep.staggerDuration
-  //   const EASE_IN = toStep.easeIn
-  //   const DELAY = toStep.voidDelay
-
-  //   return new Promise((resolve) => {
-  //     const linesArray = [...container.querySelectorAll('h2')]
-
-  //     const tl = gsap.timeline({
-  //       onComplete: () => {
-  //         // Cursor activation
-  //         // if (menuIndex == 1) {
-  //         //   circularMenuContainer.style.pointerEvents = 'auto'
-  //         // } else if (menuIndex == 2) {
-  //         //   positionMenuContainer.style.pointerEvents = 'auto'
-  //         // } else if (menuIndex == 3) {
-  //         //   positionMenuContainer.style.pointerEvents = 'auto'
-  //         // }
-  //         container.style.pointerEvents = 'auto'
-  //         isMenuTransitioning = false
-  //         resolve()
-  //       },
-  //     })
-
-  //     if (menuIndex == 0 || menuIndex == 2) {
-  //       // First menu, appearing one by one
-  //       // Container fades in
-  //       tl.to(container, {
-  //         opacity: 1,
-  //         duration: DURATION,
-  //         delay: DELAY,
-  //         ease: EASE_IN,
-  //       })
-
-  //       // Lines fade in (at same time as container)
-  //       linesArray.forEach((l) => {
-  //         if (l.classList.contains('is--inactive')) {
-  //           tl.to(
-  //             l,
-  //             {
-  //               opacity: 0.28,
-  //               scale: 0.99,
-  //               duration: DURATION,
-  //               ease: EASE_IN,
-  //               delay: STAGGER_DELAY,
-  //             },
-  //             '<'
-  //           ) // start at same time as previous)
-  //         } else {
-  //           tl.to(
-  //             l,
-  //             {
-  //               opacity: 0.8,
-  //               scale: 0.99,
-  //               duration: DURATION,
-  //               ease: EASE_IN,
-  //               delay: STAGGER_DELAY,
-  //             },
-  //             '<'
-  //           ) // start at same time as previous)
-  //         }
-  //       })
-  //     } else if (menuIndex == 1 || menuIndex == 3 || menuIndex == 4) {
-  //       // Second menu, NO hierarchy, meaning NO STAGGER and NO FOR EACH
-  //       tl.to(container, {
-  //         opacity: 1,
-  //         duration: DURATION,
-  //         delay: DELAY,
-  //         ease: EASE_IN,
-  //       })
-  //     }
-  //   })
-  // }
-
-  // async function fadeMenuOut(fromStep, container, menuIndex) {
-  //   isMenuTransitioning = true
-  //   const DURATION = fromStep.fadeInDuration
-  //   const STAGGER_DELAY = fromStep.staggerDuration
-  //   const EASE_OUT = fromStep.easeOut
-
-  //   return new Promise((resolve) => {
-  //     const linesArray = [...container.querySelectorAll('h2')]
-
-  //     const tl = gsap.timeline({
-  //       onComplete: () => {
-  //         isMenuTransitioning = false
-  //         resolve()
-  //       },
-  //     })
-
-  //     if (menuIndex == 0 || menuIndex == 2) {
-  //       // Container fades in
-  //       tl.to(container, {
-  //         opacity: 0,
-  //         duration: DURATION,
-  //         ease: EASE_OUT,
-  //       })
-
-  //       // Lines fade in (at same time as container)
-  //       tl.to(
-  //         linesArray,
-  //         {
-  //           opacity: 0.0,
-  //           scale: 1.0,
-  //           duration: DURATION,
-  //           ease: EASE_OUT,
-  //           stagger: STAGGER_DELAY,
-  //         },
-  //         '<' // start at same time as previous
-  //       )
-  //     } else if (menuIndex == 1 || menuIndex == 3 || menuIndex == 4) {
-  //       // Second menu, NO hierarchy
-  //       tl.to(container, {
-  //         opacity: 0,
-  //         duration: DURATION,
-  //         ease: EASE_OUT,
-  //       })
-  //     }
-
-  //     container.style.pointerEvents = 'none'
-  //   })
-  // }
-
-  // function stage1MenuOpacity() {
-  //   if (firstMenuHasBeenViewed == 1) {
-  //     const menuHeadings = MENUS[0].querySelectorAll('h2')
-  //     menuHeadings[0].classList.add('is--inactive')
-  //     menuHeadings[1].classList.remove('is--inactive')
-  //   } else if (firstMenuHasBeenViewed == 2) {
-  //     const menuHeadings = MENUS[0].querySelectorAll('h2')
-  //     menuHeadings[1].classList.add('is--inactive')
-  //     menuHeadings[2].classList.remove('is--inactive')
-  //     // } else if (firstMenuHasBeenViewed == 3) {
-  //     //   circularMenuContainer.style.pointerEvents = 'auto'
-  //   } else {
-  //     return
-  //   }
-  // }
-
   function decideBasedOnAlignment() {
     let nextIndex = 0
     if (alignmentIndex > 50) {
@@ -464,7 +323,7 @@ function miraUI() {
   // MAIN BRAIN
 
   async function exit(fromStep) {
-    if (fromStep.needsLine) {
+    if (fromStep.needsLine && !fromStep.shouldRetainLine) {
       await fadeLineOut(fromStep)
     }
 
@@ -757,7 +616,7 @@ function miraUI() {
   let currentY = 0
   let targetX = 0
   let targetY = 0
-  let lerpFactor = 0.11
+  let lerpFactor = 0.4
   function animateCursor() {
     currentX = lerp(currentX, targetX, lerpFactor)
     currentY = lerp(currentY, targetY, lerpFactor)

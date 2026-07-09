@@ -192,7 +192,7 @@ void main()
   // FINAL 
 
   vec4 finalTexture = vec4(finalImg.rgb * color * 1.98 * centerLuminance * hoverLuminance, alphaDistortedFade);
-  vec4 finalColor = finalTexture + u_lineFactor * lineImg;
+  vec4 finalColor = finalTexture + u_lineFactor * lineImg * 0.9;
   gl_FragColor = finalColor;
 
 }
