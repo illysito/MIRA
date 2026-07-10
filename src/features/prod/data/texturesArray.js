@@ -203,6 +203,24 @@ const URLS = {
   motion_6: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/084e58073df3344f88ed431a068ef54c55603009/textures/_docs/_motion/Motion_5.png'
   ),
+  bridge_3_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f1c1373d1d442376fa3d0c533bfd309addb784ab/textures/_bridges/_bridge%203%20(into%20alignment)/Bridge%203%20(into%20alignment)%200.png'
+  ),
+  bridge_3_2: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f1c1373d1d442376fa3d0c533bfd309addb784ab/textures/_bridges/_bridge%203%20(into%20alignment)/Bridge%203%20(into%20alignment)%201.png'
+  ),
+  bridge_3_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f1c1373d1d442376fa3d0c533bfd309addb784ab/textures/_bridges/_bridge%203%20(into%20alignment)/Bridge%203%20(into%20alignment)%202.png'
+  ),
+  bridge_3_4: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f1c1373d1d442376fa3d0c533bfd309addb784ab/textures/_bridges/_bridge%203%20(into%20alignment)/Bridge%203%20(into%20alignment)%203.png'
+  ),
+  bridge_3_5: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f1c1373d1d442376fa3d0c533bfd309addb784ab/textures/_bridges/_bridge%203%20(into%20alignment)/Bridge%203%20(into%20alignment)%204.png'
+  ),
+  bridge_3_6: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f1c1373d1d442376fa3d0c533bfd309addb784ab/textures/_bridges/_bridge%203%20(into%20alignment)/Bridge%203%20(into%20alignment)5.png'
+  ),
 }
 
 export default { URLS_INIT, URLS }

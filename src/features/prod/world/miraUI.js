@@ -136,7 +136,7 @@ function miraUI() {
     const EASE_IN = toStep.easeIn
     console.log(DURATION, EASE_IN)
     gsap.to(UNIFORMS_TEXTURE, {
-      delay: 0,
+      delay: 1,
       lineFactor: LINE_OPACITY, // means fade in
       duration: DURATION,
       ease: EASE_IN,
@@ -151,7 +151,7 @@ function miraUI() {
       gsap.to(UNIFORMS_TEXTURE, {
         delay: 0,
         lineFactor: 0, // means fade in
-        duration: DURATION,
+        duration: DURATION / 1.5,
         ease: EASE_IN,
         onComplete: () => {
           resolve()
@@ -251,7 +251,7 @@ function miraUI() {
     return nextIndex
   }
 
-  const areas = [
+  const areas_FirstMenu = [
     {
       name: 'core',
       index: 0,
@@ -268,6 +268,28 @@ function miraUI() {
       limits: { fromX: 41.08, toX: 58.94, fromY: 44.36, toY: 47.64 },
     },
   ]
+  const areas_SecondMenu = [
+    {
+      name: 'habitat',
+      index: 0,
+      limits: { fromX: 43.65, toX: 56.64, fromY: 31.09, toY: 34.19 },
+    },
+    {
+      name: 'communication',
+      index: 1,
+      limits: { fromX: 35.39, toX: 64.57, fromY: 37.81, toY: 40.92 },
+    },
+    {
+      name: 'stratosphere',
+      index: 2,
+      limits: { fromX: 37.98, toX: 62.02, fromY: 44.36, toY: 47.64 },
+    },
+    {
+      name: 'motion',
+      index: 2,
+      limits: { fromX: 43.65, toX: 56.64, fromY: 52.09, toY: 55.19 },
+    },
+  ]
   const canvasWidth = 600
   const canvasHeight = 600
   let canvasLeftEdge = window.innerWidth / 2 - canvasWidth / 2
@@ -276,7 +298,7 @@ function miraUI() {
   // let canvasBottomEdge = window.innerHeight / 2 + canvasHeight / 2
   console.log(canvasLeftEdge, canvasTopEdge)
 
-  function evaluateMenuAreas(areas, mouseX, mouseY) {
+  function evaluateMenuAreas_FirstMenu(areas, mouseX, mouseY) {
     let step = null
     // CORE
     if (
@@ -315,6 +337,63 @@ function miraUI() {
       ) {
         console.log('CLICKED: ORGANISM!')
         step = 16
+      }
+    }
+    return step
+  }
+
+  function evaluateMenuAreas_SecondMenu(areas, mouseX, mouseY) {
+    let step = null
+    // HABITAT
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[0].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[0].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[0].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
+      ) {
+        console.log('CLICKED: HABITAT!')
+        step = 25
+      }
+    }
+    // COMMUNICATION
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[1].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[1].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[1].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
+      ) {
+        console.log('CLICKED: COMMUNICATION!')
+        step = 34
+      }
+    }
+    // STRATOSPHERE
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[2].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[2].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[2].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
+      ) {
+        console.log('CLICKED: STRATOSPHERE!')
+        step = 45
+      }
+    }
+    // MOTION
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[3].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[3].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[3].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[3].limits.toY) / 100
+      ) {
+        console.log('CLICKED: MOTION!')
+        step = 60
       }
     }
     return step
@@ -366,10 +445,10 @@ function miraUI() {
       //   })
       // )
       await fadeShaderIn(toStep)
-      if (toStep.id != 'step-60') {
-        isClickEnabled = true // Normally we need to put it as TRUE, but not when INNER CIRCLE is entering, this will be handled in the FADE IN of the menu :)
-        console.log('click is on')
-      }
+      // if (toStep.id != 'step-60') {
+      isClickEnabled = true // Normally we need to put it as TRUE, but not when INNER CIRCLE is entering, this will be handled in the FADE IN of the menu :)
+      console.log('click is on')
+      // }
     }
 
     if (toStep.type === 'bridge') {
@@ -457,7 +536,24 @@ function miraUI() {
     const currentStep = STEPS[currentStepIndex]
     let destinationFromMenu = null
     if (currentStep.type === 'menu') {
-      destinationFromMenu = evaluateMenuAreas(areas, mouseX, mouseY)
+      switch (currentStep.currentTexture) {
+        case 'menu_1':
+          destinationFromMenu = evaluateMenuAreas_FirstMenu(
+            areas_FirstMenu,
+            mouseX,
+            mouseY
+          )
+          break
+
+        case 'menu_2':
+          destinationFromMenu = evaluateMenuAreas_SecondMenu(
+            areas_SecondMenu,
+            mouseX,
+            mouseY
+          )
+          break
+      }
+
       if (isClickEnabled && destinationFromMenu) {
         goToStep(destinationFromMenu) // move forward one step
       }
