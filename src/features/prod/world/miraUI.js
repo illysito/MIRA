@@ -19,7 +19,7 @@ const UNIFORMS_TEXTURE = {
   mixer4: 0.0,
 
   lineFactor: 0.0,
-  hoverSwitchAmp: 0.0,
+  hoverSwitchAmp: 1.0,
 }
 
 const UNIFORMS_BACKGROUND = {
