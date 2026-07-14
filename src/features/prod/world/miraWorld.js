@@ -93,12 +93,13 @@ async function worldHome() {
       u_mouseY: { value: 0.5 },
       u_blocks: { value: 800 },
       u_lineFactor: { value: UNIFORMS_TEXTURE.lineFactor },
-      u_hoverSwitch: { value: UNIFORMS_TEXTURE.hoverSwitch },
+      u_hoverSwitchAmp: { value: UNIFORMS_TEXTURE.hoverSwitchAmp },
 
       u_noiseFrequency: { value: UNIFORMS_TEXTURE.frequency },
       u_displacementCoef: { value: UNIFORMS_TEXTURE.amplitude },
 
       u_currentTexture: { value: textures.inner_circle },
+      // u_currentTexture: { value: textures.none },
       u_noiseTexture: { value: textures.perlin },
       u_bg: { value: textures.bg },
       u_line: { value: textures.line },
@@ -127,6 +128,8 @@ async function worldHome() {
       u_fMix: { value: UNIFORMS_BACKGROUND.u_fMix },
       u_iMix: { value: UNIFORMS_BACKGROUND.u_iMix },
       u_timeFactor: { value: UNIFORMS_BACKGROUND.u_timeFactor },
+      u_mouseX: { value: 0.5 },
+      u_mouseY: { value: 0.5 },
     },
     transparent: true,
     blending: THREE.AdditiveBlending,
@@ -144,7 +147,12 @@ async function worldHome() {
   let currentY = 0
   let targetX = 0
   let targetY = 0
+  let background_currentX = 0
+  let background_currentY = 0
+  let background_targetX = 0
+  let background_targetY = 0
   let lerpFactor = 0.032
+  let backgroundLerpFactor = 0.062
 
   let seed = Math.random() * 40
   // console.log(seed)
@@ -157,6 +165,17 @@ async function worldHome() {
       currentX = lerp(currentX, targetX, lerpFactor)
       currentY = lerp(currentY, targetY, lerpFactor)
 
+      background_currentX = lerp(
+        background_currentX,
+        background_targetX,
+        backgroundLerpFactor
+      )
+      background_currentY = lerp(
+        background_currentY,
+        background_targetY,
+        backgroundLerpFactor
+      )
+
       // console.log(currentX)
 
       // Operations in the background plane
@@ -167,12 +186,15 @@ async function worldHome() {
         UNIFORMS_BACKGROUND.u_iMix
       backgroundPlane.material.uniforms.u_timeFactor.value =
         UNIFORMS_BACKGROUND.u_timeFactor
+      backgroundPlane.material.uniforms.u_mouseX.value = background_currentX
+      backgroundPlane.material.uniforms.u_mouseY.value = background_currentY
 
       // Operations in the main plane
       plane.material.uniforms.u_time.value = counter
       plane.material.uniforms.u_offset.value = UNIFORMS_TEXTURE.offset
       plane.material.uniforms.u_lineFactor.value = UNIFORMS_TEXTURE.lineFactor
-      plane.material.uniforms.u_hoverSwitch.value = UNIFORMS_TEXTURE.hoverSwitch
+      plane.material.uniforms.u_hoverSwitchAmp.value =
+        UNIFORMS_TEXTURE.hoverSwitchAmp
       plane.material.uniforms.u_displacementCoef.value =
         UNIFORMS_TEXTURE.amplitude
       plane.material.uniforms.u_noiseFrequency.value =
@@ -219,6 +241,22 @@ async function worldHome() {
       1.0,
       e.clientY
     )
+    background_targetX = gsap.utils.mapRange(
+      0,
+      window.innerWidth,
+      0.0,
+      1.0,
+      e.clientX
+    )
+    background_targetY = gsap.utils.mapRange(
+      0,
+      window.innerHeight,
+      0.0,
+      1.0,
+      e.clientY
+    )
+
+    // console.log(e.clientX, window.innerWidth, e.clientY, window.innerHeight)
   })
 
   // Moving a step forward LOGIC

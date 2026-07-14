@@ -21,9 +21,10 @@ const lineDuration = 2.8
 const STEPS = [
   // STAGE 1 ************************
   {
-    type: 'normal',
+    type: 'menu',
     id: 'step-0',
     currentTexture: 'inner_circle',
+    // currentTexture: 'none',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: 3.2, // Initial fade in of inner circle!
     voidDelay: 2.8,

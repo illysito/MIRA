@@ -9,6 +9,9 @@ uniform float u_fMix;
 uniform float u_iMix;
 uniform float u_timeFactor;
 
+uniform float u_mouseX;
+uniform float u_mouseY;
+
 varying vec2 v_texcoord;
 
 float rand(vec2 uv) {
@@ -52,15 +55,31 @@ void main()
   vec2 uv = v_texcoord;
   uv.x *= u_resolution;
 
+  // MOUSE!
+
+  vec2 mouse = vec2(u_mouseX, 1.0 - u_mouseY);
+  mouse.x *= u_resolution;
+
+  float dist = distance(uv, mouse);
+  float mouseInfluence = smoothstep(
+    0.0,
+    0.05 + 0.05 * sin(u_time),
+    dist
+  );
+  mouseInfluence *= mouseInfluence;
+  mouseInfluence *= 0.6;
+
+  // DISTORTION
+
   vec2 distortionUV = vec2(
-    uv.x + 0.05 * sin(u_time),
-    uv.y + 0.05 * cos(u_time)
+    uv.x + 0.05 * sin(u_time) * mouseInfluence,
+    uv.y + 0.05 * cos(u_time) * mouseInfluence
   );
 
   // COLORS
 
   float grey = 0.072;
-  // grey = 0.12;
+  // grey = 0.32;
   vec4 color1 = vec4(0.0, 0.0, 0.0, 1.0);
   vec4 color2 = vec4(grey, grey, grey, 1.0);
 
@@ -72,10 +91,10 @@ void main()
   f += grain;
   f += u_timeFactor * u_time;
   f = fract(f);
-  f += 0.22 * rand(uv);
+  f += 0.22 * rand(uv) * mouseInfluence;
 
   float i = 0.86 * fbm(2.0 * distortionUV);
-  i *= 5.0;
+  i *= 5.0 + mouseInfluence;
   i += u_timeFactor * u_time;
   i = fract(i);
 
@@ -86,7 +105,7 @@ void main()
 
   vec4 color = mix(color1, color2, mixer);
 
-  gl_FragColor = color;
+  gl_FragColor = color + (0.01 * (1.0 - mouseInfluence));
 }
 `
 export default backgroundFragment

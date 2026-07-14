@@ -19,7 +19,7 @@ const UNIFORMS_TEXTURE = {
   mixer4: 0.0,
 
   lineFactor: 0.0,
-  hoverSwitch: 1.0,
+  hoverSwitchAmp: 0.0,
 }
 
 const UNIFORMS_BACKGROUND = {
@@ -416,7 +416,7 @@ function miraUI() {
       await fadeShaderOut(fromStep)
       gsap.to(UNIFORMS_TEXTURE, {
         delay: 0,
-        hoverSwitch: 1.0, // QUIT HOVER EFFECT
+        hoverSwitchAmp: 1.0, // QUIT HOVER EFFECT
         duration: 0.2,
         ease: 'none',
       })
@@ -468,7 +468,7 @@ function miraUI() {
     if (toStep.type === 'menu') {
       gsap.to(UNIFORMS_TEXTURE, {
         delay: 0,
-        hoverSwitch: 0.0, // ACTIVATE HOVER EFFECT
+        hoverSwitchAmp: 0.0, // ACTIVATE HOVER EFFECT
         duration: 0.2,
         ease: 'none',
       })
