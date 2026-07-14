@@ -130,6 +130,8 @@ async function worldHome() {
       u_timeFactor: { value: UNIFORMS_BACKGROUND.u_timeFactor },
       u_mouseX: { value: 0.5 },
       u_mouseY: { value: 0.5 },
+      u_mouseVelX: { value: 0 },
+      u_mouseVelY: { value: 0 },
       u_grey: { value: 0.072 },
     },
     transparent: true,
@@ -148,12 +150,14 @@ async function worldHome() {
   let currentY = 0
   let targetX = 0
   let targetY = 0
+  let prev_Background_currentX = 0
+  let prev_Background_currentY = 0
   let background_currentX = 0
   let background_currentY = 0
   let background_targetX = 0
   let background_targetY = 0
   let lerpFactor = 0.032
-  let backgroundLerpFactor = 0.062
+  let backgroundLerpFactor = 0.042
 
   let seed = Math.random() * 40
   // console.log(seed)
@@ -177,6 +181,11 @@ async function worldHome() {
         backgroundLerpFactor
       )
 
+      const rawVelX = background_currentX - prev_Background_currentX
+      const rawVelY = background_currentY - prev_Background_currentY
+      prev_Background_currentX = background_currentX
+      prev_Background_currentY = background_currentY
+
       // console.log(currentX)
 
       // Operations in the background plane
@@ -189,6 +198,8 @@ async function worldHome() {
         UNIFORMS_BACKGROUND.u_timeFactor
       backgroundPlane.material.uniforms.u_mouseX.value = background_currentX
       backgroundPlane.material.uniforms.u_mouseY.value = background_currentY
+      backgroundPlane.material.uniforms.u_mouseVelX.value = rawVelX
+      backgroundPlane.material.uniforms.u_mouseVelY.value = rawVelY
 
       // Operations in the main plane
       plane.material.uniforms.u_time.value = counter

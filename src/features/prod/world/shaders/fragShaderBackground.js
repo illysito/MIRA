@@ -12,6 +12,8 @@ uniform float u_grey;
 
 uniform float u_mouseX;
 uniform float u_mouseY;
+uniform float u_mouseVelX;
+uniform float u_mouseVelY;
 
 varying vec2 v_texcoord;
 
@@ -63,18 +65,18 @@ void main()
 
   float dist = distance(uv, mouse);
   float mouseInfluence = smoothstep(
-    0.0,
-    0.08 + 0.04 * sin(u_time),
+    0.01,
+    0.12 + 0.01 * sin(u_time * dist),
     dist
   );
   mouseInfluence *= mouseInfluence;
-  mouseInfluence *= 0.6;
+  mouseInfluence *= 0.8;
 
   // DISTORTION
 
   vec2 distortionUV = vec2(
     uv.x + 0.05 * sin(u_time) * mouseInfluence,
-    uv.y + 0.05 * cos(u_time) * mouseInfluence
+    uv.y + 0.05 * cos(u_time) * mouseInfluence 
   );
 
   // COLORS
@@ -102,7 +104,7 @@ void main()
   float f_mixer = smoothstep(0.5, 0.75, f) - smoothstep(0.75, 1.0, f);
   float i_mixer = smoothstep(0.8, 0.9, i) - smoothstep(0.9, 1.0, i);
 
-  float mixer = u_fMix * f_mixer + u_iMix * i_mixer;
+  float mixer = (u_fMix * f_mixer + u_iMix * i_mixer);
 
   vec4 color = mix(color1, color2, mixer);
 
