@@ -8,6 +8,7 @@ uniform float u_resolution;
 uniform float u_fMix;
 uniform float u_iMix;
 uniform float u_timeFactor;
+uniform float u_grey;
 
 uniform float u_mouseX;
 uniform float u_mouseY;
@@ -63,7 +64,7 @@ void main()
   float dist = distance(uv, mouse);
   float mouseInfluence = smoothstep(
     0.0,
-    0.05 + 0.05 * sin(u_time),
+    0.08 + 0.04 * sin(u_time),
     dist
   );
   mouseInfluence *= mouseInfluence;
@@ -81,7 +82,7 @@ void main()
   float grey = 0.072;
   // grey = 0.32;
   vec4 color1 = vec4(0.0, 0.0, 0.0, 1.0);
-  vec4 color2 = vec4(grey, grey, grey, 1.0);
+  vec4 color2 = vec4(u_grey, u_grey, u_grey, 1.0);
 
   float grain = mix(-0.12, 0.12, rand(uv));
 

@@ -130,6 +130,7 @@ async function worldHome() {
       u_timeFactor: { value: UNIFORMS_BACKGROUND.u_timeFactor },
       u_mouseX: { value: 0.5 },
       u_mouseY: { value: 0.5 },
+      u_grey: { value: 0.072 },
     },
     transparent: true,
     blending: THREE.AdditiveBlending,
@@ -272,6 +273,15 @@ async function worldHome() {
 
     console.log('Switched to:', step.currentTexture)
   })
+
+  function grey(x) {
+    if (x > 1) {
+      return
+    }
+    backgroundPlane.material.uniforms.u_grey.value = x
+  }
+
+  window.grey = grey
 }
 
 export default worldHome
