@@ -66,7 +66,7 @@ void main()
   float dist = distance(uv, mouse);
   float mouseInfluence = smoothstep(
     0.01,
-    0.12 + 0.01 * sin(u_time * dist),
+    0.1 + 0.01 * sin(u_time * dist),
     dist
   );
   mouseInfluence *= mouseInfluence;

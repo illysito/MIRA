@@ -154,8 +154,8 @@ void main()
 
   // DISTORTIONS
 
-  float distortionX = 0.0016 * sin(12.0 * u_time) * perlinImg.r + 0.0025 * hoverLuminance;
-  float distortionY = 0.0016 * cos(12.0 * u_time) * perlinImg.r - 0.0025 * hoverLuminance;
+  float distortionX = 0.0016 * sin(12.0 * u_time) * perlinImg.r + 0.0012 * hoverLuminance;
+  float distortionY = 0.0016 * cos(12.0 * u_time) * perlinImg.r - 0.0012 * hoverLuminance;
 
   float alphaDistortionForce = perlinImgAlpha.r * u_offset * u_displacementCoef;
   float alphaDistortedFade = 1.0 - alphaDistortionForce;

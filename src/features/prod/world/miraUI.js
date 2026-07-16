@@ -31,12 +31,6 @@ const UNIFORMS_BACKGROUND = {
 function miraUI() {
   const CURSOR = document.querySelector('.custom-cursor')
   const CURRENT_STEP_TXT = document.querySelector('.effect-title')
-  // BRIDGES
-  // const BRIDGES = [...document.querySelectorAll('.is--bridge')]
-  // const MENUS = [...document.querySelectorAll('.is--menu')]
-  const menuHeadings = document.querySelectorAll('.menu-h')
-
-  const STAGE_4_REACTION = document.querySelector('.stage_4_reaction-h')
 
   const maxStep = STEPS.length
   let defaultAmplitude = 0.28
@@ -47,13 +41,7 @@ function miraUI() {
   let isHoldEnabled = true
   let isClickEnabled = false
   // actions been DONE gates
-  let isMenuTransitioning = false
   let isBackgroundStabilized = false
-  let isBackgroundReadyForNDA = false
-  // let firstMenuHasBeenViewed = 0
-  let isSufficientInteraction = false
-  // how aligned are you?
-  let alignmentIndex = 100
 
   // FUNCTIONS
 
@@ -84,23 +72,10 @@ function miraUI() {
         u_fMix: 0.88,
         u_iMix: 0.12,
         u_timeFactor: 0.1,
-        duration: 18,
+        duration: 2,
         ease: 'linear',
       })
       isBackgroundStabilized = true
-    }
-  }
-
-  function adjustNDABackground() {
-    if (!isBackgroundReadyForNDA) {
-      gsap.to(UNIFORMS_BACKGROUND, {
-        u_fMix: 0.75,
-        u_iMix: 0.25,
-        u_timeFactor: 0.1,
-        duration: 18,
-        ease: 'linear',
-      })
-      isBackgroundReadyForNDA = true
     }
   }
 
@@ -239,18 +214,6 @@ function miraUI() {
     })
   }
 
-  function decideBasedOnAlignment() {
-    let nextIndex = 0
-    if (alignmentIndex > 50) {
-      // TOP ALIGNMENT
-      nextIndex = 61 // just go to STAGE 5
-    } else {
-      // OUTSIDE OF IT or MIDDLE GROUND
-      nextIndex = STEPS.length - 1
-    }
-    return nextIndex
-  }
-
   const areas_FirstMenu = [
     {
       name: 'core',
@@ -288,6 +251,33 @@ function miraUI() {
       name: 'motion',
       index: 2,
       limits: { fromX: 43.65, toX: 56.64, fromY: 52.09, toY: 55.19 },
+    },
+  ]
+  const areas_ThirdMenu = [
+    {
+      name: 'pulled in',
+      index: 0,
+      limits: { fromX: 42.69, toX: 57.49, fromY: 32.45, toY: 35.55 },
+    },
+    {
+      name: 'observing',
+      index: 1,
+      limits: { fromX: 40.68, toX: 59.57, fromY: 40.65, toY: 43.75 },
+    },
+    {
+      name: 'unresolved',
+      index: 2,
+      limits: { fromX: 39.68, toX: 60.6, fromY: 48.03, toY: 51.72 },
+    },
+    {
+      name: 'distanced',
+      index: 2,
+      limits: { fromX: 34.0, toX: 65.67, fromY: 56.59, toY: 59.73 },
+    },
+    {
+      name: 'out',
+      index: 2,
+      limits: { fromX: 42.69, toX: 57.49, fromY: 64.54, toY: 67.68 },
     },
   ]
   const canvasWidth = 600
@@ -399,6 +389,76 @@ function miraUI() {
     return step
   }
 
+  function evaluateMenuAreas_ThirdMenu(areas, mouseX, mouseY) {
+    let step = null
+    // Pulled in
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[0].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[0].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[0].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
+      ) {
+        console.log('CLICKED: Pulled in!')
+        step = 73
+      }
+    }
+    // Observing
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[1].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[1].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[1].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
+      ) {
+        console.log('CLICKED: Observing!')
+        step = 74
+      }
+    }
+    // Unresolved
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[2].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[2].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[2].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
+      ) {
+        console.log('CLICKED: Unresolved!')
+        step = 75
+      }
+    }
+    // Keeping distance
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[3].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[3].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[3].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[3].limits.toY) / 100
+      ) {
+        console.log('CLICKED: Keeping distance!')
+        step = 76
+      }
+    }
+    // Outside
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[4].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[4].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[4].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[4].limits.toY) / 100
+      ) {
+        console.log('CLICKED: Outside!')
+        step = 77
+      }
+    }
+    return step
+  }
+
   // MAIN BRAIN
 
   async function exit(fromStep) {
@@ -407,12 +467,10 @@ function miraUI() {
     }
 
     if (fromStep.type === 'normal') {
-      // If current is normal shader animation, just fade it out.
       await fadeShaderOut(fromStep)
     }
 
     if (fromStep.type === 'menu') {
-      // const menuIndex = fromStep.menuIndex
       await fadeShaderOut(fromStep)
       gsap.to(UNIFORMS_TEXTURE, {
         delay: 0,
@@ -420,11 +478,6 @@ function miraUI() {
         duration: 0.2,
         ease: 'none',
       })
-      // await fadeMenuOut(fromStep, MENUS[fromStep.menuIndex], fromStep.menuIndex)
-      // if (fromStep.menuIndex == 0) {
-      //   firstMenuHasBeenViewed++
-      // }
-      // stage1MenuOpacity()
     }
   }
 
@@ -434,34 +487,25 @@ function miraUI() {
         detail: { step: currentStepIndex },
       })
     )
+
     if (toStep.needsLine) {
       fadeLineIn(toStep)
     }
+
     if (toStep.type === 'normal') {
-      // If next step is normal, swap texture and move it in
-      // window.dispatchEvent(
-      //   new CustomEvent('swapTexture', {
-      //     detail: { step: currentStepIndex },
-      //   })
-      // )
       await fadeShaderIn(toStep)
-      // if (toStep.id != 'step-60') {
-      isClickEnabled = true // Normally we need to put it as TRUE, but not when INNER CIRCLE is entering, this will be handled in the FADE IN of the menu :)
+      if (!toStep.isClickLocked) {
+        isClickEnabled = true
+      }
       console.log('click is on')
-      // }
     }
 
     if (toStep.type === 'bridge') {
-      // if step is bridge, trigger animation (this will go to next step by itself)
-      // usually nothing (it self-resolves)
-      // window.dispatchEvent(
-      //   new CustomEvent('swapTexture', {
-      //     detail: { step: currentStepIndex },
-      //   })
-      // )
       await bridgeAnimation(toStep)
       goToStep(currentStepIndex + 1)
-      isClickEnabled = true
+      if (!toStep.isClickLocked) {
+        isClickEnabled = true
+      }
       console.log('click is on')
     }
 
@@ -473,7 +517,9 @@ function miraUI() {
         ease: 'none',
       })
       await fadeShaderIn(toStep)
-      isClickEnabled = true
+      if (!toStep.isClickLocked) {
+        isClickEnabled = true
+      }
       console.log('click is on')
     }
   }
@@ -486,42 +532,30 @@ function miraUI() {
       return
     }
 
+    // Alignment menu always resolving in texture 78
+    if (
+      currentStepIndex === 73 ||
+      currentStepIndex === 74 ||
+      currentStepIndex === 75 ||
+      currentStepIndex === 76 ||
+      currentStepIndex === 77
+    ) {
+      nextStepIndex = 78
+    }
+
     let toStep = STEPS[nextStepIndex]
     let fromStep = STEPS[currentStepIndex] // to check if needs fade in
 
     await exit(fromStep) // Exit from current step
 
-    if (STEPS[currentStepIndex].nextIsMenu === true) {
-      // is the last doc of any of the 5 documents of stage 2
-      currentStepIndex = 22 // CIRCULAR 5 DOCUMENTS MENU
-      toStep = STEPS[currentStepIndex]
-    } else if (currentStepIndex == 59) {
-      // Just exited from REFLECTION and need to prepare interaction with CIRCLE!
-      // currentStepIndex = decideBasedOnAlignment()
-      isClickEnabled = false
-      isHoldEnabled = true
-      currentStepIndex = nextStepIndex // We will ALWAYS go to next step (Inner Circle)
-    } else if (currentStepIndex == 60) {
-      // Just exited from INNER CIRCLE and need to decide where to go (REST or NEXT)
-      currentStepIndex = decideBasedOnAlignment()
-      toStep = STEPS[currentStepIndex]
-    } else {
-      currentStepIndex = nextStepIndex // update current step to track where we at (NORMALLY MOVE 1 FORWARD)
-    }
+    currentStepIndex = nextStepIndex // update current step to track where we at (NORMALLY MOVE 1 FORWARD)
 
-    if (isSufficientInteraction) {
-      // positionMenuContainer.style.pointerEvents = 'auto'
-      currentStepIndex = 57 // STAGE 4
-      toStep = STEPS[currentStepIndex]
-    }
     CURRENT_STEP_TXT.textContent = 'Current step: ' + currentStepIndex
 
     await enter(toStep) // Move into new currentStep
 
     if (currentStepIndex == 1) {
       stabilizeBackground()
-    } else if (currentStepIndex == 62) {
-      adjustNDABackground()
     }
 
     // isTransitioning = false
@@ -534,7 +568,15 @@ function miraUI() {
     const mouseY = e.clientY
     // AREAS MENUS FLOW
     const currentStep = STEPS[currentStepIndex]
+    if (currentStep.isClickLocked) {
+      isClickEnabled = false
+    } else {
+      isClickEnabled = true
+    }
+    console.log(isClickEnabled)
     let destinationFromMenu = null
+
+    // MENU FLOW
     if (currentStep.type === 'menu') {
       switch (currentStep.currentTexture) {
         case 'menu_1':
@@ -548,6 +590,14 @@ function miraUI() {
         case 'menu_2':
           destinationFromMenu = evaluateMenuAreas_SecondMenu(
             areas_SecondMenu,
+            mouseX,
+            mouseY
+          )
+          break
+
+        case 'menu_3':
+          destinationFromMenu = evaluateMenuAreas_ThirdMenu(
+            areas_ThirdMenu,
             mouseX,
             mouseY
           )
@@ -611,98 +661,6 @@ function miraUI() {
     }
 
     holdTween = null
-  })
-
-  // HEADINGS OF MENU CLICKS
-
-  menuHeadings.forEach((heading, index) => {
-    heading.addEventListener('mouseover', () => {
-      if (heading.classList.contains('is--inactive')) {
-        return
-      } else if (isMenuTransitioning) {
-        return
-      } else {
-        gsap.to(heading, {
-          opacity: 1,
-          duration: 0.4,
-          overwrite: 'auto',
-        })
-      }
-    })
-    heading.addEventListener('mouseleave', () => {
-      if (heading.classList.contains('is--inactive')) {
-        return
-      } else if (isMenuTransitioning) {
-        return
-      } else {
-        gsap.to(heading, {
-          opacity: 0.8,
-          duration: 0.4,
-          overwrite: 'auto',
-        })
-      }
-    })
-    heading.addEventListener('click', () => {
-      if (heading.classList.contains('is--inactive')) {
-        return
-      } else if (isMenuTransitioning) {
-        return
-      } else {
-        if (index == 0) {
-          // CORE
-          goToStep(3)
-        } else if (index == 1) {
-          // SEED
-          goToStep(9)
-        } else if (index == 2) {
-          // ORGANISM
-          goToStep(16)
-        } else if (index == 3) {
-          // CONDITIONS
-          goToStep(23)
-        } else if (index == 4) {
-          // STRATOSPHERE
-          goToStep(39)
-        } else if (index == 5) {
-          // COMMUNICATION
-          goToStep(34)
-        } else if (index == 6) {
-          // HABITAT
-          goToStep(29)
-        } else if (index == 7) {
-          // ALIGNMENT
-          goToStep(50)
-        } else if (index == 8) {
-          // STAGE 4 REACTION - Pulled toward it
-          alignmentIndex = 100
-          STAGE_4_REACTION.textContent = 'Coherence is present within you.'
-          goToStep(59)
-        } else if (index == 9) {
-          // STAGE 4 REACTION - Leaning into it
-          alignmentIndex = 80
-          STAGE_4_REACTION.textContent = 'Your proximity is increasing.'
-          goToStep(59)
-        } else if (index == 10) {
-          // STAGE 4 REACTION - Unresolved
-          alignmentIndex = 50
-          STAGE_4_REACTION.textContent = 'Your position has not settled.'
-          goToStep(59)
-        } else if (index == 11) {
-          // STAGE 4 REACTION - Keeping distance
-          alignmentIndex = 20
-          STAGE_4_REACTION.textContent = 'Your separation is being maintained.'
-          goToStep(59)
-        } else if (index == 12) {
-          // STAGE 4 REACTION - Outside of it
-          alignmentIndex = 0
-          STAGE_4_REACTION.textContent = 'No relation is forming within you.'
-          goToStep(59)
-        } else if (index == 13) {
-          // Go to DocuSign FOCUS
-          goToStep(62)
-        }
-      }
-    })
   })
 
   // CURSOR

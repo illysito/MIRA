@@ -221,6 +221,57 @@ const URLS = {
   bridge_3_6: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/f1c1373d1d442376fa3d0c533bfd309addb784ab/textures/_bridges/_bridge%203%20(into%20alignment)/Bridge%203%20(into%20alignment)5.png'
   ),
+  menu_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Menu%203.jpg'
+  ),
+  alignment_100: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%201.png'
+  ),
+  alignment_80: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%202.png'
+  ),
+  alignment_60: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%203.png'
+  ),
+  alignment_20: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%204.png'
+  ),
+  alignment_0: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%205.png'
+  ),
+  xxxiii_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_5.png'
+  ),
+  xxxiii_2: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_9.png'
+  ),
+  xxxiii_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_0.png'
+  ),
+  xxxiii_4: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_3.png'
+  ),
+  xxxiii_5: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_7.png'
+  ),
+  xxxiii_6: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_10.png'
+  ),
+  xxxiii_7: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_1.png'
+  ),
+  xxxiii_8: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_4.png'
+  ),
+  xxxiii_9: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_8.png'
+  ),
+  xxxiii_10: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_11.png'
+  ),
+  xxxiii_11: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_2.png'
+  ),
 }
 
 export default { URLS_INIT, URLS }
