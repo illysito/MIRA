@@ -26,8 +26,45 @@ select {
   height: 100%;
 }
 
-input:focus {
-  outline: none;
-  border-bottom-color: rgb(236, 203, 190);
+#email-input {
+  border: none;
+  border-bottom: 1px solid #a6a08e;
+
+  width: 320px;
+  padding: 8px 24px 8px 24px;
+
+  text-align: center;
+
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
   box-shadow: none;
+
+  outline: none;
+}
+
+#reflection-input {
+  border: none;
+  border-top: 1px solid #a6a08e;
+
+  width: 320px;
+  height: 120px;
+  min-width: 320px;
+  min-height: 120px;
+  max-width: 320px;
+  max-height: 160px;
+  padding: 8px 0px 8px 0px;
+
+  text-align: left;
+
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  box-shadow: none;
+
+  outline: none;
 }

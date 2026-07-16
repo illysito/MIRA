@@ -272,6 +272,12 @@ const URLS = {
   xxxiii_11: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_2.png'
   ),
+  thankyou_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/9b061690ce1c7c613b610da42571991b7abb6f04/textures/_other/thankYou-1.jpg'
+  ),
+  reflection: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/568b3c12723b9c722422ce61f06a1132f2e2f27d/textures/_other/Reflection.jpg'
+  ),
 }
 
 export default { URLS_INIT, URLS }

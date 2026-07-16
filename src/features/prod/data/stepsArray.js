@@ -1164,6 +1164,34 @@ const STEPS = [
     lineOpacity: lineOpacityLit,
     lineDuration: lineDuration,
   },
+  // THANK YOU
+  {
+    type: 'normal',
+    bridgeIndex: 0,
+    id: 'step-90',
+    currentTexture: 'thankyou_1',
+    fadeOutDuration: shaderFadeOutDur_1,
+    fadeInDuration: shaderFadeInDur_1,
+    voidDelay: shaderVoidDelay_1,
+    easeIn: 'power1.inOut',
+    easeOut: 'power1.inOut',
+    isClickLocked: true,
+    displaysInput: true,
+  },
+  // REFLECTION
+  {
+    type: 'normal',
+    bridgeIndex: 0,
+    id: 'step-91',
+    currentTexture: 'reflection',
+    fadeOutDuration: shaderFadeOutDur_1,
+    fadeInDuration: shaderFadeInDur_1,
+    voidDelay: shaderVoidDelay_1,
+    easeIn: 'power1.inOut',
+    easeOut: 'power1.inOut',
+    isClickLocked: true,
+    // displaysInput: true,
+  },
   // REST
   {
     type: 'normal',
@@ -1174,6 +1202,7 @@ const STEPS = [
     voidDelay: shaderVoidDelay_1,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    isClickLocked: true,
   },
 ]
 

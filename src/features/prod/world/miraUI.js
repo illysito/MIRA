@@ -552,6 +552,10 @@ function miraUI() {
 
     CURRENT_STEP_TXT.textContent = 'Current step: ' + currentStepIndex
 
+    if (toStep.displaysInput) {
+      window.dispatchEvent(new CustomEvent('activateEmailInput'))
+    }
+
     await enter(toStep) // Move into new currentStep
 
     if (currentStepIndex == 1) {
@@ -691,6 +695,21 @@ function miraUI() {
   function go(x) {
     goToStep(x)
   }
+
+  // INPUT BUTTONS
+  const emailButton = document.querySelector('.email-button')
+  const reflectionButton = document.querySelector('.reflection-button')
+
+  emailButton.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('deactivateEmailInput'))
+    window.dispatchEvent(new CustomEvent('activateReflectionInput'))
+    goToStep(91)
+  })
+
+  reflectionButton.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('deactivateReflectionInput'))
+    goToStep(92) // LAST AND REST
+  })
 
   window.go = go
 }
