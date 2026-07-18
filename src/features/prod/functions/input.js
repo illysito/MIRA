@@ -8,7 +8,7 @@ const reflectionInput = document.querySelector('#reflection-input')
 const emailInput = document.querySelector('#email-input')
 
 inputContainer.style.bottom = `${(window.innerHeight - 600) / 2 + 48}px`
-reflectionContainer.style.top = `${(window.innerHeight - 600) / 2 + 320}px`
+// reflectionContainer.style.top = `${(window.innerHeight - 600) / 2 + 320}px`
 
 gsap.set([inputContainer, reflectionContainer], {
   opacity: 0,
@@ -20,7 +20,7 @@ function input() {
   window.addEventListener('activateEmailInput', () => {
     emailInput.focus()
     gsap.to(inputContainer, {
-      delay: 1.6,
+      delay: 4.4,
       opacity: 1,
       zIndex: 100,
       pointerEvents: 'auto',

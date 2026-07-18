@@ -35,10 +35,10 @@ function miraUI() {
   const maxStep = STEPS.length
   let defaultAmplitude = 0.28
   let currentStepIndex = 0
-  // let isTransitioning = false
+  let isTransitioning = true
   // hold & click gates
   let holdTimeDue = false
-  let isHoldEnabled = true
+  let isHoldEnabled = false
   let isClickEnabled = false
   // actions been DONE gates
   let isBackgroundStabilized = false
@@ -51,6 +51,10 @@ function miraUI() {
       offset: 0, // means fade in
       duration: STEPS[0].fadeInDuration,
       ease: STEPS[0].easeIn,
+      onComplete: () => {
+        isTransitioning = false
+        isHoldEnabled = true
+      },
     })
   }
   fadeSystemIn()
@@ -223,12 +227,12 @@ function miraUI() {
     {
       name: 'seed',
       index: 1,
-      limits: { fromX: 45.23, toX: 54.9, fromY: 37.81, toY: 40.92 },
+      limits: { fromX: 45.23, toX: 54.9, fromY: 39.23, toY: 42.33 },
     },
     {
       name: 'organism',
       index: 2,
-      limits: { fromX: 41.08, toX: 58.94, fromY: 44.36, toY: 47.64 },
+      limits: { fromX: 41.08, toX: 58.94, fromY: 47.0, toY: 50.27 },
     },
   ]
   const areas_SecondMenu = [
@@ -240,17 +244,12 @@ function miraUI() {
     {
       name: 'communication',
       index: 1,
-      limits: { fromX: 35.39, toX: 64.57, fromY: 37.81, toY: 40.92 },
+      limits: { fromX: 35.39, toX: 64.57, fromY: 39.23, toY: 42.33 },
     },
     {
       name: 'stratosphere',
       index: 2,
-      limits: { fromX: 37.98, toX: 62.02, fromY: 44.36, toY: 47.64 },
-    },
-    {
-      name: 'motion',
-      index: 2,
-      limits: { fromX: 43.65, toX: 56.64, fromY: 52.09, toY: 55.19 },
+      limits: { fromX: 37.98, toX: 62.02, fromY: 47.0, toY: 50.27 },
     },
   ]
   const areas_ThirdMenu = [
@@ -300,7 +299,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: CORE!')
-        step = 3
+        step = 2
       }
     }
     // SEED
@@ -313,7 +312,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: SEED!')
-        step = 10
+        step = 13
       }
     }
     // ORGANISM
@@ -326,7 +325,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: ORGANISM!')
-        step = 16
+        step = 21
       }
     }
     return step
@@ -344,7 +343,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: HABITAT!')
-        step = 25
+        step = 34
       }
     }
     // COMMUNICATION
@@ -357,7 +356,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: COMMUNICATION!')
-        step = 34
+        step = 58
       }
     }
     // STRATOSPHERE
@@ -370,20 +369,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: STRATOSPHERE!')
-        step = 45
-      }
-    }
-    // MOTION
-    if (
-      mouseX > canvasLeftEdge + (canvasWidth * areas[3].limits.fromX) / 100 &&
-      mouseX < canvasLeftEdge + (canvasWidth * areas[3].limits.toX) / 100
-    ) {
-      if (
-        mouseY > canvasTopEdge + (canvasHeight * areas[3].limits.fromY) / 100 &&
-        mouseY < canvasTopEdge + (canvasHeight * areas[3].limits.toY) / 100
-      ) {
-        console.log('CLICKED: MOTION!')
-        step = 60
+        step = 69
       }
     }
     return step
@@ -401,7 +387,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: Pulled in!')
-        step = 73
+        // step = 73
       }
     }
     // Observing
@@ -414,7 +400,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: Observing!')
-        step = 74
+        // step = 74
       }
     }
     // Unresolved
@@ -427,7 +413,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: Unresolved!')
-        step = 75
+        // step = 75
       }
     }
     // Keeping distance
@@ -440,7 +426,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[3].limits.toY) / 100
       ) {
         console.log('CLICKED: Keeping distance!')
-        step = 76
+        // step = 76
       }
     }
     // Outside
@@ -453,9 +439,10 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[4].limits.toY) / 100
       ) {
         console.log('CLICKED: Outside!')
-        step = 77
+        // step = 77
       }
     }
+    step = 87
     return step
   }
 
@@ -502,6 +489,7 @@ function miraUI() {
 
     if (toStep.type === 'bridge') {
       await bridgeAnimation(toStep)
+      isTransitioning = false
       goToStep(currentStepIndex + 1)
       if (!toStep.isClickLocked) {
         isClickEnabled = true
@@ -525,22 +513,11 @@ function miraUI() {
   }
 
   async function goToStep(nextStepIndex) {
-    // if (isTransitioning) return
-    // isTransitioning = true
+    if (isTransitioning) return
+    isTransitioning = true
 
     if (nextStepIndex >= maxStep) {
       return
-    }
-
-    // Alignment menu always resolving in texture 78
-    if (
-      currentStepIndex === 73 ||
-      currentStepIndex === 74 ||
-      currentStepIndex === 75 ||
-      currentStepIndex === 76 ||
-      currentStepIndex === 77
-    ) {
-      nextStepIndex = 78
     }
 
     let toStep = STEPS[nextStepIndex]
@@ -553,7 +530,7 @@ function miraUI() {
     CURRENT_STEP_TXT.textContent = 'Current step: ' + currentStepIndex
 
     if (toStep.displaysInput) {
-      window.dispatchEvent(new CustomEvent('activateEmailInput'))
+      window.dispatchEvent(new CustomEvent('activateReflectionInput'))
     }
 
     await enter(toStep) // Move into new currentStep
@@ -562,7 +539,7 @@ function miraUI() {
       stabilizeBackground()
     }
 
-    // isTransitioning = false
+    isTransitioning = false
   }
 
   // CLICK
@@ -572,12 +549,12 @@ function miraUI() {
     const mouseY = e.clientY
     // AREAS MENUS FLOW
     const currentStep = STEPS[currentStepIndex]
+
     if (currentStep.isClickLocked) {
       isClickEnabled = false
-    } else {
-      isClickEnabled = true
     }
-    console.log(isClickEnabled)
+
+    console.log('click is enabled: ', isClickEnabled)
     let destinationFromMenu = null
 
     // MENU FLOW
@@ -700,15 +677,15 @@ function miraUI() {
   const emailButton = document.querySelector('.email-button')
   const reflectionButton = document.querySelector('.reflection-button')
 
-  emailButton.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('deactivateEmailInput'))
-    window.dispatchEvent(new CustomEvent('activateReflectionInput'))
-    goToStep(91)
-  })
-
   reflectionButton.addEventListener('click', () => {
     window.dispatchEvent(new CustomEvent('deactivateReflectionInput'))
-    goToStep(92) // LAST AND REST
+    window.dispatchEvent(new CustomEvent('activateEmailInput'))
+    goToStep(104)
+  })
+
+  emailButton.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('deactivateEmailInput'))
+    goToStep(105) // LAST AND REST
   })
 
   window.go = go
