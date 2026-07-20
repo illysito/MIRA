@@ -272,54 +272,6 @@ const URLS = {
   menu_3: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Menu%203.jpg'
   ),
-  alignment_100: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%201.png'
-  ),
-  alignment_80: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%202.png'
-  ),
-  alignment_60: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%203.png'
-  ),
-  alignment_20: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%204.png'
-  ),
-  alignment_0: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Reaction%205.png'
-  ),
-  xxxiii_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_5.png'
-  ),
-  xxxiii_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_9.png'
-  ),
-  xxxiii_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_0.png'
-  ),
-  xxxiii_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_3.png'
-  ),
-  xxxiii_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_7.png'
-  ),
-  xxxiii_6: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_10.png'
-  ),
-  xxxiii_7: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_1.png'
-  ),
-  xxxiii_8: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_4.png'
-  ),
-  xxxiii_9: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_8.png'
-  ),
-  xxxiii_10: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_11.png'
-  ),
-  xxxiii_11: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_bridges/_bridge%207%20(XXXIII)/Bridge%20(finale)_2.png'
-  ),
   input_bridge_1: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/0c3e4a90bc64aa48e56f4bcd4e82c4c9201c2f9e/textures/_bridges/_input%20bridge%20july/__input%20bridge%201.jpg'
   ),
@@ -330,7 +282,10 @@ const URLS = {
     'https://github.com/illysito/MIRA/blob/e5dd9dd6fb9edd13d6d4f60abda73c6ce3f147f0/textures/_bridges/_input%20bridge%20july/__input%20bridge%203%20-%202.jpg'
   ),
   input_bridge_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/0c3e4a90bc64aa48e56f4bcd4e82c4c9201c2f9e/textures/_bridges/_input%20bridge%20july/__input%20bridge%204.jpg'
+    'https://github.com/illysito/MIRA/blob/7799191495d17ee76f03deeb06776dfd342ce3aa/textures/_bridges/_input%20bridge%20july/_input%20bridge%20finale_2.jpg'
+  ),
+  input_bridge_5: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/7799191495d17ee76f03deeb06776dfd342ce3aa/textures/_bridges/_input%20bridge%20july/_input%20bridge%20finale_1.jpg'
   ),
   thankyou_1: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/9b061690ce1c7c613b610da42571991b7abb6f04/textures/_other/thankYou-1.jpg'

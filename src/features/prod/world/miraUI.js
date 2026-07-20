@@ -1,6 +1,8 @@
 import gsap from 'gsap'
 
 import STEPS from '../data/stepsArray'
+import createDataStore from '../functions/dataStorage'
+const dataStore = createDataStore()
 
 function lerp(start, end, t) {
   return start + (end - start) * t
@@ -387,7 +389,8 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: Pulled in!')
-        // step = 73
+        dataStore.setAlignment('Pulled in')
+        step = 87
       }
     }
     // Observing
@@ -400,7 +403,8 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: Observing!')
-        // step = 74
+        dataStore.setAlignment('Observing')
+        step = 87
       }
     }
     // Unresolved
@@ -413,7 +417,8 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: Unresolved!')
-        // step = 75
+        dataStore.setAlignment('Unresolved')
+        step = 87
       }
     }
     // Keeping distance
@@ -426,7 +431,8 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[3].limits.toY) / 100
       ) {
         console.log('CLICKED: Keeping distance!')
-        // step = 76
+        dataStore.setAlignment('Keeping distance')
+        step = 87
       }
     }
     // Outside
@@ -439,10 +445,9 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[4].limits.toY) / 100
       ) {
         console.log('CLICKED: Outside!')
-        // step = 77
+        step = 87
       }
     }
-    step = 87
     return step
   }
 
@@ -480,6 +485,21 @@ function miraUI() {
     }
 
     if (toStep.type === 'normal') {
+      if (toStep.needsExplicitHover) {
+        gsap.to(UNIFORMS_TEXTURE, {
+          delay: 0,
+          hoverSwitchAmp: 0.0, // ACTIVATE HOVER EFFECT
+          duration: 0.2,
+          ease: 'none',
+        })
+      } else {
+        gsap.to(UNIFORMS_TEXTURE, {
+          delay: 0,
+          hoverSwitchAmp: 1.0, // ACTIVATE HOVER EFFECT
+          duration: 0.2,
+          ease: 'none',
+        })
+      }
       await fadeShaderIn(toStep)
       if (!toStep.isClickLocked) {
         isClickEnabled = true
@@ -529,8 +549,12 @@ function miraUI() {
 
     CURRENT_STEP_TXT.textContent = 'Current step: ' + currentStepIndex
 
-    if (toStep.displaysInput) {
+    if (toStep.displaysReflectionInput) {
       window.dispatchEvent(new CustomEvent('activateReflectionInput'))
+    }
+
+    if (toStep.displaysEmailInput) {
+      window.dispatchEvent(new CustomEvent('activateEmailInput'))
     }
 
     await enter(toStep) // Move into new currentStep
@@ -541,6 +565,10 @@ function miraUI() {
 
     isTransitioning = false
   }
+
+  // function sendData(){
+
+  // }
 
   // CLICK
 
@@ -674,18 +702,60 @@ function miraUI() {
   }
 
   // INPUT BUTTONS
-  const emailButton = document.querySelector('.email-button')
   const reflectionButton = document.querySelector('.reflection-button')
+  const emailInput = document.querySelector('#email-input')
+  const reflectionInput = document.querySelector('#reflection-input')
+
+  let reflectionInputValue
+  reflectionInput.addEventListener('input', (e) => {
+    const value = e.target.value
+    reflectionInputValue = value
+    console.log(reflectionInputValue)
+  })
+
+  let emailInputValue
+  emailInput.addEventListener('input', (e) => {
+    const value = e.target.value
+    emailInputValue = value
+    console.log(emailInputValue)
+  })
 
   reflectionButton.addEventListener('click', () => {
     window.dispatchEvent(new CustomEvent('deactivateReflectionInput'))
-    window.dispatchEvent(new CustomEvent('activateEmailInput'))
-    goToStep(104)
+    dataStore.setReflection(reflectionInputValue)
+    // window.dispatchEvent(new CustomEvent('activateEmailInput'))
+    goToStep(92)
   })
 
-  emailButton.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('deactivateEmailInput'))
-    goToStep(105) // LAST AND REST
+  const lastIndex = STEPS.length - 1
+  const antiLastIndex = lastIndex - 1
+  window.addEventListener('keydown', (e) => {
+    if (currentStepIndex !== antiLastIndex) return
+
+    if (e.key === 'Enter') {
+      // DATE AND TIME
+      const now = new Date()
+
+      const date = now.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      })
+
+      const time = now.toLocaleTimeString('en-GB', {
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+
+      // Write Data
+      dataStore.setEmail(emailInputValue)
+      dataStore.setDateAndTime(date, time)
+
+      // SHOW ON CONSOLE
+      console.log(dataStore.getData())
+      window.dispatchEvent(new CustomEvent('deactivateEmailInput'))
+      goToStep(lastIndex) // LAST AND REST
+    }
   })
 
   window.go = go
