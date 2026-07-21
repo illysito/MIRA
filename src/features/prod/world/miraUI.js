@@ -2,6 +2,7 @@ import gsap from 'gsap'
 
 import STEPS from '../data/stepsArray'
 import createDataStore from '../functions/dataStorage'
+import { saveResponse } from '../functions/saveResponse'
 const dataStore = createDataStore()
 
 function lerp(start, end, t) {
@@ -729,7 +730,7 @@ function miraUI() {
 
   const lastIndex = STEPS.length - 1
   const antiLastIndex = lastIndex - 1
-  window.addEventListener('keydown', (e) => {
+  window.addEventListener('keydown', async (e) => {
     if (currentStepIndex !== antiLastIndex) return
 
     if (e.key === 'Enter') {
@@ -752,7 +753,17 @@ function miraUI() {
       dataStore.setDateAndTime(date, time)
 
       // SHOW ON CONSOLE
-      console.log(dataStore.getData())
+      const userData = dataStore.getData()
+      console.log(userData)
+
+      // Send final Data to SUPABASE
+      try {
+        await saveResponse(userData)
+        console.log('Finished and saved')
+      } catch (error) {
+        console.error('Submission failed:', error.message)
+      }
+
       window.dispatchEvent(new CustomEvent('deactivateEmailInput'))
       goToStep(lastIndex) // LAST AND REST
     }
