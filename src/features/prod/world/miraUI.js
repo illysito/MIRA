@@ -22,7 +22,8 @@ const UNIFORMS_TEXTURE = {
   mixer4: 0.0,
 
   lineFactor: 0.0,
-  hoverSwitchAmp: 1.0,
+  hoverSwitchAmp: 0.0,
+  hoverSwitchXDistortion: 1.0,
 }
 
 const UNIFORMS_BACKGROUND = {
@@ -302,7 +303,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: CORE!')
-        step = 2
+        step = 3
       }
     }
     // SEED
@@ -315,7 +316,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: SEED!')
-        step = 13
+        step = 14
       }
     }
     // ORGANISM
@@ -328,7 +329,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: ORGANISM!')
-        step = 21
+        step = 22
       }
     }
     return step
@@ -346,7 +347,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: HABITAT!')
-        step = 34
+        step = 35
       }
     }
     // COMMUNICATION
@@ -359,7 +360,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: COMMUNICATION!')
-        step = 58
+        step = 59
       }
     }
     // STRATOSPHERE
@@ -372,7 +373,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: STRATOSPHERE!')
-        step = 69
+        step = 70
       }
     }
     return step
@@ -391,7 +392,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Pulled in!')
         dataStore.setAlignment('Pulled in')
-        step = 87
+        step = 88
       }
     }
     // Observing
@@ -405,7 +406,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Observing!')
         dataStore.setAlignment('Observing')
-        step = 87
+        step = 88
       }
     }
     // Unresolved
@@ -419,7 +420,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Unresolved!')
         dataStore.setAlignment('Unresolved')
-        step = 87
+        step = 88
       }
     }
     // Keeping distance
@@ -433,7 +434,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Keeping distance!')
         dataStore.setAlignment('Keeping distance')
-        step = 87
+        step = 88
       }
     }
     // Outside
@@ -446,7 +447,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[4].limits.toY) / 100
       ) {
         console.log('CLICKED: Outside!')
-        step = 87
+        step = 88
       }
     }
     return step
@@ -475,9 +476,10 @@ function miraUI() {
   }
 
   async function enter(toStep) {
+    console.log(toStep)
     window.dispatchEvent(
       new CustomEvent('swapTexture', {
-        detail: { step: currentStepIndex },
+        detail: { step: currentStepIndex, needsToGoDown: toStep.needsToGoDown },
       })
     )
 
@@ -536,6 +538,10 @@ function miraUI() {
   async function goToStep(nextStepIndex) {
     if (isTransitioning) return
     isTransitioning = true
+
+    gsap.to(UNIFORMS_TEXTURE, {
+      hoverSwitchXDistortion: 0.35,
+    })
 
     if (nextStepIndex >= maxStep) {
       return
@@ -725,7 +731,7 @@ function miraUI() {
     window.dispatchEvent(new CustomEvent('deactivateReflectionInput'))
     dataStore.setReflection(reflectionInputValue)
     // window.dispatchEvent(new CustomEvent('activateEmailInput'))
-    goToStep(92)
+    goToStep(93)
   })
 
   const lastIndex = STEPS.length - 1

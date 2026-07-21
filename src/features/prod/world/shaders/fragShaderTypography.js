@@ -8,6 +8,7 @@ uniform vec2 u_resolution;
 uniform float u_offset;
 uniform float u_lineFactor;
 uniform float u_hoverSwitchAmp;
+uniform float u_hoverSwitchXDistortion;
 
 uniform float u_displacementCoef;
 uniform float u_noiseFrequency;
@@ -139,7 +140,7 @@ void main()
   float dist = distance(mouse, center);
   float centerLuminance = 1.0 - smoothstep(0.1, 2.4, dist);
 
-  float hoverDist = distance(vec2(0.35 * mouse.x, mouse.y), vec2(0.35 * uv.x, 1.0 - uv.y));
+  float hoverDist = distance(vec2(u_hoverSwitchXDistortion * mouse.x, mouse.y), vec2(u_hoverSwitchXDistortion * uv.x, 1.0 - uv.y));
   hoverDist += u_hoverSwitchAmp; // 1.0 if hover is OUT so no hover effect is possible
   float hoverLuminance = 1.4 - 0.4 * smoothstep(0.0, 0.06, hoverDist);
 

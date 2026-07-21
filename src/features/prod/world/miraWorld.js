@@ -94,6 +94,9 @@ async function worldHome() {
       u_blocks: { value: 800 },
       u_lineFactor: { value: UNIFORMS_TEXTURE.lineFactor },
       u_hoverSwitchAmp: { value: UNIFORMS_TEXTURE.hoverSwitchAmp },
+      u_hoverSwitchXDistortion: {
+        value: UNIFORMS_TEXTURE.hoverSwitchXDistortion,
+      },
 
       u_noiseFrequency: { value: UNIFORMS_TEXTURE.frequency },
       u_displacementCoef: { value: UNIFORMS_TEXTURE.amplitude },
@@ -109,7 +112,7 @@ async function worldHome() {
     depthWrite: false,
   })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  const planeVerticalOffset = 0
+  const planeVerticalOffset = 40
   plane.position.y = planeVerticalOffset
   scene.add(plane)
 
@@ -214,6 +217,8 @@ async function worldHome() {
       plane.material.uniforms.u_mouseX.value = currentX
       plane.material.uniforms.u_mouseY.value = currentY
       plane.material.uniforms.u_blocks.value = UNIFORMS_TEXTURE.blocks
+      plane.material.uniforms.u_hoverSwitchXDistortion.value =
+        UNIFORMS_TEXTURE.hoverSwitchXDistortion
       plane.scale.set(
         UNIFORMS_TEXTURE.scale,
         UNIFORMS_TEXTURE.scale,
@@ -247,8 +252,8 @@ async function worldHome() {
       e.clientX
     )
     targetY = gsap.utils.mapRange(
-      verticalMargin - planeVerticalOffset,
-      window.innerHeight - verticalMargin - planeVerticalOffset,
+      verticalMargin,
+      window.innerHeight - verticalMargin,
       0.0,
       1.0,
       e.clientY
@@ -274,10 +279,18 @@ async function worldHome() {
   // Moving a step forward LOGIC
   window.addEventListener('swapTexture', (e) => {
     const stepIndex = e.detail.step
+    const needsToGoDown = e.detail.needsToGoDown
+
     console.log('current step index read from WORLD: ', stepIndex)
     const step = STEPS[stepIndex]
 
     if (!step) return
+
+    if (needsToGoDown) {
+      plane.position.y = 0
+    } else {
+      plane.position.y = planeVerticalOffset
+    }
 
     plane.material.uniforms.u_currentTexture.value =
       textures[step.currentTexture]

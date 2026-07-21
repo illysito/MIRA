@@ -34,28 +34,28 @@ const STEPS = [
     lineOpacity: 0,
   },
   // STAGE 2 ************************
-  // {
-  //   type: 'bridge',
-  //   bridgeIndex: 0,
-  //   id: 'step-1',
-  //   currentTexture: 'bridge_1',
-  //   fadeDuration: shaderFadeOutDur_1,
-  //   voidDelay: bridgeVoidDelay_1 * 1.4,
-  //   holdDelay: bridgeHoldDelay_1,
-  //   staggerIn: bridgeStagger_1,
-  //   staggerOut: 0,
-  //   easeIn: 'power1.inOut',
-  //   easeOut: 'power1.inOut',
-  //   needsLine: true,
-  //   shouldRetainLine: false,
-  //   lineOpacity: lineOpacityLit,
-  //   lineDuration: lineDuration,
-  // },
+  {
+    type: 'bridge',
+    bridgeIndex: 0,
+    id: 'step-1',
+    currentTexture: 'bridge_1',
+    fadeDuration: shaderFadeOutDur_1,
+    voidDelay: bridgeVoidDelay_1 * 1.4,
+    holdDelay: bridgeHoldDelay_1,
+    staggerIn: bridgeStagger_1,
+    staggerOut: 0,
+    easeIn: 'power1.inOut',
+    easeOut: 'power1.inOut',
+    needsLine: false,
+    shouldRetainLine: false,
+    lineOpacity: lineOpacityLit,
+    lineDuration: lineDuration,
+  },
   // FIRST MENU ( CORE )
   {
     type: 'menu',
     menuIndex: 0,
-    id: 'step-1',
+    id: 'step-2',
     currentTexture: 'menu_1',
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1,
@@ -63,11 +63,12 @@ const STEPS = [
     voidDelay: 0.8,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    needsToGoDown: true,
   },
   // CORE STARTS
   {
     type: 'normal',
-    id: 'step-2',
+    id: 'step-3',
     currentTexture: 'core_1',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -77,7 +78,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-3',
+    id: 'step-4',
     currentTexture: 'core_2',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -87,7 +88,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-4',
+    id: 'step-5',
     currentTexture: 'core_3',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -97,7 +98,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-5',
+    id: 'step-6',
     currentTexture: 'core_4',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -107,7 +108,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-6',
+    id: 'step-7',
     currentTexture: 'core_5',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -117,7 +118,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-7',
+    id: 'step-8',
     currentTexture: 'core_6',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -127,7 +128,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-8',
+    id: 'step-9',
     currentTexture: 'core_7',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -137,7 +138,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-9',
+    id: 'step-10',
     currentTexture: 'core_8',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -147,7 +148,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-10',
+    id: 'step-11',
     currentTexture: 'core_9',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -157,7 +158,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-11',
+    id: 'step-12',
     currentTexture: 'core_10',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -169,7 +170,7 @@ const STEPS = [
   {
     type: 'menu',
     menuIndex: 1,
-    id: 'step-12',
+    id: 'step-13',
     currentTexture: 'menu_1',
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1,
@@ -177,11 +178,12 @@ const STEPS = [
     voidDelay: 0.8,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    needsToGoDown: true,
   },
   // SEED STARTS
   {
     type: 'normal',
-    id: 'step-13',
+    id: 'step-14',
     currentTexture: 'seed_1',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -191,7 +193,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-14',
+    id: 'step-15',
     currentTexture: 'seed_2',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -201,7 +203,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-15',
+    id: 'step-16',
     currentTexture: 'seed_3',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -211,7 +213,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-16',
+    id: 'step-17',
     currentTexture: 'seed_4',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -221,7 +223,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-17',
+    id: 'step-18',
     currentTexture: 'seed_5',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -231,7 +233,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-18',
+    id: 'step-19',
     currentTexture: 'seed_6',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -241,7 +243,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-19',
+    id: 'step-20',
     currentTexture: 'seed_7',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -253,7 +255,7 @@ const STEPS = [
   {
     type: 'menu',
     menuIndex: 2,
-    id: 'step-20',
+    id: 'step-21',
     currentTexture: 'menu_1',
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1,
@@ -261,11 +263,12 @@ const STEPS = [
     voidDelay: 0.8,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    needsToGoDown: true,
   },
   // ORGANISM STARTS
   {
     type: 'normal',
-    id: 'step-21',
+    id: 'step-22',
     currentTexture: 'organism_1',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -275,7 +278,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-22',
+    id: 'step-23',
     currentTexture: 'organism_2',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -285,7 +288,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-23',
+    id: 'step-24',
     currentTexture: 'organism_3',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -295,7 +298,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-24',
+    id: 'step-25',
     currentTexture: 'organism_4',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -305,7 +308,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-25',
+    id: 'step-26',
     currentTexture: 'organism_5',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -315,7 +318,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-26',
+    id: 'step-27',
     currentTexture: 'organism_6',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -325,7 +328,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-27',
+    id: 'step-28',
     currentTexture: 'organism_7',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -335,7 +338,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-28',
+    id: 'step-29',
     currentTexture: 'organism_8',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -345,7 +348,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-29',
+    id: 'step-30',
     currentTexture: 'organism_9',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -358,7 +361,7 @@ const STEPS = [
   {
     type: 'bridge',
     bridgeIndex: 1,
-    id: 'step-30',
+    id: 'step-31',
     currentTexture: 'bridge_2_1',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -375,7 +378,7 @@ const STEPS = [
   {
     type: 'bridge',
     bridgeIndex: 2,
-    id: 'step-31',
+    id: 'step-32',
     currentTexture: 'bridge_2_2',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -392,7 +395,7 @@ const STEPS = [
   {
     type: 'bridge',
     bridgeIndex: 3,
-    id: 'step-32',
+    id: 'step-33',
     currentTexture: 'bridge_2_3',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -410,7 +413,7 @@ const STEPS = [
   {
     type: 'menu',
     menuIndex: 3,
-    id: 'step-33',
+    id: 'step-34',
     currentTexture: 'menu_2',
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1 * 1.8,
@@ -422,11 +425,12 @@ const STEPS = [
     lineDuration: lineDuration,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    needsToGoDown: true,
   },
   // HABITAT
   {
     type: 'normal',
-    id: 'step-34',
+    id: 'step-35',
     currentTexture: 'habitat_1',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -436,7 +440,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-35',
+    id: 'step-36',
     currentTexture: 'habitat_2',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -446,7 +450,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-36',
+    id: 'step-37',
     currentTexture: 'habitat_3',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -456,7 +460,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-37',
+    id: 'step-38',
     currentTexture: 'habitat_4',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -466,7 +470,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-38',
+    id: 'step-39',
     currentTexture: 'habitat_5',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -476,7 +480,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-39',
+    id: 'step-40',
     currentTexture: 'habitat_6',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -486,7 +490,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-40',
+    id: 'step-41',
     currentTexture: 'habitat_7',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -496,7 +500,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-41',
+    id: 'step-42',
     currentTexture: 'habitat_8',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -506,7 +510,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-42',
+    id: 'step-43',
     currentTexture: 'habitat_9',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -516,7 +520,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-43',
+    id: 'step-44',
     currentTexture: 'habitat_10',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -526,7 +530,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-44',
+    id: 'step-45',
     currentTexture: 'habitat_11',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -536,7 +540,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-45',
+    id: 'step-46',
     currentTexture: 'habitat_12',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -546,7 +550,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-46',
+    id: 'step-47',
     currentTexture: 'habitat_13',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -556,7 +560,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-47',
+    id: 'step-48',
     currentTexture: 'habitat_14',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -566,7 +570,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-48',
+    id: 'step-49',
     currentTexture: 'habitat_15',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -576,7 +580,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-49',
+    id: 'step-50',
     currentTexture: 'habitat_16',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -586,7 +590,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-50',
+    id: 'step-51',
     currentTexture: 'habitat_17',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -596,7 +600,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-51',
+    id: 'step-52',
     currentTexture: 'habitat_18',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -606,7 +610,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-52',
+    id: 'step-53',
     currentTexture: 'habitat_19',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -616,7 +620,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-53',
+    id: 'step-54',
     currentTexture: 'habitat_20',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -626,7 +630,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-54',
+    id: 'step-55',
     currentTexture: 'habitat_21',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -636,7 +640,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-55',
+    id: 'step-56',
     currentTexture: 'habitat_22',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -646,7 +650,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-56',
+    id: 'step-57',
     currentTexture: 'habitat_23',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -658,7 +662,7 @@ const STEPS = [
   {
     type: 'menu',
     menuIndex: 3,
-    id: 'step-57',
+    id: 'step-58',
     currentTexture: 'menu_2',
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1 * 1.8,
@@ -670,11 +674,12 @@ const STEPS = [
     lineDuration: lineDuration,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    needsToGoDown: true,
   },
   // COMMUNICATION
   {
     type: 'normal',
-    id: 'step-58',
+    id: 'step-59',
     currentTexture: 'communication_1',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -684,7 +689,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-59',
+    id: 'step-60',
     currentTexture: 'communication_2',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -694,7 +699,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-60',
+    id: 'step-61',
     currentTexture: 'communication_3',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -704,7 +709,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-61',
+    id: 'step-62',
     currentTexture: 'communication_4',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -714,7 +719,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-62',
+    id: 'step-63',
     currentTexture: 'communication_5',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -724,7 +729,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-63',
+    id: 'step-64',
     currentTexture: 'communication_6',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -734,7 +739,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-64',
+    id: 'step-65',
     currentTexture: 'communication_7',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -744,7 +749,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-65',
+    id: 'step-66',
     currentTexture: 'communication_8',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -754,7 +759,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-66',
+    id: 'step-67',
     currentTexture: 'communication_9',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -764,7 +769,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-67',
+    id: 'step-68',
     currentTexture: 'communication_10',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -776,7 +781,7 @@ const STEPS = [
   {
     type: 'menu',
     menuIndex: 3,
-    id: 'step-68',
+    id: 'step-69',
     currentTexture: 'menu_2',
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1 * 1.8,
@@ -788,11 +793,12 @@ const STEPS = [
     lineDuration: lineDuration,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    needsToGoDown: true,
   },
   // STRATOSPHERE
   {
     type: 'normal',
-    id: 'step-69',
+    id: 'step-70',
     currentTexture: 'stratosphere_1',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -802,7 +808,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-70',
+    id: 'step-71',
     currentTexture: 'stratosphere_2',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -812,7 +818,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-71',
+    id: 'step-72',
     currentTexture: 'stratosphere_3',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -822,7 +828,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-72',
+    id: 'step-73',
     currentTexture: 'stratosphere_4',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -832,7 +838,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-73',
+    id: 'step-74',
     currentTexture: 'stratosphere_5',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -842,7 +848,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-74',
+    id: 'step-75',
     currentTexture: 'stratosphere_6',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -852,7 +858,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-75',
+    id: 'step-76',
     currentTexture: 'stratosphere_7',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -862,7 +868,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-76',
+    id: 'step-77',
     currentTexture: 'stratosphere_8',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -872,7 +878,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-77',
+    id: 'step-78',
     currentTexture: 'stratosphere_9',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -882,7 +888,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-78',
+    id: 'step-79',
     currentTexture: 'stratosphere_10',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -892,7 +898,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-79',
+    id: 'step-80',
     currentTexture: 'stratosphere_11',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -904,7 +910,7 @@ const STEPS = [
   {
     type: 'bridge',
     bridgeIndex: 4,
-    id: 'step-80',
+    id: 'step-81',
     currentTexture: 'bridge_3_1',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -921,7 +927,7 @@ const STEPS = [
   {
     type: 'bridge',
     bridgeIndex: 5,
-    id: 'step-81',
+    id: 'step-82',
     currentTexture: 'bridge_3_2',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -938,7 +944,7 @@ const STEPS = [
   {
     type: 'bridge',
     bridgeIndex: 6,
-    id: 'step-82',
+    id: 'step-83',
     currentTexture: 'bridge_3_3',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -955,7 +961,7 @@ const STEPS = [
   {
     type: 'bridge',
     bridgeIndex: 7,
-    id: 'step-83',
+    id: 'step-84',
     currentTexture: 'bridge_3_4',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -972,7 +978,7 @@ const STEPS = [
   {
     type: 'bridge',
     bridgeIndex: 8,
-    id: 'step-84',
+    id: 'step-85',
     currentTexture: 'bridge_3_5',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -989,7 +995,7 @@ const STEPS = [
   {
     type: 'bridge',
     bridgeIndex: 9,
-    id: 'step-85',
+    id: 'step-86',
     currentTexture: 'bridge_3_6',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -1007,7 +1013,7 @@ const STEPS = [
   {
     type: 'menu',
     menuIndex: 3,
-    id: 'step-86',
+    id: 'step-87',
     currentTexture: 'menu_3',
     fadeOutDuration: menuFadeOutDur_1,
     fadeInDuration: menuFadeInDur_1 * 1.8,
@@ -1019,11 +1025,12 @@ const STEPS = [
     lineDuration: lineDuration,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    needsToGoDown: true,
   },
   // VOID
   {
     type: 'bridge',
-    id: 'step-87',
+    id: 'step-88',
     currentTexture: 'none',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -1041,7 +1048,7 @@ const STEPS = [
   // THANKS!
   {
     type: 'bridge',
-    id: 'step-88',
+    id: 'step-89',
     currentTexture: 'input_bridge_1',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 0.8,
@@ -1057,7 +1064,7 @@ const STEPS = [
   },
   {
     type: 'bridge',
-    id: 'step-89',
+    id: 'step-90',
     currentTexture: 'input_bridge_2',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 0.8,
@@ -1073,7 +1080,7 @@ const STEPS = [
   },
   {
     type: 'normal',
-    id: 'step-90',
+    id: 'step-91',
     currentTexture: 'input_bridge_3',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -1086,7 +1093,7 @@ const STEPS = [
   {
     type: 'normal',
     bridgeIndex: 0,
-    id: 'step-91',
+    id: 'step-92',
     currentTexture: 'none',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -1095,10 +1102,11 @@ const STEPS = [
     easeOut: 'power1.inOut',
     isClickLocked: true,
     displaysReflectionInput: true,
+    needsToGoDown: true,
   },
   {
     type: 'bridge',
-    id: 'step-92',
+    id: 'step-93',
     currentTexture: 'input_bridge_4',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 0.8,
@@ -1116,7 +1124,7 @@ const STEPS = [
   {
     type: 'normal',
     bridgeIndex: 0,
-    id: 'step-93',
+    id: 'step-94',
     currentTexture: 'input_bridge_5',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: shaderFadeInDur_1,
@@ -1125,6 +1133,7 @@ const STEPS = [
     easeOut: 'power1.inOut',
     isClickLocked: true,
     displaysEmailInput: true,
+    needsToGoDown: true,
   },
   // REST
   {
