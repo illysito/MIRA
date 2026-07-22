@@ -239,6 +239,7 @@ function miraUI() {
       limits: { fromX: 41.08, toX: 58.94, fromY: 47.0, toY: 50.27 },
     },
   ]
+  const viewedMenus_First = [false, false, false]
   const areas_SecondMenu = [
     {
       name: 'habitat',
@@ -256,6 +257,7 @@ function miraUI() {
       limits: { fromX: 37.98, toX: 62.02, fromY: 47.0, toY: 50.27 },
     },
   ]
+  const viewedMenus_Second = [false, false, false]
   const areas_ThirdMenu = [
     {
       name: 'pulled in',
@@ -303,6 +305,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: CORE!')
+        viewedMenus_First[0] = true
         step = 3
       }
     }
@@ -316,6 +319,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: SEED!')
+        viewedMenus_First[1] = true
         step = 14
       }
     }
@@ -329,6 +333,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: ORGANISM!')
+        viewedMenus_First[2] = true
         step = 22
       }
     }
@@ -347,6 +352,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: HABITAT!')
+        viewedMenus_Second[0] = true
         step = 35
       }
     }
@@ -360,6 +366,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: COMMUNICATION!')
+        viewedMenus_Second[1] = true
         step = 59
       }
     }
@@ -373,6 +380,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: STRATOSPHERE!')
+        viewedMenus_Second[2] = true
         step = 70
       }
     }
@@ -551,6 +559,43 @@ function miraUI() {
     let fromStep = STEPS[currentStepIndex] // to check if needs fade in
 
     await exit(fromStep) // Exit from current step
+
+    //#region CONDITIONAL MENU's AND LAST DOC's
+    if (fromStep.isLastDocument && fromStep.returnsToMenu === 1) {
+      // IS ONE OF THE LAST DOCS OF BATCH 1
+      let allTrue = true
+      viewedMenus_First.forEach((menu) => {
+        if (!menu) {
+          allTrue = false
+        }
+      })
+      if (allTrue) {
+        nextStepIndex = 31 // STAGE 3 INITIAL BRIDGE
+      } else {
+        nextStepIndex = 2 // STAGE 2 MENU
+      }
+
+      toStep = STEPS[nextStepIndex]
+      console.log('allTrue: ', allTrue)
+      console.log('should move to step: ', nextStepIndex, toStep)
+    }
+
+    if (fromStep.isLastDocument && fromStep.returnsToMenu === 2) {
+      // IS ONE OF THE LAST DOCS OF BATCH 1
+      let allTrue = true
+      viewedMenus_Second.forEach((menu) => {
+        if (!menu) {
+          allTrue = false
+        }
+      })
+      if (allTrue) {
+        nextStepIndex = 81 // STAGE 4 INITIAL BRIDGE
+      } else {
+        nextStepIndex = 34 // STAGE 3 MENU
+      }
+      toStep = STEPS[nextStepIndex]
+    }
+    //#endregion
 
     currentStepIndex = nextStepIndex // update current step to track where we at (NORMALLY MOVE 1 FORWARD)
 

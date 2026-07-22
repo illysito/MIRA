@@ -38,11 +38,11 @@ const STEPS = [
     type: 'bridge',
     bridgeIndex: 0,
     id: 'step-1',
-    currentTexture: 'bridge_1',
-    fadeDuration: shaderFadeOutDur_1,
-    voidDelay: bridgeVoidDelay_1 * 1.4,
-    holdDelay: bridgeHoldDelay_1,
-    staggerIn: bridgeStagger_1,
+    currentTexture: 'none',
+    fadeDuration: 0.4,
+    voidDelay: 0.4,
+    holdDelay: 1,
+    staggerIn: 0,
     staggerOut: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
@@ -165,6 +165,8 @@ const STEPS = [
     voidDelay: shaderVoidDelay_1,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    isLastDocument: true,
+    returnsToMenu: 1,
   },
   // SECOND MENU ( SEED )
   {
@@ -250,6 +252,8 @@ const STEPS = [
     voidDelay: shaderVoidDelay_1,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    isLastDocument: true,
+    returnsToMenu: 1,
   },
   // THIRD MENU ( ORGANISM )
   {
@@ -355,6 +359,8 @@ const STEPS = [
     voidDelay: shaderVoidDelay_1,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    isLastDocument: true,
+    returnsToMenu: 1,
   },
   // STAGE 3 ************************
   // BRIDGE
@@ -657,6 +663,8 @@ const STEPS = [
     voidDelay: shaderVoidDelay_1,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    isLastDocument: true,
+    returnsToMenu: 2,
   },
   // MENU AGAIN
   {
@@ -776,6 +784,8 @@ const STEPS = [
     voidDelay: shaderVoidDelay_1,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    isLastDocument: true,
+    returnsToMenu: 2,
   },
   // MENU
   {
@@ -905,6 +915,8 @@ const STEPS = [
     voidDelay: shaderVoidDelay_1,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
+    isLastDocument: true,
+    returnsToMenu: 2,
   },
   // BRIDGE 3
   {
