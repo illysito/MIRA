@@ -2,10 +2,10 @@ import gsap from 'gsap'
 import * as THREE from 'three'
 
 // Data
-import STEPS from '../data/stepsArray'
-import TEXTURES from '../data/texturesArray'
+import STEPS from '../data/ACT_1_stepsArray'
+import TEXTURES from '../data/ACT_1_texturesArray'
 // Shaders
-import { UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND } from './miraUI'
+import { UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND } from './ACT_1_UI'
 import backgroundFragment from './shaders/fragShaderBackground'
 import typographyFragment from './shaders/fragShaderTypography'
 import vert from './shaders/vertexShader'

@@ -1,6 +1,6 @@
 import gsap from 'gsap'
 
-import STEPS from '../data/stepsArray'
+import STEPS from '../data/ACT_1_stepsArray'
 import createDataStore from '../functions/dataStorage'
 import { saveResponse } from '../functions/saveResponse'
 const dataStore = createDataStore()
@@ -287,11 +287,15 @@ function miraUI() {
   ]
   const canvasWidth = 600
   const canvasHeight = 600
-  let canvasLeftEdge = window.innerWidth / 2 - canvasWidth / 2
-  // let canvasRightEdge = window.innerWidth / 2 + canvasWidth / 2
-  let canvasTopEdge = window.innerHeight / 2 - canvasHeight / 2
-  // let canvasBottomEdge = window.innerHeight / 2 + canvasHeight / 2
-  console.log(canvasLeftEdge, canvasTopEdge)
+
+  let canvasLeftEdge = 0
+  let canvasTopEdge = 0
+  function calculateEdgesForAreas() {
+    canvasLeftEdge = window.innerWidth / 2 - canvasWidth / 2
+    canvasTopEdge = window.innerHeight / 2 - canvasHeight / 2
+  }
+  calculateEdgesForAreas()
+  window.addEventListener('resize', calculateEdgesForAreas)
 
   function evaluateMenuAreas_FirstMenu(areas, mouseX, mouseY) {
     let step = null
