@@ -39,7 +39,7 @@ const URLS = {
     'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_docs/_core%20july/_core_1.jpg'
   ),
   core_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_docs/_core%20july/_core_2.jpg'
+    'https://github.com/illysito/MIRA/blob/649ed4dcd288e3a218ccbf158035cfce0f3fbcaf/textures/_docs/_core%20july/_core_fixed.jpg'
   ),
   core_5: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_docs/_core%20july/_core_3.jpg'
@@ -111,7 +111,7 @@ const URLS = {
     'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%202%20july/_bridge_2_1.jpg'
   ),
   bridge_2_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%202%20july/_bridge_2_2.jpg'
+    'https://github.com/illysito/MIRA/blob/1635f19dc817bd83c5f32104f258924461e2d715/textures/_bridges/_bridge%202%20july/_bridge_2_2_fixed.jpg'
   ),
   bridge_2_3: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%202%20july/_bridge_2_3.jpg'
@@ -258,7 +258,7 @@ const URLS = {
     'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%203%20july/bridge_3_1.jpg'
   ),
   bridge_3_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%203%20july/bridge_3_2.jpg'
+    'https://github.com/illysito/MIRA/blob/82c6f0a5c6c3b50e99a9071f55c5db12758426d7/textures/_bridges/_bridge%203%20july/bridge_3_2_fixed.jpg'
   ),
   bridge_3_4: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%203%20july/bridge_3_3.jpg'
@@ -273,19 +273,10 @@ const URLS = {
     'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Menu%203.jpg'
   ),
   input_bridge_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/0c3e4a90bc64aa48e56f4bcd4e82c4c9201c2f9e/textures/_bridges/_input%20bridge%20july/__input%20bridge%201.jpg'
+    'https://github.com/illysito/MIRA/blob/395164fdb255b8bdf513003079a91c0ed0c42076/textures/_bridges/_input%20bridge%20july/_input_bridge_fixed_1.jpg'
   ),
   input_bridge_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/0c3e4a90bc64aa48e56f4bcd4e82c4c9201c2f9e/textures/_bridges/_input%20bridge%20july/__input%20bridge%202.jpg'
-  ),
-  input_bridge_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/e5dd9dd6fb9edd13d6d4f60abda73c6ce3f147f0/textures/_bridges/_input%20bridge%20july/__input%20bridge%203%20-%202.jpg'
-  ),
-  input_bridge_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/7799191495d17ee76f03deeb06776dfd342ce3aa/textures/_bridges/_input%20bridge%20july/_input%20bridge%20finale_2.jpg'
-  ),
-  input_bridge_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/7799191495d17ee76f03deeb06776dfd342ce3aa/textures/_bridges/_input%20bridge%20july/_input%20bridge%20finale_1.jpg'
+    'https://github.com/illysito/MIRA/blob/395164fdb255b8bdf513003079a91c0ed0c42076/textures/_bridges/_input%20bridge%20july/_input_bridge_fixed_2.jpg'
   ),
   thankyou_1: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/9b061690ce1c7c613b610da42571991b7abb6f04/textures/_other/thankYou-1.jpg'

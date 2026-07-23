@@ -400,7 +400,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Pulled in!')
         dataStore.setAlignment('Pulled in')
-        step = 88
+        step = 87
       }
     }
     // Observing
@@ -414,7 +414,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Observing!')
         dataStore.setAlignment('Observing')
-        step = 88
+        step = 87
       }
     }
     // Unresolved
@@ -428,7 +428,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Unresolved!')
         dataStore.setAlignment('Unresolved')
-        step = 88
+        step = 87
       }
     }
     // Keeping distance
@@ -442,7 +442,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Keeping distance!')
         dataStore.setAlignment('Keeping distance')
-        step = 88
+        step = maxStep - 1
       }
     }
     // Outside
@@ -455,7 +455,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[4].limits.toY) / 100
       ) {
         console.log('CLICKED: Outside!')
-        step = 88
+        step = maxStep - 1
       }
     }
     return step
@@ -754,16 +754,7 @@ function miraUI() {
   }
 
   // INPUT BUTTONS
-  const reflectionButton = document.querySelector('.reflection-button')
   const emailInput = document.querySelector('#email-input')
-  const reflectionInput = document.querySelector('#reflection-input')
-
-  let reflectionInputValue
-  reflectionInput.addEventListener('input', (e) => {
-    const value = e.target.value
-    reflectionInputValue = value
-    console.log(reflectionInputValue)
-  })
 
   let emailInputValue
   emailInput.addEventListener('input', (e) => {
@@ -772,17 +763,11 @@ function miraUI() {
     console.log(emailInputValue)
   })
 
-  reflectionButton.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('deactivateReflectionInput'))
-    dataStore.setReflection(reflectionInputValue)
-    // window.dispatchEvent(new CustomEvent('activateEmailInput'))
-    goToStep(93)
-  })
-
   const lastIndex = STEPS.length - 1
   const antiLastIndex = lastIndex - 1
+  const antiAntiLastIndex = antiLastIndex - 1
   window.addEventListener('keydown', async (e) => {
-    if (currentStepIndex !== antiLastIndex) return
+    if (currentStepIndex !== antiAntiLastIndex) return
 
     if (e.key === 'Enter') {
       // DATE AND TIME
@@ -816,7 +801,7 @@ function miraUI() {
       }
 
       window.dispatchEvent(new CustomEvent('deactivateEmailInput'))
-      goToStep(lastIndex) // LAST AND REST
+      goToStep(antiLastIndex) // LAST AND REST
     }
   })
 

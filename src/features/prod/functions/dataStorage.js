@@ -4,7 +4,6 @@ function createDataStore() {
     time: null,
     alignment: null,
     email: null,
-    optionalReflection: null,
   }
 
   function setAlignment(chosenOption) {
@@ -20,10 +19,6 @@ function createDataStore() {
     userData.email = email
   }
 
-  function setReflection(reflection) {
-    userData.optionalReflection = reflection
-  }
-
   function getData() {
     return { ...userData }
   }
@@ -32,7 +27,6 @@ function createDataStore() {
     setAlignment,
     setDateAndTime,
     setEmail,
-    setReflection,
     getData,
   }
 }
