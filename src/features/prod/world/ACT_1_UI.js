@@ -324,7 +324,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: SEED!')
         viewedMenus_First[1] = true
-        step = 14
+        step = 13
       }
     }
     // ORGANISM
@@ -338,7 +338,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: ORGANISM!')
         viewedMenus_First[2] = true
-        step = 22
+        step = 21
       }
     }
     return step
@@ -357,7 +357,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: HABITAT!')
         viewedMenus_Second[0] = true
-        step = 35
+        step = 31
       }
     }
     // COMMUNICATION
@@ -371,7 +371,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: COMMUNICATION!')
         viewedMenus_Second[1] = true
-        step = 59
+        step = 44
       }
     }
     // STRATOSPHERE
@@ -385,7 +385,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: STRATOSPHERE!')
         viewedMenus_Second[2] = true
-        step = 70
+        step = 54
       }
     }
     return step
@@ -404,7 +404,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Pulled in!')
         dataStore.setAlignment('Pulled in')
-        step = 87
+        step = 68
       }
     }
     // Observing
@@ -418,7 +418,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Observing!')
         dataStore.setAlignment('Observing')
-        step = 87
+        step = 68
       }
     }
     // Unresolved
@@ -432,7 +432,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Unresolved!')
         dataStore.setAlignment('Unresolved')
-        step = 87
+        step = 68
       }
     }
     // Keeping distance
@@ -523,13 +523,14 @@ function miraUI() {
     }
 
     if (toStep.type === 'bridge') {
+      isClickEnabled = false
       await bridgeAnimation(toStep)
       isTransitioning = false
       goToStep(currentStepIndex + 1)
-      if (!toStep.isClickLocked) {
-        isClickEnabled = true
-      }
-      console.log('click is on')
+      // if (!toStep.isClickLocked) {
+      //   isClickEnabled = true
+      // }
+      // console.log('click is on')
     }
 
     if (toStep.type === 'menu') {
@@ -574,7 +575,7 @@ function miraUI() {
         }
       })
       if (allTrue) {
-        nextStepIndex = 31 // STAGE 3 INITIAL BRIDGE
+        nextStepIndex = 27 // STAGE 3 INITIAL BRIDGE
       } else {
         nextStepIndex = 2 // STAGE 2 MENU
       }
@@ -593,9 +594,9 @@ function miraUI() {
         }
       })
       if (allTrue) {
-        nextStepIndex = 81 // STAGE 4 INITIAL BRIDGE
+        nextStepIndex = 65 // STAGE 4 INITIAL BRIDGE
       } else {
-        nextStepIndex = 34 // STAGE 3 MENU
+        nextStepIndex = 30 // STAGE 3 MENU
       }
       toStep = STEPS[nextStepIndex]
     }

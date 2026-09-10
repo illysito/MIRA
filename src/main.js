@@ -4,7 +4,7 @@ import input from './features/prod/functions/input'
 import act1_UI from './features/prod/world/ACT_1_UI'
 import miraWorld from './features/prod/world/miraWorld'
 
-console.log('This is MIRA')
+console.log('This is t u r n')
 
 miraWorld()
 act1_UI()
