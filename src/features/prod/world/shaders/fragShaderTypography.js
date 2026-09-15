@@ -9,6 +9,8 @@ uniform float u_offset;
 uniform float u_lineFactor;
 uniform float u_hoverSwitchAmp;
 uniform float u_hoverSwitchXDistortion;
+uniform float u_rotation;
+uniform float u_scale;
 
 uniform float u_displacementCoef;
 uniform float u_noiseFrequency;
@@ -23,6 +25,26 @@ uniform sampler2D u_line;
 
 
 varying vec2 v_texcoord;
+
+
+
+
+
+vec2 rotateUV(vec2 uv, float rotation, vec2 center) {
+  uv -= 0.5;
+
+  float s = sin(rotation);
+  float c = cos(rotation);
+
+  uv = mat2(
+      c, -s,
+      s,  c
+  ) * uv;
+
+  uv += center;
+
+  return uv;
+}
 
 
 
@@ -85,6 +107,7 @@ void main()
   // COORDS
 
   vec2 uv = v_texcoord;
+  uv = (uv - vec2(0.5, 0.62)) / u_scale + vec2(0.5, 0.62);
   
   float image_ratio = 1200.0 / 1200.0;
   float canvas_ratio = u_resolution.x / u_resolution.y;
@@ -120,6 +143,7 @@ void main()
   vec4 backgroundImg = texture2D(u_bg, coords);
 
   vec2 perlinUV = fract(blockCoords * u_noiseFrequency);
+  perlinUV = rotateUV(perlinUV, u_rotation, vec2(0.5, 0.5));
   vec4 perlinImg = texture2D(u_noiseTexture, perlinUV);
 
   vec2 alphaDistortionCoords = 0.6 * vec2(

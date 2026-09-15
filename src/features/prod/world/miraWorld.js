@@ -97,6 +97,8 @@ async function worldHome() {
       u_hoverSwitchXDistortion: {
         value: UNIFORMS_TEXTURE.hoverSwitchXDistortion,
       },
+      u_rotation: { value: UNIFORMS_TEXTURE.rotation },
+      u_scale: { value: UNIFORMS_TEXTURE.scale },
 
       u_noiseFrequency: { value: UNIFORMS_TEXTURE.frequency },
       u_displacementCoef: { value: UNIFORMS_TEXTURE.amplitude },
@@ -224,6 +226,8 @@ async function worldHome() {
         UNIFORMS_TEXTURE.scale,
         UNIFORMS_TEXTURE.scale
       )
+      plane.material.uniforms.u_rotation.value = UNIFORMS_TEXTURE.rotation
+      plane.material.uniforms.u_scale.value = UNIFORMS_TEXTURE.textureScale
     }
 
     renderer.render(scene, camera)

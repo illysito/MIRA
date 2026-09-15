@@ -15,6 +15,8 @@ const UNIFORMS_TEXTURE = {
   amplitude: 0.28,
   frequency: 24,
   blocks: 800,
+  rotation: 0.0,
+  textureScale: 1.0,
 
   mixer1: 0.0,
   mixer2: 0.0,
@@ -689,7 +691,7 @@ function miraUI() {
 
   let holdTween
   let releaseTween
-  let holdDuration = 4
+  let holdDuration = 3.3
   window.addEventListener('pointerdown', () => {
     if (!isHoldEnabled) return
 
@@ -699,10 +701,18 @@ function miraUI() {
     holdTween = gsap.to(UNIFORMS_TEXTURE, {
       offset: 0.2,
       amplitude: 3,
+      rotation: (Math.PI * 3) / 2,
       duration: holdDuration,
+      scale: 0.98,
       ease: 'linear',
 
       onComplete: () => {
+        gsap.to(UNIFORMS_TEXTURE, {
+          rotation: (Math.PI * 6) / 2,
+          duration: holdDuration,
+          scale: 0.96,
+          ease: 'linear',
+        })
         holdTimeDue = true
         isHoldEnabled = false
         goToStep(currentStepIndex + 1)
@@ -721,7 +731,9 @@ function miraUI() {
       releaseTween = gsap.to(UNIFORMS_TEXTURE, {
         offset: 0,
         amplitude: defaultAmplitude,
+        rotation: 0,
         duration: 2.8,
+        scale: 1,
         ease: 'power2.out',
       })
     }
