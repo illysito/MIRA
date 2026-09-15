@@ -1,18 +1,15 @@
 import gsap from 'gsap'
 import * as THREE from 'three'
 
-// Data
-import STEPS from '../data/ACT_1_stepsArray'
-import TEXTURES from '../data/ACT_1_texturesArray'
 // Shaders
-import { UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND } from './ACT_1_UI'
+// import { UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND } from './ACT_1_UI' // AQUI ESTA EL ROLLO!
 import backgroundFragment from './shaders/fragShaderBackground'
 import typographyFragment from './shaders/fragShaderTypography'
 import vert from './shaders/vertexShader'
 
-const { URLS_INIT, URLS } = TEXTURES
+async function worldHome(TEXTURES, UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND) {
+  const { URLS_INIT, URLS } = TEXTURES
 
-async function worldHome() {
   function lerp(start, end, t) {
     return start + (end - start) * t
   }
@@ -282,11 +279,12 @@ async function worldHome() {
 
   // Moving a step forward LOGIC
   window.addEventListener('swapTexture', (e) => {
-    const stepIndex = e.detail.step
+    const stepIndex = e.detail.stepIndex
     const needsToGoDown = e.detail.needsToGoDown
+    const step = e.detail.step
 
     console.log('current step index read from WORLD: ', stepIndex)
-    const step = STEPS[stepIndex]
+    // const step = STEPS[stepIndex]
 
     if (!step) return
 

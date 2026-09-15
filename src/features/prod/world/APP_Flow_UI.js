@@ -1,9 +1,6 @@
 import gsap from 'gsap'
 
-import STEPS from '../data/ACT_1_stepsArray'
-import createDataStore from '../functions/dataStorage'
-import { saveResponse } from '../functions/saveResponse'
-const dataStore = createDataStore()
+import STEPS from '../data/APP_stepsArray'
 
 function lerp(start, end, t) {
   return start + (end - start) * t
@@ -52,6 +49,8 @@ function miraUI() {
   // FUNCTIONS
 
   function fadeSystemIn() {
+    console.log('fading in')
+    console.log(STEPS[0])
     gsap.to(UNIFORMS_TEXTURE, {
       delay: STEPS[0].voidDelay,
       offset: 0, // means fade in
@@ -60,6 +59,7 @@ function miraUI() {
       onComplete: () => {
         isTransitioning = false
         isHoldEnabled = true
+        console.log('should have faded in')
       },
     })
   }
@@ -405,7 +405,6 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: Pulled in!')
-        dataStore.setAlignment('Pulled in')
         step = 68
       }
     }
@@ -419,7 +418,6 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: Observing!')
-        dataStore.setAlignment('Observing')
         step = 68
       }
     }
@@ -433,7 +431,6 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
         console.log('CLICKED: Unresolved!')
-        dataStore.setAlignment('Unresolved')
         step = 68
       }
     }
@@ -447,7 +444,6 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[3].limits.toY) / 100
       ) {
         console.log('CLICKED: Keeping distance!')
-        dataStore.setAlignment('Keeping distance')
         step = maxStep - 1
       }
     }
@@ -773,58 +769,6 @@ function miraUI() {
   function go(x) {
     goToStep(x)
   }
-
-  // INPUT BUTTONS
-  const emailInput = document.querySelector('#email-input')
-
-  let emailInputValue
-  emailInput.addEventListener('input', (e) => {
-    const value = e.target.value
-    emailInputValue = value
-    console.log(emailInputValue)
-  })
-
-  const lastIndex = STEPS.length - 1
-  const antiLastIndex = lastIndex - 1
-  const antiAntiLastIndex = antiLastIndex - 1
-  window.addEventListener('keydown', async (e) => {
-    if (currentStepIndex !== antiAntiLastIndex) return
-
-    if (e.key === 'Enter') {
-      // DATE AND TIME
-      const now = new Date()
-
-      const date = now.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      })
-
-      const time = now.toLocaleTimeString('en-GB', {
-        hour: '2-digit',
-        minute: '2-digit',
-      })
-
-      // Write Data
-      dataStore.setEmail(emailInputValue)
-      dataStore.setDateAndTime(date, time)
-
-      // SHOW ON CONSOLE
-      const userData = dataStore.getData()
-      console.log(userData)
-
-      // Send final Data to SUPABASE
-      try {
-        await saveResponse(userData)
-        console.log('Finished and saved')
-      } catch (error) {
-        console.error('Submission failed:', error.message)
-      }
-
-      window.dispatchEvent(new CustomEvent('deactivateEmailInput'))
-      goToStep(antiLastIndex) // LAST AND REST
-    }
-  })
 
   window.go = go
 }
