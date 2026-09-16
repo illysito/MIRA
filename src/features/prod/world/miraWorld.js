@@ -100,7 +100,7 @@ async function worldHome(TEXTURES, UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND) {
       u_noiseFrequency: { value: UNIFORMS_TEXTURE.frequency },
       u_displacementCoef: { value: UNIFORMS_TEXTURE.amplitude },
 
-      u_currentTexture: { value: textures.inner_circle },
+      u_currentTexture: { value: textures.inner_circle_big },
       // u_currentTexture: { value: textures.none },
       u_noiseTexture: { value: textures.perlin },
       u_bg: { value: textures.bg },

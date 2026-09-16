@@ -14,6 +14,9 @@ const URLS_INIT = {
   inner_circle: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/1973bee21a993473b1549d53d58e4c66dd861cf6/textures/_other/InnerCirclehd.png'
   ),
+  inner_circle_big: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/328abc7bee4ab9e74491ccd3073ab1e1dd9aa208/textures/_other/InnerCircle%20BIG.jpg'
+  ),
   line: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/ed2a76bf775a4c90ac703847045f9f3e9a594140/textures/_other/Line.png'
   ),

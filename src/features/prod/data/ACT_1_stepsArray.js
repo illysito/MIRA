@@ -23,7 +23,7 @@ const STEPS = [
   {
     type: 'menu',
     id: 'step-0',
-    currentTexture: 'inner_circle',
+    currentTexture: 'inner_circle_big',
     // currentTexture: 'none',
     fadeOutDuration: shaderFadeOutDur_1,
     fadeInDuration: 3.2, // Initial fade in of inner circle!
