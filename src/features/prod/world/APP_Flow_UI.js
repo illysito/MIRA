@@ -699,16 +699,16 @@ function miraUI() {
     releaseTween?.kill()
 
     holdTween = gsap.to(UNIFORMS_TEXTURE, {
-      offset: 0.2,
-      amplitude: 3,
-      rotation: (Math.PI * 3) / 2,
+      offset: 0.32,
+      amplitude: 0.8,
+      rotation: Math.PI * 1.1,
       duration: holdDuration,
       scale: 0.98,
       ease: 'linear',
 
       onComplete: () => {
         gsap.to(UNIFORMS_TEXTURE, {
-          rotation: (Math.PI * 6) / 2,
+          rotation: Math.PI * 2.2,
           duration: holdDuration,
           scale: 0.96,
           ease: 'linear',
