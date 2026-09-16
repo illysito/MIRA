@@ -5,9 +5,9 @@ import createDataStore from '../functions/dataStorage'
 import { saveResponse } from '../functions/saveResponse'
 const dataStore = createDataStore()
 
-function lerp(start, end, t) {
-  return start + (end - start) * t
-}
+// function lerp(start, end, t) {
+//   return start + (end - start) * t
+// }
 
 const UNIFORMS_TEXTURE = {
   offset: 1,
@@ -747,26 +747,26 @@ function miraUI() {
 
   // CURSOR
 
-  const side = 28 / 2
-  let currentX = 0
-  let currentY = 0
-  let targetX = 0
-  let targetY = 0
-  let lerpFactor = 0.4
-  function animateCursor() {
-    currentX = lerp(currentX, targetX, lerpFactor)
-    currentY = lerp(currentY, targetY, lerpFactor)
-    CURSOR.style.transform = `translate3d(${currentX - side}px, ${
-      currentY - side
-    }px, 0)`
-    requestAnimationFrame(animateCursor)
-  }
-  animateCursor()
+  // const side = 28 / 2
+  // let currentX = 0
+  // let currentY = 0
+  // let targetX = 0
+  // let targetY = 0
+  // let lerpFactor = 0.4
+  // function animateCursor() {
+  //   currentX = lerp(currentX, targetX, lerpFactor)
+  //   currentY = lerp(currentY, targetY, lerpFactor)
+  //   CURSOR.style.transform = `translate3d(${currentX - side}px, ${
+  //     currentY - side
+  //   }px, 0)`
+  //   requestAnimationFrame(animateCursor)
+  // }
+  // animateCursor()
 
-  window.addEventListener('mousemove', (e) => {
-    targetX = e.clientX
-    targetY = e.clientY
-  })
+  // window.addEventListener('mousemove', (e) => {
+  //   targetX = e.clientX
+  //   targetY = e.clientY
+  // })
 
   // FROM CONSOLE
 

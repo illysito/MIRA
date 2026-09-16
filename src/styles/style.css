@@ -8,7 +8,7 @@ button,
 input,
 textarea,
 select {
-  cursor: none !important;
+  /* cursor: none !important; */
   user-select: none;
 }
 
