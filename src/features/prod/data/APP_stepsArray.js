@@ -1,7 +1,7 @@
 // PARAMETERS FOR SHADERS
 const shaderFadeOutDur_1 = 2.8
-// const shaderFadeInDur_1 = 2.8
-// const shaderVoidDelay_1 = 1
+const shaderFadeInDur_1 = 2.8
+const shaderVoidDelay_1 = 1
 
 // PARAMETERS FOR BRIDGES
 // const bridgeFadeDur_1 = 2.8
@@ -9,10 +9,10 @@ const bridgeVoidDelay_1 = 2.8
 const bridgeHoldDelay_1 = 3.2
 const bridgeStagger_1 = 0.48
 
-// PARAMETERS FOR MENUS
-const menuFadeOutDur_1 = 2.8
-const menuFadeInDur_1 = 2.8
-const menuStagger_1 = 0.48
+// // PARAMETERS FOR MENUS
+// const menuFadeOutDur_1 = 2.8
+// const menuFadeInDur_1 = 2.8
+// const menuStagger_1 = 0.48
 
 // LINE OPACITIES
 // const lineOpacityDim = 0.6
@@ -71,22 +71,26 @@ const STEPS = [
   },
   // FIRST MENU & CIAO
   {
-    type: 'menu',
-    menuIndex: 0,
-    id: 'step-3',
+    type: 'bridge',
+    bridgeIndex: 2,
+    id: 'step-2',
     currentTexture: 'app_2',
-    fadeOutDuration: menuFadeOutDur_1,
-    fadeInDuration: menuFadeInDur_1,
-    staggerDuration: menuStagger_1,
-    voidDelay: 0.8,
+    fadeDuration: shaderFadeOutDur_1,
+    voidDelay: bridgeVoidDelay_1 * 1.4,
+    holdDelay: bridgeHoldDelay_1,
+    staggerIn: bridgeStagger_1,
+    staggerOut: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
-    needsToGoDown: true,
+    needsLine: false,
+    shouldRetainLine: false,
+    lineOpacity: lineOpacityLit,
+    lineDuration: lineDuration,
   },
   {
     type: 'bridge',
-    bridgeIndex: 2,
-    id: 'step-4',
+    bridgeIndex: 3,
+    id: 'step-3',
     currentTexture: 'app_3',
     fadeDuration: shaderFadeOutDur_1,
     voidDelay: bridgeVoidDelay_1 * 1.4,
@@ -102,17 +106,65 @@ const STEPS = [
   },
   // INNER CIRCLE
   {
-    type: 'menu',
+    type: 'bridge',
+    bridgeIndex: 4,
     id: 'step-5',
-    currentTexture: 'inner_circle',
-    // currentTexture: 'none',
-    fadeOutDuration: shaderFadeOutDur_1,
-    fadeInDuration: 3.2, // Initial fade in of inner circle!
-    voidDelay: 2.8,
+    currentTexture: 'inner_circle_big',
+    fadeDuration: shaderFadeOutDur_1,
+    voidDelay: bridgeVoidDelay_1 * 1.4,
+    holdDelay: bridgeHoldDelay_1,
+    staggerIn: bridgeStagger_1,
+    staggerOut: 0,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
     needsLine: false,
-    lineOpacity: 0,
+    shouldRetainLine: false,
+    lineOpacity: lineOpacityLit,
+    lineDuration: lineDuration,
+  },
+  {
+    type: 'bridge',
+    bridgeIndex: 5,
+    id: 'step-6',
+    currentTexture: 'app_4',
+    fadeDuration: shaderFadeOutDur_1,
+    voidDelay: bridgeVoidDelay_1 * 1.4,
+    holdDelay: bridgeHoldDelay_1,
+    staggerIn: bridgeStagger_1,
+    staggerOut: 0,
+    easeIn: 'power1.inOut',
+    easeOut: 'power1.inOut',
+    needsLine: false,
+    shouldRetainLine: false,
+    lineOpacity: lineOpacityLit,
+    lineDuration: lineDuration,
+  },
+  {
+    type: 'bridge',
+    bridgeIndex: 6,
+    id: 'step-7',
+    currentTexture: 'app_5',
+    fadeDuration: shaderFadeOutDur_1,
+    voidDelay: bridgeVoidDelay_1 * 1.4,
+    holdDelay: bridgeHoldDelay_1,
+    staggerIn: bridgeStagger_1,
+    staggerOut: 0,
+    easeIn: 'power1.inOut',
+    easeOut: 'power1.inOut',
+    needsLine: false,
+    shouldRetainLine: false,
+    lineOpacity: lineOpacityLit,
+    lineDuration: lineDuration,
+  },
+  {
+    type: 'normal',
+    id: 'step-8',
+    currentTexture: 'none',
+    fadeOutDuration: shaderFadeOutDur_1,
+    fadeInDuration: shaderFadeInDur_1,
+    voidDelay: shaderVoidDelay_1,
+    easeIn: 'power1.inOut',
+    easeOut: 'power1.inOut',
   },
 ]
 
