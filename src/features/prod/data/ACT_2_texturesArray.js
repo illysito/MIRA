@@ -26,218 +26,134 @@ const URLS = {
   none: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/c2cf6c0976d87111f4dd6aec7bd2cabcbad66e90/textures/MIRA_NONE.jpg'
   ),
-  bridge_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/485a2fa3fd98bb21d4abe896165a365797837ec1/textures/_bridges/_bridge%201%20(miraOS)/Bridge%201%20(miraOS).png'
+  bridge_1_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_0.jpg'
   ),
-  menu_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/388ef87c19362dedfd4b711099132719b5fe4ece/textures/_other/MENUS%20INIT%20JULY_1.jpg'
+  bridge_1_2: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_1.jpg'
   ),
-  core_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/b0b282dbe0056457f779f786079f39cf6caaafe1/textures/_docs/_core%20sept/_core_0.jpg'
+  bridge_1_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_2.jpg'
   ),
-  core_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/b0b282dbe0056457f779f786079f39cf6caaafe1/textures/_docs/_core%20sept/_core_1.jpg'
+  bridge_1_4: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_3.jpg'
   ),
-  core_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/b0b282dbe0056457f779f786079f39cf6caaafe1/textures/_docs/_core%20sept/_core_2.jpg'
+  bridge_1_5: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_4.jpg'
   ),
-  core_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/b0b282dbe0056457f779f786079f39cf6caaafe1/textures/_docs/_core%20sept/_core_3.jpg'
+  bridge_1_6: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_5.jpg'
   ),
-  core_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_core%20sept/_core_4.jpg'
+  bridge_1_7: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_6.jpg'
   ),
-  core_6: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/b0b282dbe0056457f779f786079f39cf6caaafe1/textures/_docs/_core%20sept/_core_5.jpg'
+  sak_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_sak/SAK_init.jpg'
   ),
-  core_7: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/b0b282dbe0056457f779f786079f39cf6caaafe1/textures/_docs/_core%20sept/_core_6.jpg'
+  sak_2: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_sak/SAK_0.jpg'
   ),
-  core_8: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/b0b282dbe0056457f779f786079f39cf6caaafe1/textures/_docs/_core%20sept/_core_7.jpg'
+  sak_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/4f1ca9a1e271335fbbb694c19d544d848a278676/SAK_1_corrected.jpg'
   ),
-  core_9: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/b0b282dbe0056457f779f786079f39cf6caaafe1/textures/_docs/_core%20sept/_core_8.jpg'
+  sak_4: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_sak/SAK_2.jpg'
   ),
-  seed_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_seed%20sept/_seed_0.jpg'
+  sak_5: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_sak/SAK_3.jpg'
   ),
-  seed_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_seed%20sept/_seed_1.jpg'
+  sak_6: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_sak/SAK_4.jpg'
   ),
-  seed_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_seed%20sept/_seed_2.jpg'
+  sak_7: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_sak/SAK_5.jpg'
   ),
-  seed_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_seed%20sept/_seed_3.jpg'
+  sak_8: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_sak/SAK_6.jpg'
   ),
-  seed_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_seed%20sept/_seed_4.jpg'
+  sak_9: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_sak/SAK_7.jpg'
   ),
-  seed_6: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_seed%20sept/_seed_5.jpg'
+  voi_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_1.jpg'
   ),
-  seed_7: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_seed%20sept/_seed_6.jpg'
+  voi_2: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_2.jpg'
   ),
-  organism_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_organism%20sept/_organism_0.jpg'
+  voi_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_3.jpg'
   ),
-  organism_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_organism%20sept/_organism_1.jpg'
+  voi_4: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_4.jpg'
   ),
-  organism_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_organism%20sept/_organism_2.jpg'
+  voi_5: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_5.jpg'
   ),
-  organism_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_organism%20sept/_organism_3.jpg'
+  voi_6: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_6.jpg'
   ),
-  organism_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_organism%20sept/_organism_4.jpg'
+  voi_7: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_7.jpg'
   ),
-  organism_6: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/c42452bdcd5daa60d95b34b963b68ca2d7adefff/textures/_docs/_organism%20sept/_organism_5.jpg'
+  voi_8: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_8.jpg'
+  ),
+  voi_9: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_9.jpg'
+  ),
+  voi_10: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_10.jpg'
+  ),
+  voi_11: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_11.jpg'
+  ),
+  voi_12: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_12.jpg'
+  ),
+  voi_13: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_13.jpg'
+  ),
+  voi_14: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_14.jpg'
+  ),
+  voi_15: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_voi/VOI_15.jpg'
+  ),
+  pe_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_pe/PE_0.jpg'
+  ),
+  pe_2: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_pe/PE_1.jpg'
+  ),
+  pe_3: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_pe/PE_2.jpg'
+  ),
+  pe_4: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_pe/PE_3.jpg'
+  ),
+  pe_5: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_pe/PE_4.jpg'
+  ),
+  pe_6: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_pe/PE_5.jpg'
+  ),
+  pe_7: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_pe/PE_6.jpg'
+  ),
+  pe_8: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/1fc368f4689ae73dad6376b7c743b5e7aee5d9d7/textures/_docs/_pe/PE_7.jpg'
   ),
   bridge_2_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%202%20july/_bridge_2_1.jpg'
+    'https://github.com/illysito/MIRA/blob/97b31197a141158e9db020ecd3bd064ade8623db/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_2_0.jpg'
   ),
   bridge_2_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/1635f19dc817bd83c5f32104f258924461e2d715/textures/_bridges/_bridge%202%20july/_bridge_2_2_fixed.jpg'
+    'https://github.com/illysito/MIRA/blob/97b31197a141158e9db020ecd3bd064ade8623db/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_2_1.jpg'
   ),
   bridge_2_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%202%20july/_bridge_2_3.jpg'
+    'https://github.com/illysito/MIRA/blob/97b31197a141158e9db020ecd3bd064ade8623db/textures/_bridges/_bridges%20ACT%20II/bridge_ACT_II_2_2.jpg'
   ),
-  menu_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/388ef87c19362dedfd4b711099132719b5fe4ece/textures/_other/MENUS%20INIT%20JULY_2.jpg'
-  ),
-  habitat_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_0.jpg'
-  ),
-  habitat_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_1.jpg'
-  ),
-  habitat_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_2.jpg'
-  ),
-  habitat_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_3.jpg'
-  ),
-  habitat_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_4.jpg'
-  ),
-  habitat_6: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_5.jpg'
-  ),
-  habitat_7: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_6.jpg'
-  ),
-  habitat_8: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_7.jpg'
-  ),
-  habitat_9: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_8.jpg'
-  ),
-  habitat_10: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_9.jpg'
-  ),
-  habitat_11: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_10.jpg'
-  ),
-  habitat_12: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_habitat%20sept/_habitat_11.jpg'
-  ),
-  communication_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_comm%20sept/_comm_0.jpg'
-  ),
-  communication_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_comm%20sept/_comm_1.jpg'
-  ),
-  communication_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_comm%20sept/_comm_2.jpg'
-  ),
-  communication_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_comm%20sept/_comm_3.jpg'
-  ),
-  communication_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_comm%20sept/_comm_4.jpg'
-  ),
-  communication_6: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_comm%20sept/_comm_5.jpg'
-  ),
-  communication_7: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_comm%20sept/_comm_6.jpg'
-  ),
-  communication_8: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_comm%20sept/_comm_7.jpg'
-  ),
-  communication_9: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_comm%20sept/_comm_8.jpg'
-  ),
-  stratosphere_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_0.jpg'
-  ),
-  stratosphere_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_1.jpg'
-  ),
-  stratosphere_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_2.jpg'
-  ),
-  stratosphere_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_3.jpg'
-  ),
-  stratosphere_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_4.jpg'
-  ),
-  stratosphere_6: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_5.jpg'
-  ),
-  stratosphere_7: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_6.jpg'
-  ),
-  stratosphere_8: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_7.jpg'
-  ),
-  stratosphere_9: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_8.jpg'
-  ),
-  stratosphere_10: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_9.jpg'
-  ),
-  stratosphere_11: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/cfd19bc286cf39ba9a6c5e901ae823c1126ac03d/textures/_docs/_strat%20sept/_strat_10.jpg'
-  ),
-  bridge_3_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%203%20july/bridge_3_0.jpg'
-  ),
-  bridge_3_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%203%20july/bridge_3_1.jpg'
-  ),
-  bridge_3_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/82c6f0a5c6c3b50e99a9071f55c5db12758426d7/textures/_bridges/_bridge%203%20july/bridge_3_2_fixed.jpg'
-  ),
-  bridge_3_4: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%203%20july/bridge_3_3.jpg'
-  ),
-  bridge_3_5: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%203%20july/bridge_3_4.jpg'
-  ),
-  bridge_3_6: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/3adce1b8aa9ee5c7d107b1112f8e2695bfa74193/textures/_bridges/_bridge%203%20july/bridge_3_5.jpg'
-  ),
-  menu_3: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Menu%203.jpg'
-  ),
-  input_bridge_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/395164fdb255b8bdf513003079a91c0ed0c42076/textures/_bridges/_input%20bridge%20july/_input_bridge_fixed_1.jpg'
-  ),
-  input_bridge_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/395164fdb255b8bdf513003079a91c0ed0c42076/textures/_bridges/_input%20bridge%20july/_input_bridge_fixed_2.jpg'
-  ),
-  thankyou_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/9b061690ce1c7c613b610da42571991b7abb6f04/textures/_other/thankYou-1.jpg'
-  ),
-  reflection: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/568b3c12723b9c722422ce61f06a1132f2e2f27d/textures/_other/Reflection.jpg'
+  menu_1: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/97b31197a141158e9db020ecd3bd064ade8623db/textures/_bridges/_bridges%20ACT%20II/MENU_ACT_II_0.jpg'
   ),
 }
 

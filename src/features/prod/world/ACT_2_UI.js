@@ -1,6 +1,6 @@
 import gsap from 'gsap'
 
-import STEPS from '../data/ACT_1_stepsArray'
+import STEPS from '../data/ACT_2_stepsArray'
 import createDataStore from '../functions/dataStorage'
 import { saveResponse } from '../functions/saveResponse'
 const dataStore = createDataStore()

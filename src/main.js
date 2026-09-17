@@ -27,6 +27,24 @@ async function runActI() {
 }
 //#endregion
 
+//#region ACT 2
+async function runActII() {
+  const { default: TEXTURES_ACT_2 } = await import(
+    './features/prod/data/ACT_2_texturesArray'
+  )
+  textures = TEXTURES_ACT_2
+
+  const {
+    default: act2_UI,
+    UNIFORMS_TEXTURE,
+    UNIFORMS_BACKGROUND,
+  } = await import('./features/prod/world/ACT_2_UI')
+
+  await miraWorld(textures, UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND)
+  act2_UI()
+}
+//#endregion
+
 //#region APP
 async function runApp() {
   const { default: TEXTURES_APP } = await import(
@@ -49,6 +67,10 @@ const body = document.body
 if (body.classList.contains('body__home')) {
   console.log('running ACT I')
   runActI()
+}
+if (body.classList.contains('body__act-2')) {
+  console.log('running ACT II')
+  runActII()
 }
 if (body.classList.contains('body__app')) {
   console.log('running App Mockup')
