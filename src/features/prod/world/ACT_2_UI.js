@@ -216,19 +216,29 @@ function miraUI() {
 
   const areas_FirstMenu = [
     {
-      name: 'core',
+      name: 'creative',
       index: 0,
-      limits: { fromX: 45.23, toX: 54.9, fromY: 31.09, toY: 34.19 },
+      limits: { fromX: 42.69, toX: 57.49, fromY: 32.45, toY: 35.55 },
     },
     {
-      name: 'seed',
+      name: 'technical',
       index: 1,
-      limits: { fromX: 45.23, toX: 54.9, fromY: 39.23, toY: 42.33 },
+      limits: { fromX: 40.68, toX: 59.57, fromY: 40.65, toY: 43.75 },
     },
     {
-      name: 'organism',
+      name: 'capital',
       index: 2,
-      limits: { fromX: 41.08, toX: 58.94, fromY: 47.0, toY: 50.27 },
+      limits: { fromX: 39.68, toX: 60.6, fromY: 48.03, toY: 51.72 },
+    },
+    {
+      name: 'behavioural',
+      index: 2,
+      limits: { fromX: 34.0, toX: 65.67, fromY: 56.59, toY: 59.73 },
+    },
+    {
+      name: 'curious',
+      index: 2,
+      limits: { fromX: 42.69, toX: 57.49, fromY: 64.54, toY: 67.68 },
     },
   ]
   const viewedMenus_First = [false, false, false]
@@ -250,33 +260,7 @@ function miraUI() {
     },
   ]
   const viewedMenus_Second = [false, false, false]
-  const areas_ThirdMenu = [
-    {
-      name: 'pulled in',
-      index: 0,
-      limits: { fromX: 42.69, toX: 57.49, fromY: 32.45, toY: 35.55 },
-    },
-    {
-      name: 'observing',
-      index: 1,
-      limits: { fromX: 40.68, toX: 59.57, fromY: 40.65, toY: 43.75 },
-    },
-    {
-      name: 'unresolved',
-      index: 2,
-      limits: { fromX: 39.68, toX: 60.6, fromY: 48.03, toY: 51.72 },
-    },
-    {
-      name: 'distanced',
-      index: 2,
-      limits: { fromX: 34.0, toX: 65.67, fromY: 56.59, toY: 59.73 },
-    },
-    {
-      name: 'out',
-      index: 2,
-      limits: { fromX: 42.69, toX: 57.49, fromY: 64.54, toY: 67.68 },
-    },
-  ]
+
   const canvasWidth = 600
   const canvasHeight = 600
 
@@ -291,7 +275,7 @@ function miraUI() {
 
   function evaluateMenuAreas_FirstMenu(areas, mouseX, mouseY) {
     let step = null
-    // CORE
+    // Creative
     if (
       mouseX > canvasLeftEdge + (canvasWidth * areas[0].limits.fromX) / 100 &&
       mouseX < canvasLeftEdge + (canvasWidth * areas[0].limits.toX) / 100
@@ -300,12 +284,12 @@ function miraUI() {
         mouseY > canvasTopEdge + (canvasHeight * areas[0].limits.fromY) / 100 &&
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
-        console.log('CLICKED: CORE!')
-        viewedMenus_First[0] = true
-        step = 3
+        console.log('CLICKED: Creative!')
+        dataStore.setAlignment('Pulled in')
+        step = 45
       }
     }
-    // SEED
+    // Technical
     if (
       mouseX > canvasLeftEdge + (canvasWidth * areas[1].limits.fromX) / 100 &&
       mouseX < canvasLeftEdge + (canvasWidth * areas[1].limits.toX) / 100
@@ -314,12 +298,12 @@ function miraUI() {
         mouseY > canvasTopEdge + (canvasHeight * areas[1].limits.fromY) / 100 &&
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
-        console.log('CLICKED: SEED!')
-        viewedMenus_First[1] = true
-        step = 13
+        console.log('CLICKED: Technical!')
+        dataStore.setAlignment('Observing')
+        step = 45
       }
     }
-    // ORGANISM
+    // Capital
     if (
       mouseX > canvasLeftEdge + (canvasWidth * areas[2].limits.fromX) / 100 &&
       mouseX < canvasLeftEdge + (canvasWidth * areas[2].limits.toX) / 100
@@ -328,9 +312,36 @@ function miraUI() {
         mouseY > canvasTopEdge + (canvasHeight * areas[2].limits.fromY) / 100 &&
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
-        console.log('CLICKED: ORGANISM!')
-        viewedMenus_First[2] = true
-        step = 21
+        console.log('CLICKED: Capital!')
+        dataStore.setAlignment('Unresolved')
+        step = 45
+      }
+    }
+    // Behavioural
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[3].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[3].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[3].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[3].limits.toY) / 100
+      ) {
+        console.log('CLICKED: sBehavioural!')
+        dataStore.setAlignment('Keeping distance')
+        step = 45
+      }
+    }
+    // Curious
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[4].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[4].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[4].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[4].limits.toY) / 100
+      ) {
+        console.log('CLICKED: Curious!')
+        step = 45
       }
     }
     return step
@@ -378,80 +389,6 @@ function miraUI() {
         console.log('CLICKED: STRATOSPHERE!')
         viewedMenus_Second[2] = true
         step = 54
-      }
-    }
-    return step
-  }
-
-  function evaluateMenuAreas_ThirdMenu(areas, mouseX, mouseY) {
-    let step = null
-    // Pulled in
-    if (
-      mouseX > canvasLeftEdge + (canvasWidth * areas[0].limits.fromX) / 100 &&
-      mouseX < canvasLeftEdge + (canvasWidth * areas[0].limits.toX) / 100
-    ) {
-      if (
-        mouseY > canvasTopEdge + (canvasHeight * areas[0].limits.fromY) / 100 &&
-        mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
-      ) {
-        console.log('CLICKED: Pulled in!')
-        dataStore.setAlignment('Pulled in')
-        step = 68
-      }
-    }
-    // Observing
-    if (
-      mouseX > canvasLeftEdge + (canvasWidth * areas[1].limits.fromX) / 100 &&
-      mouseX < canvasLeftEdge + (canvasWidth * areas[1].limits.toX) / 100
-    ) {
-      if (
-        mouseY > canvasTopEdge + (canvasHeight * areas[1].limits.fromY) / 100 &&
-        mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
-      ) {
-        console.log('CLICKED: Observing!')
-        dataStore.setAlignment('Observing')
-        step = 68
-      }
-    }
-    // Unresolved
-    if (
-      mouseX > canvasLeftEdge + (canvasWidth * areas[2].limits.fromX) / 100 &&
-      mouseX < canvasLeftEdge + (canvasWidth * areas[2].limits.toX) / 100
-    ) {
-      if (
-        mouseY > canvasTopEdge + (canvasHeight * areas[2].limits.fromY) / 100 &&
-        mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
-      ) {
-        console.log('CLICKED: Unresolved!')
-        dataStore.setAlignment('Unresolved')
-        step = 68
-      }
-    }
-    // Keeping distance
-    if (
-      mouseX > canvasLeftEdge + (canvasWidth * areas[3].limits.fromX) / 100 &&
-      mouseX < canvasLeftEdge + (canvasWidth * areas[3].limits.toX) / 100
-    ) {
-      if (
-        mouseY > canvasTopEdge + (canvasHeight * areas[3].limits.fromY) / 100 &&
-        mouseY < canvasTopEdge + (canvasHeight * areas[3].limits.toY) / 100
-      ) {
-        console.log('CLICKED: Keeping distance!')
-        dataStore.setAlignment('Keeping distance')
-        step = maxStep - 1
-      }
-    }
-    // Outside
-    if (
-      mouseX > canvasLeftEdge + (canvasWidth * areas[4].limits.fromX) / 100 &&
-      mouseX < canvasLeftEdge + (canvasWidth * areas[4].limits.toX) / 100
-    ) {
-      if (
-        mouseY > canvasTopEdge + (canvasHeight * areas[4].limits.fromY) / 100 &&
-        mouseY < canvasTopEdge + (canvasHeight * areas[4].limits.toY) / 100
-      ) {
-        console.log('CLICKED: Outside!')
-        step = maxStep - 1
       }
     }
     return step
@@ -652,14 +589,6 @@ function miraUI() {
         case 'menu_2':
           destinationFromMenu = evaluateMenuAreas_SecondMenu(
             areas_SecondMenu,
-            mouseX,
-            mouseY
-          )
-          break
-
-        case 'menu_3':
-          destinationFromMenu = evaluateMenuAreas_ThirdMenu(
-            areas_ThirdMenu,
             mouseX,
             mouseY
           )
