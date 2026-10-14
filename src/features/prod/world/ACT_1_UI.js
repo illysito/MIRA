@@ -239,9 +239,9 @@ function miraUI() {
       limits: { fromX: 43.65, toX: 56.64, fromY: 31.09, toY: 34.19 },
     },
     {
-      name: 'communication',
+      name: 'adaptation',
       index: 1,
-      limits: { fromX: 35.39, toX: 64.57, fromY: 39.23, toY: 42.33 },
+      limits: { fromX: 38, toX: 61, fromY: 39.23, toY: 42.33 },
     },
     {
       name: 'stratosphere',
@@ -316,7 +316,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: SEED!')
         viewedMenus_First[1] = true
-        step = 13
+        step = 12
       }
     }
     // ORGANISM
@@ -330,7 +330,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: ORGANISM!')
         viewedMenus_First[2] = true
-        step = 21
+        step = 20
       }
     }
     return step
@@ -349,7 +349,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: HABITAT!')
         viewedMenus_Second[0] = true
-        step = 31
+        step = 26
       }
     }
     // COMMUNICATION
@@ -361,9 +361,9 @@ function miraUI() {
         mouseY > canvasTopEdge + (canvasHeight * areas[1].limits.fromY) / 100 &&
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
-        console.log('CLICKED: COMMUNICATION!')
+        console.log('CLICKED: ADAPTATION!')
         viewedMenus_Second[1] = true
-        step = 44
+        step = 33
       }
     }
     // STRATOSPHERE
@@ -377,7 +377,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: STRATOSPHERE!')
         viewedMenus_Second[2] = true
-        step = 54
+        step = 45
       }
     }
     return step
@@ -396,7 +396,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Pulled in!')
         dataStore.setAlignment('Pulled in')
-        step = 68
+        step = 59
       }
     }
     // Observing
@@ -410,7 +410,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Observing!')
         dataStore.setAlignment('Observing')
-        step = 68
+        step = 59
       }
     }
     // Unresolved
@@ -424,7 +424,7 @@ function miraUI() {
       ) {
         console.log('CLICKED: Unresolved!')
         dataStore.setAlignment('Unresolved')
-        step = 68
+        step = 59
       }
     }
     // Keeping distance
@@ -571,7 +571,7 @@ function miraUI() {
         }
       })
       if (allTrue) {
-        nextStepIndex = 27 // STAGE 3 INITIAL BRIDGE
+        nextStepIndex = 25 // STAGE 3 INITIAL BRIDGE
       } else {
         nextStepIndex = 2 // STAGE 2 MENU
       }
@@ -590,9 +590,9 @@ function miraUI() {
         }
       })
       if (allTrue) {
-        nextStepIndex = 65 // STAGE 4 INITIAL BRIDGE
+        nextStepIndex = 56 // STAGE 4 INITIAL BRIDGE
       } else {
-        nextStepIndex = 30 // STAGE 3 MENU
+        nextStepIndex = 25 // STAGE 3 MENU
       }
       toStep = STEPS[nextStepIndex]
     }

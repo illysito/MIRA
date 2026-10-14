@@ -113,7 +113,7 @@ void main()
   float canvas_ratio = u_resolution.x / u_resolution.y;
 
   vec2 coords = aspect(uv, image_ratio, canvas_ratio);
-  coords = clamp(coords, 0.01, 0.99);
+  coords = clamp(coords, 0.01, 0.92);
 
   float blocks = 800.0;
   float xBlocks = floor(coords.x * blocks) / blocks;
