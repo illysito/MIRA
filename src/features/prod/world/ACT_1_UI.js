@@ -277,6 +277,25 @@ function miraUI() {
       limits: { fromX: 42.69, toX: 57.49, fromY: 64.54, toY: 67.68 },
     },
   ]
+  const areas_FourthMenu = [
+    {
+      name: 't u r n',
+      index: 0,
+      limits: { fromX: 45.23, toX: 54.9, fromY: 48.03, toY: 51.72 },
+    },
+  ]
+  const areas_FifthMenu = [
+    {
+      name: 'iphone',
+      index: 0,
+      limits: { fromX: 43.65, toX: 56.64, fromY: 44.68, toY: 47.78 },
+    },
+    {
+      name: 'android',
+      index: 0,
+      limits: { fromX: 43.65, toX: 56.64, fromY: 52.54, toY: 54.89 },
+    },
+  ]
   const canvasWidth = 600
   const canvasHeight = 600
 
@@ -457,6 +476,55 @@ function miraUI() {
     return step
   }
 
+  function evaluateMenuAreas_FourthMenu(areas, mouseX, mouseY) {
+    let step = null
+    // QR Selection
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[0].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[0].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[0].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
+      ) {
+        console.log('CLICKED: t u r n !')
+        step = 61
+      }
+    }
+    return step
+  }
+
+  function evaluateMenuAreas_FifthMenu(areas, mouseX, mouseY) {
+    let step = null
+    // Iphone
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[0].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[0].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[0].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
+      ) {
+        console.log('CLICKED: iPhone!')
+        step = 62
+      }
+    }
+    // Android
+    if (
+      mouseX > canvasLeftEdge + (canvasWidth * areas[1].limits.fromX) / 100 &&
+      mouseX < canvasLeftEdge + (canvasWidth * areas[1].limits.toX) / 100
+    ) {
+      if (
+        mouseY > canvasTopEdge + (canvasHeight * areas[1].limits.fromY) / 100 &&
+        mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
+      ) {
+        console.log('CLICKED: Android!')
+        step = 63
+      }
+    }
+    return step
+  }
+
   // MAIN BRAIN
 
   async function exit(fromStep) {
@@ -598,6 +666,11 @@ function miraUI() {
     }
     //#endregion
 
+    if (fromStep.id == 'step-62') {
+      nextStepIndex = 64
+      toStep = STEPS[nextStepIndex]
+    }
+
     currentStepIndex = nextStepIndex // update current step to track where we at (NORMALLY MOVE 1 FORWARD)
 
     CURRENT_STEP_TXT.textContent = 'Current step: ' + currentStepIndex
@@ -660,6 +733,22 @@ function miraUI() {
         case 'menu_3':
           destinationFromMenu = evaluateMenuAreas_ThirdMenu(
             areas_ThirdMenu,
+            mouseX,
+            mouseY
+          )
+          break
+
+        case 'menu_turn':
+          destinationFromMenu = evaluateMenuAreas_FourthMenu(
+            areas_FourthMenu,
+            mouseX,
+            mouseY
+          )
+          break
+
+        case 'menu_qrs':
+          destinationFromMenu = evaluateMenuAreas_FifthMenu(
+            areas_FifthMenu,
             mouseX,
             mouseY
           )

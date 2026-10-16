@@ -15,7 +15,7 @@ const URLS_INIT = {
     'https://github.com/illysito/MIRA/blob/1973bee21a993473b1549d53d58e4c66dd861cf6/textures/_other/InnerCirclehd.png'
   ),
   inner_circle_big: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/328abc7bee4ab9e74491ccd3073ab1e1dd9aa208/textures/_other/InnerCircle%20BIG.jpg'
+    'https://github.com/illysito/MIRA/blob/c1141462adbf52fd1cf14468684cce33bfc70078/textures/_other/InnerCircle%20BIG%20118%20-%203.jpg'
   ),
   line: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/ed2a76bf775a4c90ac703847045f9f3e9a594140/textures/_other/Line.png'
@@ -233,17 +233,29 @@ const URLS = {
   menu_3: githubToJsDelivr(
     'https://github.com/illysito/MIRA/blob/f9c5b1a08e39ba79398dd2aaf31e6330b072b6e2/textures/_other/Menu%203.jpg'
   ),
-  input_bridge_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/395164fdb255b8bdf513003079a91c0ed0c42076/textures/_bridges/_input%20bridge%20july/_input_bridge_fixed_1.jpg'
+  // input_bridge_1: githubToJsDelivr(
+  //   'https://github.com/illysito/MIRA/blob/395164fdb255b8bdf513003079a91c0ed0c42076/textures/_bridges/_input%20bridge%20july/_input_bridge_fixed_1.jpg'
+  // ),
+  // input_bridge_2: githubToJsDelivr(
+  //   'https://github.com/illysito/MIRA/blob/395164fdb255b8bdf513003079a91c0ed0c42076/textures/_bridges/_input%20bridge%20july/_input_bridge_fixed_2.jpg'
+  // ),
+  // thankyou_1: githubToJsDelivr(
+  //   'https://github.com/illysito/MIRA/blob/9b061690ce1c7c613b610da42571991b7abb6f04/textures/_other/thankYou-1.jpg'
+  // ),
+  // reflection: githubToJsDelivr(
+  //   'https://github.com/illysito/MIRA/blob/568b3c12723b9c722422ce61f06a1132f2e2f27d/textures/_other/Reflection.jpg'
+  // ),
+  menu_turn: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/ea6770b7d0f582a82e935d296b108354a5a60675/textures/_other/qrMenus_1.jpg'
   ),
-  input_bridge_2: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/395164fdb255b8bdf513003079a91c0ed0c42076/textures/_bridges/_input%20bridge%20july/_input_bridge_fixed_2.jpg'
+  menu_qrs: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/ea6770b7d0f582a82e935d296b108354a5a60675/textures/_other/qrMenus_2.jpg'
   ),
-  thankyou_1: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/9b061690ce1c7c613b610da42571991b7abb6f04/textures/_other/thankYou-1.jpg'
+  qr_iphone: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/ea6770b7d0f582a82e935d296b108354a5a60675/textures/_other/QRS_turn_iphone_test.jpg'
   ),
-  reflection: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/568b3c12723b9c722422ce61f06a1132f2e2f27d/textures/_other/Reflection.jpg'
+  qr_android: githubToJsDelivr(
+    'https://github.com/illysito/MIRA/blob/ea6770b7d0f582a82e935d296b108354a5a60675/textures/_other/QRS_turn_android_test.jpg'
   ),
 }
 
