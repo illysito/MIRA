@@ -18,7 +18,7 @@ const URLS_INIT = {
     'https://github.com/illysito/MIRA/blob/c1141462adbf52fd1cf14468684cce33bfc70078/textures/_other/InnerCircle%20BIG%20118%20-%203.jpg'
   ),
   line: githubToJsDelivr(
-    'https://github.com/illysito/MIRA/blob/ed2a76bf775a4c90ac703847045f9f3e9a594140/textures/_other/Line.png'
+    'https://github.com/illysito/MIRA/blob/9d5586905645b032ff5e90111bf2526d3937c6ea/textures/_other/pressAndHold.png'
   ),
 }
 

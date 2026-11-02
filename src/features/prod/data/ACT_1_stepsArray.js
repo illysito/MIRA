@@ -30,8 +30,9 @@ const STEPS = [
     voidDelay: 2.8,
     easeIn: 'power1.inOut',
     easeOut: 'power1.inOut',
-    needsLine: false,
-    lineOpacity: 0,
+    needsLine: true,
+    lineOpacity: 1,
+    lineDuration: 4,
   },
   // STAGE 2 ************************
   {

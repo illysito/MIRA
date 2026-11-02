@@ -62,6 +62,9 @@ function miraUI() {
         isHoldEnabled = true
       },
     })
+    if (STEPS[0].needsLine) {
+      fadeLineIn(STEPS[0])
+    }
   }
   fadeSystemIn()
 
@@ -111,7 +114,7 @@ function miraUI() {
     const EASE_IN = toStep.easeIn
     console.log(DURATION, EASE_IN)
     gsap.to(UNIFORMS_TEXTURE, {
-      delay: 1,
+      delay: 11.2,
       lineFactor: LINE_OPACITY, // means fade in
       duration: DURATION,
       ease: EASE_IN,
@@ -776,6 +779,11 @@ function miraUI() {
   let releaseTween
   let holdDuration = 3.3
   window.addEventListener('pointerdown', () => {
+    gsap.to(UNIFORMS_TEXTURE, {
+      lineFactor: 0.0,
+      duration: 0.8,
+      delay: 2.8,
+    })
     if (!isHoldEnabled) return
 
     holdTimeDue = false
