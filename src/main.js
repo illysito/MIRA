@@ -1,5 +1,6 @@
 import './styles/style.css'
 
+import audio from './features/prod/functions/audio'
 import miraWorld from './features/prod/world/miraWorld'
 
 console.log('This is t u r n')
@@ -23,6 +24,7 @@ async function runActI() {
 
   await miraWorld(textures, UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND)
   act1_UI()
+  audio()
   input()
 }
 //#endregion
