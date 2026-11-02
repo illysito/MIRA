@@ -20,7 +20,7 @@ function audio() {
   ambient.volume = 1
 
   if (ambient) {
-    window.addEventListener('click', () => {
+    window.addEventListener('pointerdown', () => {
       if (!windowHasBeenClicked) {
         gsap.to(ambient, {
           volume: 1 * volumeMultiplier,
