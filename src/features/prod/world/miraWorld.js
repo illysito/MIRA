@@ -86,6 +86,12 @@ async function worldHome(TEXTURES, UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND) {
       u_time: { value: 0 },
       u_resolution: { value: new THREE.Vector2(1, 1) },
       u_offset: { value: 0 },
+      //
+      u_selectedOffset: { value: 0 },
+      u_unselectedOffset: { value: 0 },
+      u_selectedBounds: { value: UNIFORMS_TEXTURE.selectedBounds },
+
+      //
       u_mouseX: { value: 0.5 },
       u_mouseY: { value: 0.5 },
       u_blocks: { value: 800 },
@@ -206,6 +212,12 @@ async function worldHome(TEXTURES, UNIFORMS_TEXTURE, UNIFORMS_BACKGROUND) {
       // Operations in the main plane
       plane.material.uniforms.u_time.value = counter
       plane.material.uniforms.u_offset.value = UNIFORMS_TEXTURE.offset
+      plane.material.uniforms.u_selectedOffset.value =
+        UNIFORMS_TEXTURE.selectedOffset
+      plane.material.uniforms.u_unselectedOffset.value =
+        UNIFORMS_TEXTURE.unselectedOffset
+      plane.material.uniforms.u_selectedBounds.value =
+        UNIFORMS_TEXTURE.selectedBounds
       plane.material.uniforms.u_lineFactor.value = UNIFORMS_TEXTURE.lineFactor
       plane.material.uniforms.u_hoverSwitchAmp.value =
         UNIFORMS_TEXTURE.hoverSwitchAmp

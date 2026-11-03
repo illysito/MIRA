@@ -6,6 +6,11 @@ precision highp float;
 uniform float u_time;
 uniform vec2 u_resolution;
 uniform float u_offset;
+
+uniform float u_selectedOffset;
+uniform float u_unselectedOffset;
+uniform vec4 u_selectedBounds;
+
 uniform float u_lineFactor;
 uniform float u_hoverSwitchAmp;
 uniform float u_hoverSwitchXDistortion;
@@ -115,6 +120,27 @@ void main()
   vec2 coords = aspect(uv, image_ratio, canvas_ratio);
   coords = clamp(coords, 0.01, 0.92);
 
+  // BOUNDS
+
+  float insideX =
+    step(u_selectedBounds.x, uv.x) *
+      step(uv.x, u_selectedBounds.z);
+
+  float insideY =
+    step(u_selectedBounds.y, uv.y) *
+    step(uv.y, u_selectedBounds.w);
+
+  float selectedMask = insideX * insideY;
+
+  float localOffset = mix(
+      u_unselectedOffset,
+      u_selectedOffset,
+      selectedMask
+  );
+
+  // BLOCKS & DISTORTION
+
+
   float blocks = 800.0;
   float xBlocks = floor(coords.x * blocks) / blocks;
   float yBlocks = floor(coords.y * blocks) / blocks;
@@ -182,13 +208,13 @@ void main()
   float distortionX = 0.0016 * sin(12.0 * u_time) * perlinImg.r + 0.0012 * hoverLuminance;
   float distortionY = 0.0016 * cos(12.0 * u_time) * perlinImg.r - 0.0012 * hoverLuminance;
 
-  float alphaDistortionForce = perlinImgAlpha.r * u_offset * u_displacementCoef;
+  float alphaDistortionForce = perlinImgAlpha.r * localOffset * u_displacementCoef;
   float alphaDistortedFade = 1.0 - alphaDistortionForce;
 
-  float displaceForce1 = perlinImg.r * u_offset * u_displacementCoef;
+  float displaceForce1 = perlinImg.r * localOffset * u_displacementCoef;
   vec2 uvDisplaced1 = vec2(coords.x + 0.01 * sin(u_time) * displaceForce1 + distortionX, coords.y - 0.025 * displaceForce1 * cos(u_time) + distortionY);
   
-  float displaceForce2 = perlinImg.r * (1.0 - u_offset) * u_displacementCoef;
+  float displaceForce2 = perlinImg.r * (1.0 - localOffset) * u_displacementCoef;
   vec2 uvDisplaced2 = vec2(coords.x - 0.1 * displaceForce2, coords.y + 0.1 * displaceForce2);
 
 
@@ -199,7 +225,13 @@ void main()
 
   vec4 displacedImg1 = texture2D(u_currentTexture, uvDisplaced1);
   vec4 displacedBG = texture2D(u_bg, uvDisplaced2);
-  vec4 finalImg = (displacedImg1 * (1.0 - u_offset) + displacedBG * u_offset);
+  // vec4 finalImg = (displacedImg1 * (1.0 - u_offset) + displacedBG * u_offset);
+
+  vec4 finalImg = mix(
+    displacedImg1,
+    displacedBG,
+    localOffset
+  );
 
 
 
@@ -222,6 +254,7 @@ void main()
   vec4 finalTexture = vec4(finalImg.rgb * color * 1.98 * centerLuminance * hoverLuminance, alphaDistortedFade);
   vec4 finalColor = finalTexture + u_lineFactor * lineImg * 0.9;
   gl_FragColor = finalColor;
+  // gl_FragColor = vec4(vec3(selectedMask), 1.0);
 
 }
 `

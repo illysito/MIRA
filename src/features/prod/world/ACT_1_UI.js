@@ -11,6 +11,9 @@ const dataStore = createDataStore()
 
 const UNIFORMS_TEXTURE = {
   offset: 1,
+  selectedOffset: 1,
+  unselectedOffset: 1,
+  selectedBounds: [0, 0, 0, 0],
   scale: 1,
   amplitude: 0.28,
   frequency: 24,
@@ -48,6 +51,8 @@ function miraUI() {
   let isClickEnabled = false
   // actions been DONE gates
   let isBackgroundStabilized = false
+  // press & hold
+  let infoDisplayTween = null
 
   // FUNCTIONS
 
@@ -55,6 +60,8 @@ function miraUI() {
     gsap.to(UNIFORMS_TEXTURE, {
       delay: STEPS[0].voidDelay,
       offset: 0, // means fade in
+      selectedOffset: 0,
+      unselectedOffset: 0,
       duration: STEPS[0].fadeInDuration,
       ease: STEPS[0].easeIn,
       onComplete: () => {
@@ -113,7 +120,7 @@ function miraUI() {
     const LINE_OPACITY = toStep.lineOpacity
     const EASE_IN = toStep.easeIn
     console.log(DURATION, EASE_IN)
-    gsap.to(UNIFORMS_TEXTURE, {
+    infoDisplayTween = gsap.to(UNIFORMS_TEXTURE, {
       delay: 11.2,
       lineFactor: LINE_OPACITY, // means fade in
       duration: DURATION,
@@ -147,6 +154,8 @@ function miraUI() {
       gsap.to(UNIFORMS_TEXTURE, {
         delay: VOID_DELAY,
         offset: 0, // means fade in
+        selectedOffset: 0,
+        unselectedOffset: 0,
         scale: 1.0,
         duration: DURATION,
         ease: EASE_IN,
@@ -157,24 +166,51 @@ function miraUI() {
     })
   }
 
-  async function fadeShaderOut(fromStep) {
+  async function fadeShaderOut(fromStep, isLastMenu) {
     const DURATION = fromStep.fadeOutDuration
     const EASE_OUT = fromStep.easeOut
 
     return new Promise((resolve) => {
-      gsap.to(UNIFORMS_TEXTURE, {
-        offset: 1, // means fade out
-        scale: 1.01,
-        duration: DURATION,
-        ease: EASE_OUT,
-        onComplete: () => {
-          // restore amplitude
-          gsap.set(UNIFORMS_TEXTURE, {
-            amplitude: defaultAmplitude,
-          })
-          resolve()
-        },
-      })
+      if (!isLastMenu) {
+        gsap.to(UNIFORMS_TEXTURE, {
+          // offset: 1, // means fade out
+          selectedOffset: 1,
+          unselectedOffset: 1,
+          scale: 1.01,
+          duration: DURATION,
+          ease: EASE_OUT,
+          onComplete: () => {
+            // restore amplitude
+            gsap.set(UNIFORMS_TEXTURE, {
+              amplitude: defaultAmplitude,
+            })
+            resolve()
+          },
+        })
+      } else {
+        gsap.to(UNIFORMS_TEXTURE, {
+          // offset: 1, // means fade out
+          unselectedOffset: 1,
+          // scale: 1.01,
+          duration: DURATION,
+          ease: EASE_OUT,
+        })
+        gsap.to(UNIFORMS_TEXTURE, {
+          // offset: 1, // means fade out
+          selectedOffset: 1,
+          delay: 3,
+          // scale: 1.01,
+          duration: DURATION,
+          ease: EASE_OUT,
+          onComplete: () => {
+            // restore amplitude
+            gsap.set(UNIFORMS_TEXTURE, {
+              amplitude: defaultAmplitude,
+            })
+            resolve()
+          },
+        })
+      }
     })
   }
 
@@ -203,6 +239,8 @@ function miraUI() {
       tl.to(UNIFORMS_TEXTURE, {
         delay: VOID_DELAY,
         offset: 0, // means fade in
+        selectedOffset: 0,
+        unselectedOffset: 0,
         scale: 1.0,
         duration: DURATION,
         ease: EASE_IN,
@@ -210,6 +248,8 @@ function miraUI() {
       tl.to(UNIFORMS_TEXTURE, {
         delay: HOLD_DELAY,
         offset: 1.0,
+        selectedOffset: 1.0,
+        unselectedOffset: 1.0,
         scale: 1.0,
         duration: DURATION,
         ease: EASE_OUT,
@@ -407,6 +447,8 @@ function miraUI() {
 
   function evaluateMenuAreas_ThirdMenu(areas, mouseX, mouseY) {
     let step = null
+    let bounds = null
+
     // Pulled in
     if (
       mouseX > canvasLeftEdge + (canvasWidth * areas[0].limits.fromX) / 100 &&
@@ -418,7 +460,13 @@ function miraUI() {
       ) {
         console.log('CLICKED: Pulled in!')
         dataStore.setAlignment('Pulled in')
-        step = 50
+        bounds = [
+          0,
+          1 - areas[0].limits.toY / 100 - 0.01,
+          1,
+          1 - areas[0].limits.fromY / 100 + 0.01,
+        ]
+        step = 51
       }
     }
     // Observing
@@ -430,9 +478,15 @@ function miraUI() {
         mouseY > canvasTopEdge + (canvasHeight * areas[1].limits.fromY) / 100 &&
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
+        bounds = [
+          0,
+          1 - areas[1].limits.toY / 100 - 0.01,
+          1,
+          1 - areas[1].limits.fromY / 100 + 0.01,
+        ]
         console.log('CLICKED: Observing!')
         dataStore.setAlignment('Observing')
-        step = 50
+        step = 51
       }
     }
     // Unresolved
@@ -444,9 +498,15 @@ function miraUI() {
         mouseY > canvasTopEdge + (canvasHeight * areas[2].limits.fromY) / 100 &&
         mouseY < canvasTopEdge + (canvasHeight * areas[2].limits.toY) / 100
       ) {
+        bounds = [
+          0,
+          1 - areas[2].limits.toY / 100 - 0.01,
+          1,
+          1 - areas[2].limits.fromY / 100 + 0.01,
+        ]
         console.log('CLICKED: Unresolved!')
         dataStore.setAlignment('Unresolved')
-        step = 50
+        step = 51
       }
     }
     // Keeping distance
@@ -458,6 +518,12 @@ function miraUI() {
         mouseY > canvasTopEdge + (canvasHeight * areas[3].limits.fromY) / 100 &&
         mouseY < canvasTopEdge + (canvasHeight * areas[3].limits.toY) / 100
       ) {
+        bounds = [
+          0,
+          1 - areas[3].limits.toY / 100 - 0.01,
+          1,
+          1 - areas[3].limits.fromY / 100 + 0.01,
+        ]
         console.log('CLICKED: Keeping distance!')
         dataStore.setAlignment('Keeping distance')
         step = maxStep - 1
@@ -472,10 +538,18 @@ function miraUI() {
         mouseY > canvasTopEdge + (canvasHeight * areas[4].limits.fromY) / 100 &&
         mouseY < canvasTopEdge + (canvasHeight * areas[4].limits.toY) / 100
       ) {
+        bounds = [
+          0,
+          1 - areas[4].limits.toY / 100 - 0.01,
+          1,
+          1 - areas[4].limits.fromY / 100 + 0.01,
+        ]
         console.log('CLICKED: Outside!')
         step = maxStep - 1
       }
     }
+    UNIFORMS_TEXTURE.selectedBounds = bounds
+    console.log(UNIFORMS_TEXTURE.selectedBounds)
     return step
   }
 
@@ -491,7 +565,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: t u r n !')
-        step = 52
+        step = 53
       }
     }
     return step
@@ -509,7 +583,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: iPhone!')
-        step = 53
+        step = 54
       }
     }
     // Android
@@ -522,7 +596,7 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[1].limits.toY) / 100
       ) {
         console.log('CLICKED: Android!')
-        step = 54
+        step = 55
       }
     }
     return step
@@ -540,7 +614,12 @@ function miraUI() {
     }
 
     if (fromStep.type === 'menu') {
-      await fadeShaderOut(fromStep)
+      if (fromStep.currentTexture === 'menu_3') {
+        await fadeShaderOut(fromStep, true)
+      } else {
+        await fadeShaderOut(fromStep, false)
+      }
+
       gsap.to(UNIFORMS_TEXTURE, {
         delay: 0,
         hoverSwitchAmp: 1.0, // QUIT HOVER EFFECT
@@ -669,8 +748,9 @@ function miraUI() {
     }
     //#endregion
 
-    if (fromStep.id == 'step-62') {
-      nextStepIndex = 64
+    // to jump fron android qr to final void
+    if (fromStep.id == 'step-54') {
+      nextStepIndex = 56
       toStep = STEPS[nextStepIndex]
     }
 
@@ -777,20 +857,31 @@ function miraUI() {
 
   let holdTween
   let releaseTween
+  let lineTween
+  let lineDelay
   let holdDuration = 3.3
+
   window.addEventListener('pointerdown', () => {
-    gsap.to(UNIFORMS_TEXTURE, {
-      lineFactor: 0.0,
-      duration: 0.8,
-      delay: 2.8,
-    })
     if (!isHoldEnabled) return
 
     holdTimeDue = false
     releaseTween?.kill()
+    lineTween?.kill()
+    lineDelay?.kill()
+
+    // Fade line only after holding for 2 seconds
+    lineDelay = gsap.delayedCall(2, () => {
+      infoDisplayTween?.kill()
+      lineTween = gsap.to(UNIFORMS_TEXTURE, {
+        lineFactor: 0.0,
+        duration: 0.8,
+      })
+    })
 
     holdTween = gsap.to(UNIFORMS_TEXTURE, {
       offset: 0.32,
+      selectedOffset: 0.32,
+      unselectedOffset: 0.32,
       amplitude: 0.8,
       rotation: Math.PI * 1.1,
       duration: holdDuration,
@@ -804,11 +895,16 @@ function miraUI() {
           scale: 0.96,
           ease: 'linear',
         })
+
         holdTimeDue = true
         isHoldEnabled = false
         goToStep(currentStepIndex + 1)
       },
     })
+  })
+
+  window.addEventListener('pointerup', () => {
+    lineDelay?.kill()
   })
 
   window.addEventListener('pointerup', () => {
@@ -821,6 +917,8 @@ function miraUI() {
       // smoothly go back from the current values
       releaseTween = gsap.to(UNIFORMS_TEXTURE, {
         offset: 0,
+        selectedOffset: 0,
+        unselectedOffset: 0,
         amplitude: defaultAmplitude,
         rotation: 0,
         duration: 2.8,
