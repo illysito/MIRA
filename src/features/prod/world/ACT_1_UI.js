@@ -37,11 +37,16 @@ const UNIFORMS_BACKGROUND = {
   u_timeFactor: 0.28,
 }
 
+function isMobile() {
+  return window.matchMedia('(max-width: 768px)').matches
+}
+
 function miraUI() {
   const CURSOR = document.querySelector('.custom-cursor')
   const CURRENT_STEP_TXT = document.querySelector('.effect-title')
 
   const maxStep = STEPS.length
+  console.log(maxStep - 1)
   let defaultAmplitude = 0.28
   let currentStepIndex = 0
   let isTransitioning = true
@@ -198,7 +203,7 @@ function miraUI() {
         gsap.to(UNIFORMS_TEXTURE, {
           // offset: 1, // means fade out
           selectedOffset: 1,
-          delay: 3,
+          delay: 4.4,
           // scale: 1.01,
           duration: DURATION,
           ease: EASE_OUT,
@@ -565,7 +570,12 @@ function miraUI() {
         mouseY < canvasTopEdge + (canvasHeight * areas[0].limits.toY) / 100
       ) {
         console.log('CLICKED: t u r n !')
-        step = 53
+        if (!isMobile()) {
+          step = 53
+        } else {
+          window.open('https://illyalukianov.com', '_blank')
+          step = maxStep - 1
+        }
       }
     }
     return step
@@ -748,11 +758,11 @@ function miraUI() {
     }
     //#endregion
 
-    // to jump fron android qr to final void
-    if (fromStep.id == 'step-54') {
-      nextStepIndex = 56
-      toStep = STEPS[nextStepIndex]
-    }
+    // to jump from android qr to final void
+    // if (fromStep.id == 'step-54') {
+    //   nextStepIndex = 56
+    //   toStep = STEPS[nextStepIndex]
+    // }
 
     currentStepIndex = nextStepIndex // update current step to track where we at (NORMALLY MOVE 1 FORWARD)
 
